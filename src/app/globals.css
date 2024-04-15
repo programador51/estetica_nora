@@ -381,53 +381,21 @@ html {
 /* For cellphones */
 @media only screen and (max-width: 767px) {
   body {
-      font-size: 12px;
+      font-size: 16px;
   }
   h1 {
-      font-size: 20px;
+      font-size: 24px;
   }
   h2 {
-      font-size: 18px;
+      font-size: 22px;
   }
   p, span, article, section, button, input, label, textarea {
-      font-size: 12px;
+      font-size: 16px;
   }
 }
 
 /* For tablets */
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  body {
-      font-size: 14px;
-  }
-  h1 {
-      font-size: 22px;
-  }
-  h2 {
-      font-size: 20px;
-  }
-  p, span, article, section, button, input, label, textarea {
-      font-size: 14px;
-  }
-}
-
-/* For laptops */
-@media only screen and (min-width: 1024px) and (max-width: 1279px) {
-  body {
-      font-size: 16px;
-  }
-  h1 {
-      font-size: 26px;
-  }
-  h2 {
-      font-size: 24px;
-  }
-  p, span, article, section, button, input, label, textarea {
-      font-size: 16px;
-  }
-}
-
-/* For desktops */
-@media only screen and (min-width: 1280px) {
   body {
       font-size: 18px;
   }
@@ -439,5 +407,37 @@ html {
   }
   p, span, article, section, button, input, label, textarea {
       font-size: 18px;
+  }
+}
+
+/* For laptops */
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  body {
+      font-size: 20px;
+  }
+  h1 {
+      font-size: 32px;
+  }
+  h2 {
+      font-size: 30px;
+  }
+  p, span, article, section, button, input, label, textarea {
+      font-size: 20px;
+  }
+}
+
+/* For desktops */
+@media only screen and (min-width: 1280px) {
+  body {
+      font-size: 22px;
+  }
+  h1 {
+      font-size: 36px;
+  }
+  h2 {
+      font-size: 34px;
+  }
+  p, span, article, section, button, input, label, textarea {
+      font-size: 22px;
   }
 }
