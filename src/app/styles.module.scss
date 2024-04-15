@@ -1,0 +1,49 @@
+.landingPage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: url("/landing_page.png");
+  height: 90svh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cardLandingPage {
+  margin: 5%;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.788);
+  gap: 5px;
+  p,
+  h2 {
+    margin: 0;
+  }
+}
+
+.prosContainer{
+  padding: 0 !important;
+}
+
+.pros {
+  background: var(--primaryColor);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  margin: 0;
+  padding: 0 10%;
+  li{
+    display: flex;
+    gap:0 2.5px;
+    align-items: center;
+    svg{
+      height: 50px;
+    }
+    padding: 10.5px 0;
+    list-style: none;
+  }
+}

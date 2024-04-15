@@ -1,0 +1,34 @@
+.footer {
+  background: var(--primaryColor);
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.footerInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  ul,ol {
+    margin: 0;
+    text-align: left;
+  }
+
+  li{
+    margin:0 0 7.5px 0;
+    list-style: none;
+  }
+}
+
+.bulletInfo {
+  span:nth-child(1) {
+    &:after {
+      margin: 0 2.5px;
+      content: ":";
+    }
+  }
+}
