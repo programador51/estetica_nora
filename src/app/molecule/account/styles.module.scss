@@ -1,0 +1,16 @@
+.accountOverview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:0 0 10px 0;
+  svg{
+    height: 50px;
+    color: white;
+  }
+}
+
+.guestProfile{
+    background: var(--secondaryBackground);
+    border-radius: 1000px;
+    padding: 10px;
+}

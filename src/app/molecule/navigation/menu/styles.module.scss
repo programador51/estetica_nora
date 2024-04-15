@@ -1,0 +1,31 @@
+.menu {
+  height: 90svh;
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  top: -90svh;
+  
+  z-index: 50;
+  background: var(--primaryBackground);
+}
+
+.menuOpened {
+  animation: showMenu 1s ease;
+  top:10svh;
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes showMenu {
+  from {
+    top: -90svh;
+  }
+
+  to {
+    top: 10svh;
+  }
+}
