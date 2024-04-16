@@ -2,11 +2,12 @@
 import useReservations from "@/app/customHooks/useReservations";
 import ReservationItem from "@/app/molecule/reservationItem";
 import React, { Fragment, useRef } from "react";
+import { v4 } from "uuid";
 
 export default function Reservations() {
   const hook = useReservations();
 
-  const key = useRef(`${window.crypto.randomUUID()}`);
+  const key = useRef(`${v4()}`);
 
   return (
     <Fragment>
