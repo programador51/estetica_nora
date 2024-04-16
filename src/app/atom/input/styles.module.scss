@@ -1,0 +1,30 @@
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 75px;
+  width: 100%;
+
+  label{
+    background: white;
+    padding: 5px 20px;
+
+    text-align: left;
+    border-radius: 10px;
+    margin:-15px 0 0 10px;
+    position: absolute;
+    z-index: 1;
+    
+  }
+
+  input{
+    border:2.5px solid var(--secondaryBackground);
+    border-radius: 15px;
+    height: 50px;
+    background: white;
+    padding: 0 15px;
+    &:valid{
+      background: white;
+    }
+  }
+}

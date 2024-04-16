@@ -25,7 +25,7 @@ export default function Account() {
           </svg>
         </div>
 
-        <Link href={"/login"}>Iniciar sesión</Link>
+        <Link href={"/iniciar-sesion"}>Iniciar sesión</Link>
       </div>
     );
 }

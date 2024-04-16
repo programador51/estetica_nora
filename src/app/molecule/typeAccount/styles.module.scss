@@ -1,0 +1,58 @@
+.typeAccount {
+  input[type="radio"]:checked + label {
+    background: var(--primaryColor);
+    color: white;
+    svg {
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  :not(input[type="radio"]:checked) + label {
+    background: white;
+    color: var(--primaryColor);
+    border: 2px solid var(--primaryColor);
+    svg {
+      path {
+        fill: var(--primaryColor);
+      }
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  width: 100%;
+
+  > p:nth-child(1) {
+    text-align: left;
+  }
+
+  label {
+    border-radius: 10px;
+    height: 100px !important;
+    display: inline-flex;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px 0;
+  }
+
+  svg,
+  img {
+    height: 50px;
+  }
+}
+
+.radioButtonTypeAccount {
+  display: grid;
+  grid-template-columns: repeat(2, 45%);
+  justify-content: space-between;
+}

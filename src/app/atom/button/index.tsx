@@ -5,7 +5,7 @@ import ui from "./styles.module.scss";
 const THEMES: ThemeButtonCss = {
   primary: ui.primary,
   outline: "",
-  secondary: "",
+  secondary: ui.secondary,
 };
 
 export default function Button(props: PropsButton) {
