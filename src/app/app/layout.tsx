@@ -1,9 +1,8 @@
 "use client"
-import React, { createContext } from "react";
-import useApp, { INITIAL_STATE } from "@/app/customHooks/useApp";
-import { ReturnUseApp } from "../customHooks/useApp/types";
+import React from "react";
+import useApp from "@/app/customHooks/useApp";
+import { ContextApp } from "@/app/Contexts/AppContext";
 
-export const ContextApp = createContext<ReturnUseApp>(INITIAL_STATE);
 
 export default function App({
   children,
