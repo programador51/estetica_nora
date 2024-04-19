@@ -1,18 +1,12 @@
 "use client";
 import useReservations from "@/app/customHooks/useReservations";
-import React, { createContext, useRef } from "react";
+import React, { useRef } from "react";
 import { v4 } from "uuid";
 import ui from "./styles.module.scss";
 import Button from "@/app/atom/button";
-import { ReturnUseReservationItem } from "@/app/customHooks/useReservations/types";
 import ReservationCards from "./ReservationCards";
 import Link from "next/link";
-
-export const ContextReservations = createContext<ReturnUseReservationItem>({
-  isLoading: true,
-  page: 1,
-  reservations: [],
-});
+import { ContextReservations } from "@/app/Contexts/ReservationsContext";
 
 export default function Reservations() {
   const hook = useReservations();
