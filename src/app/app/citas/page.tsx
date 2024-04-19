@@ -1,7 +1,6 @@
 "use client";
 import useReservations from "@/app/customHooks/useReservations";
-import React, { useRef } from "react";
-import { v4 } from "uuid";
+import React from "react";
 import ui from "./styles.module.scss";
 import Button from "@/app/atom/button";
 import ReservationCards from "./ReservationCards";
@@ -10,8 +9,6 @@ import { ContextReservations } from "@/app/Contexts/ReservationsContext";
 
 export default function Reservations() {
   const hook = useReservations();
-
-  const key = useRef(`${v4()}`);
 
   return (
     <ContextReservations.Provider value={hook}>
