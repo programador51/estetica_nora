@@ -1,0 +1,15 @@
+.header {
+  position: sticky;
+  top: 10svh;
+  background: var(--primaryBackground);
+  z-index: 1;
+  text-align: center;
+  padding: 10px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap:20px 0;
+    
+}
