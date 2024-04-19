@@ -2,10 +2,14 @@
 import Input from "@/app/atom/input";
 import Files, { FileInput, FilesList } from "@/app/molecule/files";
 import React from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import ui from "./styles.module.scss";
 import Button from "@/app/atom/button";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+const ReactQuill = dynamic(()=>import("react-quill"),{
+  
+  ssr:false
+})
 
 export default function AddProduct() {
   return (
