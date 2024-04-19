@@ -1,8 +1,18 @@
 "use client";
 import useReservations from "@/app/customHooks/useReservations";
-import ReservationItem from "@/app/molecule/reservationItem";
-import React, { Fragment, useRef } from "react";
+import React, { createContext, useRef } from "react";
 import { v4 } from "uuid";
+import ui from "./styles.module.scss";
+import Button from "@/app/atom/button";
+import { ReturnUseReservationItem } from "@/app/customHooks/useReservations/types";
+import ReservationCards from "./ReservationCards";
+import Link from "next/link";
+
+export const ContextReservations = createContext<ReturnUseReservationItem>({
+  isLoading: true,
+  page: 1,
+  reservations: [],
+});
 
 export default function Reservations() {
   const hook = useReservations();
@@ -10,21 +20,15 @@ export default function Reservations() {
   const key = useRef(`${v4()}`);
 
   return (
-    <Fragment>
-      <h1>Citas</h1>
+    <ContextReservations.Provider value={hook}>
+      <div className={ui.header}>
+        <h1>Citas</h1>
+        <Link href={'/app/citas/agregar'}>
+        <Button>Agregar reservación</Button>
+        </Link>
+      </div>
 
-      {hook.isLoading ? (
-        <p>Cargando</p>
-      ) : (
-        hook.reservations.map((item, i) => (
-          <ReservationItem
-            key={`${key.current}-${i}`}
-            name={item.name}
-            reservation={item.reservation}
-            urlPicture={item.urlPicture}
-          />
-        ))
-      )}
-    </Fragment>
+      <ReservationCards />
+    </ContextReservations.Provider>
   );
 }

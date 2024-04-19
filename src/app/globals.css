@@ -441,3 +441,16 @@ html {
       font-size: 22px;
   }
 }
+
+dialog > *{
+  background: white !important;
+  color:black;
+}
+
+dialog svg path{
+  color: black;
+}
+
+dialog > div:nth-child(2){
+  height: 90svh;
+}

@@ -11,9 +11,14 @@
   "dependencies": {
     "@types/uuid": "^9.0.8",
     "next": "14.2.1",
+    "rc-dialog-native": "^1.0.9",
     "react": "^18",
+    "react-calendar": "^4.8.0",
     "react-dom": "^18",
+    "react-select": "^5.8.0",
+    "react-spinners": "^0.13.8",
     "sass": "^1.75.0",
+    "sweetalert2": "^11.10.7",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

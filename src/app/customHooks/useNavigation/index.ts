@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   displayGuestProfile: true,
   displayMenu: false,
   menu: null,
+  firstRender:true
 };
 
 export const METHODS = {
@@ -16,6 +17,7 @@ export default function useNavigation(): ReturnUseNavigation {
   const [state, setState] = useState<StateNavigation>({
     displayGuestProfile: true,
     displayMenu: false,
+    firstRender:true
   });
 
   const menu: MutableRefObject<HTMLDivElement | null> | null =
@@ -24,9 +26,18 @@ export default function useNavigation(): ReturnUseNavigation {
   useEffect(() => {
     if (state.displayMenu) {
       menu.current?.classList.add(ui.menuOpened);
-    } else {
-      menu.current?.classList.remove(ui.menuOpened);
+      menu.current?.classList.remove(ui.menuClosed)
     }
+    
+    if(!state.displayMenu && !state.firstRender){
+      menu.current?.classList.add(ui.menuClosed);
+      menu.current?.classList.remove(ui.menuOpened)
+    }
+
+    setState(current=>({
+      ...current,
+      firstRender:false
+    }))
   }, [state.displayMenu]);
 
   const toggleMenu = () => {

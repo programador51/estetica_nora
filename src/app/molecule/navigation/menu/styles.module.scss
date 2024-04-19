@@ -4,20 +4,35 @@
   width: 100%;
   position: fixed;
   top: -90svh;
-  
+
   z-index: 50;
   background: var(--primaryBackground);
 }
 
 .menuOpened {
   animation: showMenu 1s ease;
-  top:10svh;
+  top: 10svh;
+}
+
+.menuClosed{
+  animation: hideMenu 1s ease;
+  top: -90svh;
 }
 
 .menuItems {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+@keyframes hideMenu {
+  from {
+    top: 10svh;
+  }
+
+  to {
+    top: -90svh;
+  }
 }
 
 @keyframes showMenu {

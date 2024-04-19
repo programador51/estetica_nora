@@ -6,12 +6,12 @@ const INITIAL_STATE: StateUseReservations = {
   isLoading: true,
   reservations: [
     {
-      urlPicture: "https://example.com/image1.jpg",
+      urlPicture: "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D",
       reservation: new Date("2024-04-15T08:00:00"), // Example date
       name: "José Luis",
     },
     {
-      urlPicture: "https://example.com/image2.jpg",
+      urlPicture: "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/51/personnel-image-3287.jpg?h=800&w=600&hash=F23BF4998F05D0DC079DE43DD0E58507",
       reservation: new Date("2024-04-16T10:00:00"), // Example date
       name: "Sandra",
     },

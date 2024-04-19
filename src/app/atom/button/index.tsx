@@ -6,6 +6,7 @@ const THEMES: ThemeButtonCss = {
   primary: ui.primary,
   outline: "",
   secondary: ui.secondary,
+  danger:ui.cancel
 };
 
 export default function Button(props: PropsButton) {

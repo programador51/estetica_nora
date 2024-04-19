@@ -1,0 +1,28 @@
+.spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .loadingText::after {
+    content: ".";
+    animation: suspensiveLoadingText 2s ease infinite;
+  }
+  
+  @keyframes suspensiveLoadingText {
+    0% {
+      content: ".";
+    }
+    33% {
+      content: "..";
+    }
+    66% {
+      content: "...";
+    }
+    100% {
+      content: "....";
+    }
+  }

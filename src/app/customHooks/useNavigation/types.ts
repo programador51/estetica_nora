@@ -3,6 +3,7 @@ import { MutableRefObject } from "react";
 export interface StateNavigation {
   displayGuestProfile: boolean;
   displayMenu: boolean;
+  firstRender:boolean;
 }
 
 export interface ReturnUseNavigation extends StateNavigation {

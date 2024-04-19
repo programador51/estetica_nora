@@ -7,7 +7,7 @@ export interface PropsButton
   block?:boolean;
 }
 
-export type ThemeButton = "primary" | "secondary" | "outline";
+export type ThemeButton = "primary" | "secondary" | "outline"|"danger";
 
 export type ThemeButtonCss = {
     [key in ThemeButton]:any;
