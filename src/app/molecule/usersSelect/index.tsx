@@ -1,18 +1,23 @@
 import React from "react";
-import Select from "react-select";
+import Select, { GroupBase, OptionProps, StylesConfig } from "react-select";
 import { UserOptionsSelect } from "./types";
-const customSelectStyles = {
-  option: (provided, state) => ({
+const customSelectStyles: StylesConfig<
+  UserOptionsSelect,
+  true,
+  GroupBase<UserOptionsSelect>
+> = {
+  option: (provided) => ({
     ...provided,
     display: "flex",
     alignItems: "center",
   }),
-  // Add more styles as needed
 };
-const CustomOption = (data: UserOptionsSelect) => (
+const CustomOption = (
+  data: OptionProps<UserOptionsSelect, true, GroupBase<UserOptionsSelect>>
+) => (
   <div style={{ display: "flex", alignItems: "center" }}>
     <img
-      src={`${data.profilePicture}`}
+      src={`${data.data.profilePicture}`}
       alt={data.label}
       style={{ marginRight: "8px", width: "24px", height: "24px" }}
     />
@@ -38,7 +43,6 @@ export default function UsersSelect() {
       components={{ Option: CustomOption }}
       styles={customSelectStyles}
       placeholder="Selecciona o escribe un nombre"
-      
     />
   );
 }
