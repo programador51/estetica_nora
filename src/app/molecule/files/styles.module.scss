@@ -1,9 +1,11 @@
 .fileItem {
   background: var(--secondaryBackground);
+  box-sizing: border-box;
   img {
     height: 50px;
     width: 50px;
     border-radius: 999px;
+    object-fit: cover;
   }
   display: grid;
   grid-template-columns: 65% 30%;
@@ -26,6 +28,9 @@
 }
 
 .detailInfoOverview {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: flex;
   width: 100%;
   flex-direction: column;

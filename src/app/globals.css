@@ -454,3 +454,11 @@ dialog svg path{
 dialog > div:nth-child(2){
   height: 90svh;
 }
+
+.quill {
+  background: white;
+}
+
+.ql-editor{
+  min-height: 200px;
+}

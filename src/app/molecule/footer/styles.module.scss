@@ -6,8 +6,8 @@
   align-items: center;
   text-align: center;
   flex-direction: column;
-  iframe{
-    margin:10px 0;
+  iframe {
+    margin: 10px 0;
   }
 }
 
@@ -16,13 +16,14 @@
   flex-direction: column;
   text-align: left;
   width: 100%;
-  ul,ol {
+  ul,
+  ol {
     margin: 0;
     text-align: left;
   }
 
-  li{
-    margin:0 0 7.5px 0;
+  li {
+    margin: 0 0 7.5px 0;
     list-style: none;
   }
 }
@@ -34,4 +35,23 @@
       content: ":";
     }
   }
+}
+
+.horario {
+  display: grid;
+  grid-template-columns: 40% 50%;
+
+  *:nth-child(odd) {
+    margin:0 0 5px 0;
+    text-align: right;
+    &:after{
+      content:":";
+      margin:0 5px;
+    }
+  }
+
+  *:nth-child(even){
+    text-align: left;
+  }
+
 }

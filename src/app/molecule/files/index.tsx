@@ -37,6 +37,7 @@ export function FileInput() {
       </Button>
 
       <input
+      accept="image/*"
         type="file"
         multiple
         ref={files.fileInput}
@@ -70,7 +71,7 @@ function FileItem({ file, index }: { file: File; index: number }) {
 
       setSrcImg(url);
     })();
-  }, []);
+  }, [file]);
 
   if (files === undefined) return <></>;
 

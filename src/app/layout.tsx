@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import "@/app/globalLaptop.scss";
 import "@/app/variables.scss";
 import Navigation from "@/app/molecule/navigation";
 import Footer from "@/app/molecule/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Estética Nora",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body className={nunitoSans.className}>
         <Navigation />
         {children}
         <Footer />

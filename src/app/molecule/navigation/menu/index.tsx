@@ -13,9 +13,9 @@ export default function Menu() {
 
       <div className={ui.menuItems}>
         <MenuItem link={"/"}>Inicio</MenuItem>
-        <MenuItem link={"/citas"}>Citas</MenuItem>
-        <MenuItem link={"/#catalogo"}>Catálogo</MenuItem>
-        <MenuItem link={"/#servicios"}>Servicios</MenuItem>
+        <MenuItem link={"/app/citas"}>Citas</MenuItem>
+        <MenuItem link={"/app/catalogo"}>Catálogo</MenuItem>
+        <MenuItem link={"/app/servicios"}>Servicios</MenuItem>
         <MenuItem link={"/#horario"}>Horario estética</MenuItem>
       </div>
     </div>

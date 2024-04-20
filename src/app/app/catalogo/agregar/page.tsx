@@ -6,10 +6,9 @@ import ui from "./styles.module.scss";
 import Button from "@/app/atom/button";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-const ReactQuill = dynamic(()=>import("react-quill"),{
-  
-  ssr:false
-})
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+});
 
 export default function AddProduct() {
   return (
@@ -28,7 +27,7 @@ export default function AddProduct() {
         step="0.01"
       />
 
-      <ReactQuill />
+      <ReactQuill placeholder="Escribe aquí" />
 
       <div className={ui.filesContainer}>
         <Files>

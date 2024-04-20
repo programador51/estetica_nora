@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { ReturnUseFiles, StateUseFiles } from "./types";
+import { promptConfirmation } from "@/app/helpers/alerts";
 
-const INITIAL_STATE:StateUseFiles = {
+const INITIAL_STATE: StateUseFiles = {
   files: [],
 };
 
@@ -14,28 +15,37 @@ export default function useFiles(): ReturnUseFiles {
     fileInput.current?.click();
   };
 
-  const appendFiles = (files:FileList|null) => {
-
-    if(files===null) return
+  const appendFiles = (files: FileList | null) => {
+    if (files === null) return;
 
     const parsedData = Array.from(files);
 
-    setState(current=>({
+    setState((current) => ({
       ...current,
-      files:[...parsedData,...current.files]
-    }))
-  }
+      files: [...parsedData, ...current.files],
+    }));
+  };
 
-  const deleteFile = (indexFile:number) => setState(current=>({
-    ...current,
-    files:current.files.filter((file,i)=>i!==indexFile)
-  }))
+  const deleteFile = async (indexFile: number) => {
+    const { isConfirmed } = await promptConfirmation({
+      title: "¿Borrar imagen?",
+      text: "La imagen desaparecera de la galería ilustrativa",
+      icon: "question",
+    });
+
+    if (isConfirmed) {
+      setState((current) => ({
+        ...current,
+        files: current.files.filter((file, i) => i !== indexFile),
+      }));
+    }
+  };
 
   return {
     openFileBrowser,
     fileInput,
     ...state,
     appendFiles,
-    deleteFile
+    deleteFile,
   };
 }

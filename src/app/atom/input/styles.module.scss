@@ -26,5 +26,21 @@
     &:valid{
       background: white;
     }
+
+    outline: none;
+
+    &:focus{
+      animation: focusInput 1s ease alternate-reverse infinite;
+    }
+  }
+}
+
+@keyframes focusInput{
+  from{
+    border-color: transparent;
+  }
+
+  to{
+    border-color: var(--secondaryColor);
   }
 }
