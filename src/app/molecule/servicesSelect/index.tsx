@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { GroupBase, MultiValue, OptionProps, StylesConfig } from "react-select";
-import Select2 from "react-select/creatable";
-import { PropsUsersSelect, StateUsersSelect, UserOptionsSelect } from "./types";
+import Select, {
+  GroupBase,
+  MultiValue,
+  OptionProps,
+  StylesConfig,
+} from "react-select";
+import {
+  PropsUsersSelect,
+  StateUsersSelect,
+  ServiceOptionsSelect,
+} from "./types";
 import Spinner from "@/app/molecule/Spinner";
 import uiInput from "@/app/atom/input/styles.module.scss";
 import uiContainer from "@/app/molecule/usersSelect/styles.module.scss";
-import { fetchUsers } from "@/app/helpers/api/v1/users";
+import { fetchServices } from "@/app/helpers/api/v1/services";
 
 const customSelectStyles: StylesConfig<
-  UserOptionsSelect,
+  ServiceOptionsSelect,
   true,
-  GroupBase<UserOptionsSelect>
+  GroupBase<ServiceOptionsSelect>
 > = {
   option: (provided) => ({
     ...provided,
@@ -40,15 +48,11 @@ const customSelectStyles: StylesConfig<
     ...provided,
     height: "auto",
   }),
-  menu:(provided) => ({
-    ...provided,
-    zIndex:"1000 !important"
-  })
 };
 const CustomOption = (
-  data: OptionProps<UserOptionsSelect, true, GroupBase<UserOptionsSelect>>
+  data: OptionProps<ServiceOptionsSelect, true, GroupBase<ServiceOptionsSelect>>
 ) => {
-  const [imgSrc, setImgSrc] = useState(data.data.profilePicture);
+  const [imgSrc, setImgSrc] = useState(data.data.picture);
   const handleImageError = () => {
     setImgSrc("/no_image.png");
   };
@@ -62,9 +66,9 @@ const CustomOption = (
       <span>{data.label}</span>
     </div>
   );
-};
+}
 
-export default function UsersSelect({
+export default function ServicesSelect({
   onChange = () => {},
   value = null,
 }: PropsUsersSelect) {
@@ -75,32 +79,28 @@ export default function UsersSelect({
   });
 
   useEffect(() => {
-    (async function () {
-      const usersApi = await fetchUsers();
+    (async function(){
+      const apiServices = await fetchServices();
 
-      const optionsCombo: UserOptionsSelect[] = usersApi.map((user) => ({
-        ...user,
-        label: user.name,
-        value: user.id,
-      }));
-
-      console.log({optionsCombo})
-
-      setState((current) => ({
+      setState(current=>({
         ...current,
         isLoading:false,
-        options: optionsCombo,
-      }));
+        options:apiServices.map(item=>({
+          ...item,
+          label:item.name,
+          value:item.id
+        }))
+      }))
     })();
   }, []);
 
-  const handleOnChange = (item: MultiValue<UserOptionsSelect>) => {
+  const handleOnChange = (item: MultiValue<ServiceOptionsSelect>) => {
     setState((current) => ({
       ...current,
       selected: item,
     }));
 
-    const parsed: UserOptionsSelect = JSON.parse(JSON.stringify(item));
+    const parsed: ServiceOptionsSelect = JSON.parse(JSON.stringify(item));
 
     onChange(parsed);
   };
@@ -111,14 +111,15 @@ export default function UsersSelect({
     <div
       className={`${uiInput.inputContainer} ${uiContainer.containerInputSelect}`}
     >
-      <label>Cliente</label>
-      <Select2
+      <label>Servicio</label>
+      <Select
+        isSearchable={false}
         options={state.options}
-        value={state.selected}
+        
         onChange={handleOnChange}
         components={{ Option: CustomOption }}
         styles={customSelectStyles}
-        placeholder="Selecciona o escribe un nombre"
+        placeholder="Selecciona un servicio"
       />
     </div>
   );

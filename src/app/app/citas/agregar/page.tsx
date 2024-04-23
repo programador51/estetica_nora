@@ -5,23 +5,32 @@ import DateInput from "@/app/molecule/dateInput";
 import Input from "@/app/atom/input";
 import UsersSelect from "@/app/molecule/usersSelect";
 import Money from "@/app/atom/money";
+import Button from "@/app/atom/button";
+import ServicesSelect from "@/app/molecule/servicesSelect";
+import useReservation from "@/app/customHooks/useReservation";
 
 export default function AddReservation() {
+
+  const hook = useReservation();
+
   return (
-    <div>
+    <div className={ui.container}>
       <h1 className={ui.header}>Alta cita</h1>
       <DateInput />
       <Input type="time" label="Hora" />
-      <UsersSelect />
+      <UsersSelect onChange={user=>console.log(user.id)}/>
+      <ServicesSelect onChange={hook.appendService}/>
 
-      <div>
+      <Button>Crear reservación</Button>
+
+      <div className={ui.time}>
         <b>Tiempo total</b>
-        <span>30min</span>
+        <span>{hook.durationOnMinutes}</span>
       </div>
 
-      <div>
+      <div className={ui.subtotal}>
         <b>Precio</b>
-        <Money>{300}</Money>
+        <Money>{hook.total}</Money>
       </div>
     </div>
   );
