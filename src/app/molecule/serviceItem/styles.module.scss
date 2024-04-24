@@ -13,6 +13,7 @@
   grid-template-columns: 65% 30%;
   justify-content: space-between;
   align-items: center;
+  grid-auto-columns: 100%;
 }
 
 .overviewService {
@@ -35,5 +36,14 @@
         margin:0 5px;
       }
     }
+  }
+}
+
+.suceptibleToChange{
+  grid-column: 1/3;
+  padding: 5px 0;
+  text-align: center;
+  &:before{
+    content:"⚡"
   }
 }

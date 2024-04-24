@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
           sellPrice: 70,
           durationOnMinutes: 15,
           toleranceOnMinutes: 5,
-          susceptibleToChange: true
+          susceptibleToChange: false
         },
         {
           name: "Corte Bob",
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
           sellPrice: 70,
           durationOnMinutes: 10,
           toleranceOnMinutes: 5,
-          susceptibleToChange: true
+          susceptibleToChange: false
         }
       ];
       

@@ -39,6 +39,10 @@ export default function ServiceItem(service: PropsServiceItem) {
       <Button onClick={handleDelete} theme="danger">
         Borrar
       </Button>
+
+      {service.susceptibleToChange ? (
+        <small className={ui.suceptibleToChange}>Los precios son suceptibles a cambios</small>
+      ) : null}
     </article>
   );
 }
