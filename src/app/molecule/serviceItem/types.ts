@@ -6,4 +6,6 @@ export interface PropsServiceItem extends ServiceOption {
    * @returns {void}
    */
   onDeleteConfirmed?: () => void;
+  renderDelete?: boolean;
+  renderView?: boolean;
 }

@@ -9,7 +9,11 @@ import { promptConfirmation } from "@/app/helpers/alerts";
 export default function ServiceItem(service: PropsServiceItem) {
   const [img, setImg] = useState(service.picture);
 
-  const { onDeleteConfirmed = () => {} } = service;
+  const {
+    onDeleteConfirmed = () => {},
+    renderDelete = false,
+    renderView = false,
+  } = service;
 
   const handleDelete = async () => {
     const { isConfirmed } = await promptConfirmation({
@@ -36,12 +40,19 @@ export default function ServiceItem(service: PropsServiceItem) {
           </div>
         </div>
       </div>
-      <Button onClick={handleDelete} theme="danger">
-        Borrar
-      </Button>
+
+      {renderDelete ? (
+        <Button onClick={handleDelete} theme="danger">
+          Borrar
+        </Button>
+      ) : null}
+
+      {renderView ? <Button theme="secondary">Ver</Button> : null}
 
       {service.susceptibleToChange ? (
-        <small className={ui.suceptibleToChange}>Los precios son suceptibles a cambios</small>
+        <small className={ui.suceptibleToChange}>
+          Los precios son suceptibles a cambios
+        </small>
       ) : null}
     </article>
   );

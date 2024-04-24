@@ -8,6 +8,7 @@ const ContextReservation = createContext<ReturnUseService>({
   promptCancelation: async () => {},
   services: [],
   total: 0,
+  deleteService:()=>{},
 });
 
 export default ContextReservation;

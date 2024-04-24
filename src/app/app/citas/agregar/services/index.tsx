@@ -14,6 +14,8 @@ export default function Services() {
     <ServiceItem
       {...service}
       key={`${key.current}-${i}`}
+      renderDelete={true}
+      renderView={false}
       onDeleteConfirmed={() => hook.deleteService(i)}
     />
   ));
