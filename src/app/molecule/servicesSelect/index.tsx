@@ -66,7 +66,7 @@ const CustomOption = (
       <span>{data.label}</span>
     </div>
   );
-}
+};
 
 export default function ServicesSelect({
   onChange = () => {},
@@ -79,18 +79,18 @@ export default function ServicesSelect({
   });
 
   useEffect(() => {
-    (async function(){
+    (async function () {
       const apiServices = await fetchServices();
 
-      setState(current=>({
+      setState((current) => ({
         ...current,
-        isLoading:false,
-        options:apiServices.map(item=>({
+        isLoading: false,
+        options: apiServices.map((item) => ({
           ...item,
-          label:item.name,
-          value:item.id
-        }))
-      }))
+          label: item.name,
+          value: item.id,
+        })),
+      }));
     })();
   }, []);
 
@@ -105,7 +105,7 @@ export default function ServicesSelect({
     onChange(parsed);
   };
 
-  if (state.isLoading) return <Spinner text="Cargando usuarios" />;
+  if (state.isLoading) return <Spinner text="Cargando servicios" />;
 
   return (
     <div
@@ -115,7 +115,6 @@ export default function ServicesSelect({
       <Select
         isSearchable={false}
         options={state.options}
-        
         onChange={handleOnChange}
         components={{ Option: CustomOption }}
         styles={customSelectStyles}

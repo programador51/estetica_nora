@@ -1,0 +1,39 @@
+.containerServiceItem {
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--secondaryBackground);
+  img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 999px;
+  }
+
+  display: grid;
+  grid-template-columns: 65% 30%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overviewService {
+  display: flex;
+  gap: 0 10px;
+}
+
+.serviceInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+
+  div {
+    display: flex;
+    
+
+    time:nth-child(1) {
+      &:after {
+        content: "-";
+        margin:0 5px;
+      }
+    }
+  }
+}

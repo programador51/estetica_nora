@@ -5,7 +5,6 @@ export interface OverviewCalculation {
   total: number;
 }
 
-
 export interface StateUseReservation extends OverviewCalculation {
   isLoading: boolean;
   services: ServiceOption[];
@@ -14,5 +13,5 @@ export interface StateUseReservation extends OverviewCalculation {
 export interface ReturnUseService extends StateUseReservation {
   appendService: (service: ServiceOption) => void;
   promptCancelation: () => Promise<void>;
+  deleteService: (index: number) => void;
 }
-
