@@ -28,7 +28,7 @@ export default function ServiceItem(service: PropsServiceItem) {
     <article className={ui.containerServiceItem}>
       <div className={ui.overviewService}>
         <img
-          src={img}
+          src={typeof img === 'string' ? img : ''}
           alt={`imagen_servicio_${service.name}`}
           onError={() => setImg("/no_image.png")}
         />
