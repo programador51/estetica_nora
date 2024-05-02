@@ -1,15 +1,19 @@
-import { useRef, useState } from "react";
-import { ReturnUseFiles, StateUseFiles } from "./types";
+import { useEffect, useRef, useState } from "react";
+import { OnChangeFilesCallback, ReturnUseFiles, StateUseFiles } from "./types";
 import { promptConfirmation } from "@/app/helpers/alerts";
 
 const INITIAL_STATE: StateUseFiles = {
   files: [],
 };
 
-export default function useFiles(): ReturnUseFiles {
+export default function useFiles(onChange:OnChangeFilesCallback): ReturnUseFiles {
   const [state, setState] = useState(INITIAL_STATE);
 
   const fileInput = useRef<HTMLInputElement | null>(null);
+
+  useEffect(()=>{
+    onChange(state.files)
+  },[state.files])
 
   const openFileBrowser = () => {
     fileInput.current?.click();
@@ -29,7 +33,7 @@ export default function useFiles(): ReturnUseFiles {
   const deleteFile = async (indexFile: number) => {
     const { isConfirmed } = await promptConfirmation({
       title: "¿Borrar imagen?",
-      text: "La imagen desaparecera de la galería ilustrativa",
+      text: "Una vez aplicado el cambio no se puede recuperar la imagen",
       icon: "question",
     });
 

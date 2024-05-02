@@ -1,0 +1,24 @@
+.passwordError {
+  font-weight: bold;
+  color: var(--danger);
+  margin:5px 0 10px 0;
+  &:before{
+    
+    content: "👉";
+  }
+}
+
+.showPasswords{
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap:0 10px;
+    label{
+        padding: 10px 0;
+        font-weight: bold;
+    }
+    input{
+      height: 17px;
+      width: 17px;
+    }
+}

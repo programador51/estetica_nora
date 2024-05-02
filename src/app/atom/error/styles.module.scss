@@ -1,0 +1,8 @@
+.error {
+  color: var(--danger);
+  &:before {
+    content: "👉";
+  }
+  margin:2.5px 0;
+  font-weight: bold;
+}

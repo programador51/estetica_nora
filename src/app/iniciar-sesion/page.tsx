@@ -36,9 +36,12 @@ export default function Login() {
             Olvide mi contraseña
           </Button>
         </Link>
-        <Button type="button" theme="secondary">
-          Crear cuenta
-        </Button>
+
+        <Link href={"/registrarse"}>
+          <Button type="button" theme="secondary">
+            Crear cuenta
+          </Button>
+        </Link>
       </form>
     </div>
   );

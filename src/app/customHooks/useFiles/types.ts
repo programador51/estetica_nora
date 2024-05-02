@@ -10,3 +10,5 @@ export interface ReturnUseFiles extends StateUseFiles {
   appendFiles:(files:FileList|null)=>void;
   deleteFile:(indexFile:number)=>void;
 }
+
+export type OnChangeFilesCallback = (files:File[]) => void;

@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { PropsFiles } from "./types";
+import { PropsFileButton, PropsFiles } from "./types";
 import ui from "./styles.module.scss";
 import { v4 } from "uuid";
 import { fileToUrl } from "@/app/helpers/files";
@@ -17,29 +17,29 @@ import { filesize } from "filesize";
 
 const ContextFiles = createContext<ReturnUseFiles | undefined>(undefined);
 
-export default function Files({ children }: PropsFiles) {
-  const files = useFiles();
+export default function Files({ children , onChange = () => {} }: PropsFiles) {
+  const files = useFiles(onChange);
 
   return (
     <ContextFiles.Provider value={files}>{children}</ContextFiles.Provider>
   );
 }
 
-export function FileInput() {
+export function FileInput(props:PropsFileButton):JSX.Element|JSX.Element[] {
   const files = useContext(ContextFiles);
 
   if (files === undefined) return <></>;
 
   return (
     <Fragment>
-      <Button theme="secondary" onClick={files.openFileBrowser}>
-        Cargar fotos
+      <Button {...props} theme="secondary" onClick={files.openFileBrowser} type="button">
+        {props.children || 'Cargar fotos'}
       </Button>
 
       <input
-      accept="image/*"
+        accept="image/*"
         type="file"
-        multiple
+        multiple={props.multiple}
         ref={files.fileInput}
         style={{ display: "none" }}
         onChange={(e) => files.appendFiles(e.target.files)}

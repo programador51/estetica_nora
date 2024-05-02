@@ -4,7 +4,6 @@
   width: 100%;
   position: fixed;
   top: -90svh;
-
   z-index: 50;
   background: var(--primaryBackground);
 }
@@ -42,5 +41,13 @@
 
   to {
     top: 10svh;
+  }
+}
+
+
+/* Tablet and above */
+@media screen and (min-width: 768px) {
+  .menu{
+    width: 30vw;
   }
 }
