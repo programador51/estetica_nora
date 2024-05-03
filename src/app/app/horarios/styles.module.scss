@@ -1,0 +1,16 @@
+.items{
+    display: flex;
+    flex-direction: column;
+    gap:20px 0;
+}
+
+.header{
+    margin:0;
+    z-index: 10;
+    position: sticky;
+    top:10svh;
+    background: var(--primaryBackground);
+    text-align: center;
+
+    
+}

@@ -1,0 +1,31 @@
+.itemCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  svg{
+    fill:rgb(31, 31, 31);
+  }
+
+  img,svg {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 1000px;
+  }
+
+  > div:nth-child(1),
+  > div:nth-child(2) {
+    display: flex;
+    gap: 0 10px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  background: var(--secondaryBackground);
+  border-radius: 10px;
+  padding: 20px;
+}
