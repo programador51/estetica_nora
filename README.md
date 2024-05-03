@@ -10,7 +10,24 @@ Justo ahora no hay algun estandar para los `commits`, ni planeo ser muy estricto
 # Estructura de carpetas
 Seguir la documentacion de Next.js para las implementaciones que ya tiene el framework. Layouts, navegación, renderizado de páginas, etc.
 
-1. ## Atomic design
+# Variables de entorno
+Importante, **no subir archivos** `.env`. Porque contienen información sensible que no puede estar en el repositorio.
+
+1. Crear un archivo llamado `.env.local` en la raíz del proyecto.
+![ejemplo_visual](https://i.ibb.co/6ZjWMxX/2024-05-03-16-35-41-README-md-estetica-nora-Visual-Studio-Code.png)
+
+2. Colocar las variables de entorno con su valor para hacer funcionar el proyecto.
+- `DB_HOST = VALOR_SECRETO_AQUI`
+- `DB_NAME = VALOR_SECRETO_AQUI`
+- `DB_USER = VALOR_SECRETO_AQUI`
+- `DB_PASSWORD = VALOR_SECRETO_AQUI`
+- `DB_PORT = VALOR_SECRETO_AQUI`
+- `DB_URI = VALOR_SECRETO_AQUI`
+
+![ejemplo_visual](https://i.ibb.co/7jpRWNc/2024-05-03-16-40-16-env-local-estetica-nora-Visual-Studio-Code.png)
+
+
+## Atomic design
 Intentar utilizar `atomic design` para organizar los archivos/carpetas que nextjs no especifica en su documentacion, como la creacion de un `input` por ejemplo.
 
 [Más información de atomic design aqui](https://www.uifrommars.com/atomic-design-ventajas/)
