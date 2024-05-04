@@ -13,7 +13,7 @@ export default function DayItem({
 
   // Verificar si day es un objeto con propiedades start y end
   const isRange = typeof day === "object" && day.hasOwnProperty("start") && day.hasOwnProperty("end");
-  const startFormatted = isRange ? new Date(day.start) : new Date(day);
+  const startFormatted = isRange ? new Date(day.start) : new Date(day.end);
   const endFormatted = isRange ? new Date(day.end) : null;
 
   return (
@@ -36,7 +36,7 @@ export default function DayItem({
             <>
               {/* Si es un rango de fechas */}
               <p>
-                Desde {startFormatted.toLocaleString("es")} Hasta {endFormatted.toLocaleString("es")}
+                {/* Desde {startFormatted.toLocaleString("es")} Hasta {endFormatted.toLocaleString("es")} */}
               </p>
             </>
           ) : (

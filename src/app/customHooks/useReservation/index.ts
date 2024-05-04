@@ -11,7 +11,7 @@ const INITIAL_STATE: StateUseReservation = {
   isLoading: false,
   services: [],
   durationOnMinutes: 0,
-  total: 0,
+  total: 0
 };
 
 export default function useReservation(id?: number): ReturnUseService {

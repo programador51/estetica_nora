@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { ReturnUseService, StateUseService } from "./types";
-import { ReturnUseService } from "../useReservation/types";
+import { StateUseService } from "./types";
 
 const INITIAL_STATE: StateUseService = {
   isLoading: true,
@@ -9,7 +8,7 @@ const INITIAL_STATE: StateUseService = {
   products: [],
 };
 
-export default function StateUseService(): ReturnUseService {
+export default function useService() {
   const [state, setState] = useState(INITIAL_STATE);
 
   useEffect(() => {

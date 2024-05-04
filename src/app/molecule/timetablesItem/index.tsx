@@ -28,14 +28,14 @@ export default function TimeTablesItem({
             <>
               {/* Si es un rango de horas */}
               <p>
-                Desde {startHour} Hasta {endHour}
+                {/* Desde {startHour} Hasta {endHour} */}
               </p>
             </>
           ) : (
             <>
               {/* Si es una sola hora */}
               <p>
-                {startHour}
+                {/* {startHour} */}
               </p>
             </>
           )}

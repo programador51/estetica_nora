@@ -4,7 +4,7 @@ import Select2 from "react-select/creatable";
 import { PropsUsersSelect, StateUserAccess, UserOptionsSelect } from "./types";
 import Spinner from "@/app/molecule/Spinner";
 import uiInput from "@/app/atom/input/styles.module.scss";
-import uiContainer from "@/app/molecule/userAccess/styles.module.scss";//
+// import uiContainer from "@/app/molecule/userAccess/styles.module.scss";//
 import { fetchUsers } from "@/app/helpers/api/v1/accounts";//
 
 const customSelectStyles: StylesConfig<
@@ -56,7 +56,7 @@ const CustomOption = (
     <div
       ref={data.innerRef}
       {...data.innerProps}
-      className={uiContainer.customOption}
+      // className={uiContainer.customOption}
     >
       <img src={`${imgSrc}`} alt={data.label} onError={handleImageError} />
       <span>{data.label}</span>
@@ -64,7 +64,7 @@ const CustomOption = (
   );
 };
 
-export default function userAccess({
+export default function UserOptions({
   onChange = () => {},
   value = null,
 }: PropsUsersSelect) {
@@ -109,7 +109,7 @@ export default function userAccess({
 
   return (
     <div
-      className={`${uiInput.inputContainer} ${uiContainer.containerInputSelect}`}
+      className={`${uiInput.inputContainer}`}
     >
       <label>Tipo</label>
       <Select2

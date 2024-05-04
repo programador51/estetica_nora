@@ -1,8 +1,8 @@
 export interface TimeTablesItem {
   urlPicture: string | null;
   day: {
-    start: Date;
-    end: Date;
+    start: Date |string;
+    end: Date |string;
     
   };
   name: string;

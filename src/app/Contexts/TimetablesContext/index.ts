@@ -5,5 +5,6 @@ export const ContextTimeTables = createContext<ReturnUseTimeTablesItem>({
   isLoading: true,
   page: 1,
   days: [],
+  timetables:[]
 });
 
