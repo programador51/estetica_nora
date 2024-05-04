@@ -8,6 +8,8 @@ import Input from "@/app/atom/input";
 import { ErrorMessage } from "@hookform/error-message";
 import { Controller } from "react-hook-form";
 import { PropsInput } from "@/app/atom/input/types";
+import WYSIWYG from "@/app/atom/WYSIWYG";
+import { ReactQuillProps } from "react-quill";
 
 const ContextFormCatalogue = createContext<ReturnUseForm>({
   form: undefined,
@@ -142,6 +144,34 @@ export function StockAvailable(props: PropsInput) {
           <ErrorMessage
             errors={hook.form?.formState.errors}
             name="stockDisponible"
+            render={({ message }) => <CustomError>{message}</CustomError>}
+          />
+        </div>
+      )}
+    />
+  );
+}
+
+export function Description(props: ReactQuillProps) {
+  const hook = useContext(ContextFormCatalogue);
+
+  if (hook.form === undefined) return <></>;
+
+  return (
+    <Controller
+      name="descripcion"
+      control={hook.form.control}
+      render={({ field }) => (
+        <div>
+          <WYSIWYG
+            {...field}
+            placeholder="Escribe aquí (Obligatorio)"
+            {...props}
+          />
+
+          <ErrorMessage
+            errors={hook.form?.formState.errors}
+            name="descripcion"
             render={({ message }) => <CustomError>{message}</CustomError>}
           />
         </div>
