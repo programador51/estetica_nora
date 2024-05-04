@@ -6,6 +6,13 @@ import ui from "./styles.module.scss";
 import Button from "@/app/atom/button";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+import FormCatalogue, {
+  Title,
+  SellPrice,
+  CostPrice,
+  StockAvailable,
+} from "@/app/structure/Forms/users/catalogue";
+import WYSIWYG from "@/app/atom/WYSIWYG";
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
 });
@@ -15,7 +22,16 @@ export default function AddProduct() {
     <div className={ui.container}>
       <h1>Alta producto</h1>
 
-      <Input type="text" placeholder="Escribe aquí" label="Nombre" />
+      <FormCatalogue type="add">
+        <Title label="Título" />
+        <SellPrice label="Precio" />
+        <CostPrice label="Costo" />
+        <StockAvailable label="Stock disponible" />
+        <WYSIWYG placeholder="Escribe aquí" />
+        <Button type="submit">Agregar producto</Button>
+      </FormCatalogue>
+
+      {/* <Input type="text" placeholder="Escribe aquí" label="Nombre" />
 
       <Input type="number" placeholder="Escribe aquí" label="Precio" min={0} />
 
@@ -43,7 +59,7 @@ export default function AddProduct() {
           <Button>Agregar producto</Button>
           <FilesList />
         </Files>
-      </div>
+      </div> */}
     </div>
   );
 }

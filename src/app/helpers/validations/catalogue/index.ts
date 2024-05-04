@@ -15,7 +15,7 @@ const precio = yup
   .number()
   .positive("El precio tiene que ser mayor o igual a 0")
   .required("Obligatorio")
-  .test("Precio", "a", function (value) {
+  .test("Precio", "El precio de venta no puede ser menor al costo", function (value) {
     const costo = this.parent.costo;
     return value >= costo;
   });
@@ -25,7 +25,13 @@ const stockDisponible = yup
   .positive("El stock tiene que ser mayor o igual a 0")
   .required("Obligatorio");
 
-const descripcion = yup.string().default('')
+const descripcion = yup.string().default("");
+
+const titulo = yup
+  .string()
+  .min(1, "Almenos 1 caracter")
+  .max(256, "Máximo  256 caracteres")
+  .required("Obligatorio");
 
 const id = yup.number().positive("ID inválido").required("Obligatorio");
 
@@ -35,6 +41,7 @@ const schemaAddProduct = yup.object().shape({
   precio,
   stockDisponible,
   descripcion,
+  titulo
 });
 
 const schemaEditProduct = yup.object().shape({
@@ -44,6 +51,7 @@ const schemaEditProduct = yup.object().shape({
   stockDisponible,
   descripcion,
   id,
+  titulo
 });
 
 export { schemaAddProduct, schemaEditProduct };
