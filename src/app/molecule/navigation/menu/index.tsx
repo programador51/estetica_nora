@@ -17,6 +17,9 @@ export default function Menu() {
         <MenuItem link={"/app/catalogo"}>Catálogo</MenuItem>
         <MenuItem link={"/app/servicios"}>Servicios</MenuItem>
         <MenuItem link={"/#horario"}>Horario estética</MenuItem>
+        <MenuItem link={"/app/horarios"}>Horario </MenuItem>
+        <MenuItem link={"/app/diasferiados"}>Dias Feriados </MenuItem>
+        <MenuItem link={"/app/cuentas"}>Cuentas </MenuItem>
       </div>
     </div>
   );
