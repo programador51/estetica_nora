@@ -1,4 +1,8 @@
-import { FormCatalogueType } from "@/app/customHooks/useFormCatalogue/types";
+import {
+  AddProduct,
+  FormCatalogueType,
+  UpdateProduct,
+} from "@/app/customHooks/useFormCatalogue/types";
 
 export interface PropsFormCatalogue
   extends React.DetailedHTMLProps<
@@ -6,4 +10,7 @@ export interface PropsFormCatalogue
     HTMLFormElement
   > {
   type: FormCatalogueType;
+  onValidData?: FormCatalogueType extends "add"
+    ? (data: AddProduct) => void
+    : (data: UpdateProduct) => void;
 }

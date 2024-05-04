@@ -14,17 +14,18 @@ import FormCatalogue, {
 
 export default function AddProduct() {
   return (
-    <div className={ui.container}>
+    <FormCatalogue
+      type="add"
+      onValidData={(data) => console.log({ valid: data })}
+      className={ui.container}
+    >
       <h1>Alta producto</h1>
-
-      <FormCatalogue type="add">
-        <Title label="Título" />
-        <SellPrice label="Precio" />
-        <CostPrice label="Costo" />
-        <StockAvailable label="Stock disponible" />
-        <Description />
-        <Button type="submit">Agregar producto</Button>
-      </FormCatalogue>
+      <Title label="Título" />
+      <SellPrice label="Precio" />
+      <CostPrice label="Costo" />
+      <StockAvailable label="Stock disponible" />
+      <Description />
+      <Button type="submit">Agregar producto</Button>
 
       <div className={ui.filesContainer}>
         <Files>
@@ -32,6 +33,6 @@ export default function AddProduct() {
           <FilesList />
         </Files>
       </div>
-    </div>
+    </FormCatalogue>
   );
 }

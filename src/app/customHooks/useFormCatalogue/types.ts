@@ -3,7 +3,6 @@ import { UseFormReturn } from "react-hook-form";
 export type FormCatalogueType = "add" | "udpate";
 
 export interface AddProduct {
-  nombre: string;
   precio: number;
   costo: number;
   stockDisponible: number;

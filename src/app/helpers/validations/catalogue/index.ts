@@ -36,7 +36,7 @@ const titulo = yup
 const id = yup.number().positive("ID inválido").required("Obligatorio");
 
 const schemaAddProduct = yup.object().shape({
-  nombre,
+  
   costo,
   precio,
   stockDisponible,
@@ -45,7 +45,7 @@ const schemaAddProduct = yup.object().shape({
 });
 
 const schemaEditProduct = yup.object().shape({
-  nombre,
+  
   costo,
   precio,
   stockDisponible,
