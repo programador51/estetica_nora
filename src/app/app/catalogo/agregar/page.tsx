@@ -27,6 +27,14 @@ export default function AddProduct() {
         step="0.01"
       />
 
+      <Input
+        type="number"
+        placeholder="Escribe aquí"
+        label="Stock disponible"
+        min={1}
+        step="1"
+      />
+
       <ReactQuill placeholder="Escribe aquí" />
 
       <div className={ui.filesContainer}>
