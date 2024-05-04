@@ -25,7 +25,9 @@ const stockDisponible = yup
   .positive("El stock tiene que ser mayor o igual a 0")
   .required("Obligatorio");
 
-const descripcion = yup.string().nullable().default(null);
+const descripcion = yup.string().default('')
+
+const id = yup.number().positive("ID inválido").required("Obligatorio");
 
 const schemaAddProduct = yup.object().shape({
   nombre,
@@ -34,6 +36,17 @@ const schemaAddProduct = yup.object().shape({
   stockDisponible,
   descripcion,
 });
+
+const schemaEditProduct = yup.object().shape({
+  nombre,
+  costo,
+  precio,
+  stockDisponible,
+  descripcion,
+  id,
+});
+
+export { schemaAddProduct, schemaEditProduct };
 
 // nombre
 // precio
