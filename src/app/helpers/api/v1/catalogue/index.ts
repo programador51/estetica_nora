@@ -8,9 +8,9 @@ export async function addProduct(dto: DtoAddProduct, files: File[]) {
     formData.append("dto", JSON.stringify(dto));
 
     if (files.length > 0)
-      files.forEach((file, i) => formData.append(`${file}_${i + 1}`, file));
+      files.forEach((file, i) => formData.append(`file_${i + 1}`, file));
 
-    const res = await fetch("/api/v1/catalogo", {
+    const res = await fetch("/api/v1/catalogue", {
       method: "POST",
       body: formData,
     });

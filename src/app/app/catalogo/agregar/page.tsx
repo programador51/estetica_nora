@@ -31,7 +31,7 @@ export default function AddProduct() {
       <Button type="submit">Agregar producto</Button>
 
       <div className={ui.filesContainer}>
-        <Files>
+        <Files onChange={hook.setFiles}>
           <FileInput multiple={true} />
           <FilesList />
         </Files>

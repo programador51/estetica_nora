@@ -11,4 +11,5 @@ export interface StateCatalogueCRUD {
 export interface ReturnUseCatalogueCRUD extends StateCatalogueCRUD {
   setDto: (dto: DtoCatalogueAbc) => void;
   setFiles: (files: File[]) => void;
+  attemptAdd: () => Promise<void>;
 }
