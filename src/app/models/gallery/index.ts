@@ -2,6 +2,8 @@ import { toQueryParams } from "@/app/helpers/fetch";
 import axios, { AxiosError } from "axios";
 import { Data, ImgBbResponse } from "./types";
 import { generateError } from "@/app/helpers/errors";
+import performConnection from "@/app/helpers/db/connection";
+import { Connection, RowDataPacket } from "mysql2/promise";
 
 export async function uploadToBlobStorage(
   file: File | string
@@ -29,7 +31,9 @@ export async function uploadToBlobStorage(
   }
 }
 
-export async function uploadFiles(files: string[] | File[]|(string|File)[]): Promise<Data[]> {
+export async function uploadFiles(
+  files: string[] | File[] | (string | File)[]
+): Promise<Data[]> {
   try {
     const querys = files.map((file) =>
       uploadToBlobStorage(file)
@@ -47,4 +51,35 @@ export async function uploadFiles(files: string[] | File[]|(string|File)[]): Pro
   } catch (error) {
     throw error;
   }
+}
+
+export async function add(
+  idEntity: number,
+  type: "catalogo" | "servicios",
+  url: string
+) {
+  let db: Connection;
+
+  try {
+    db = await performConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    const [results] = await db.query<RowDataPacket[]>(
+      "INSERT INTO Galeria (urlFoto,idEntidad,tipo,estatus) VALUES (?,?,?,?)",
+      [url, idEntity, type, 1]
+    );
+  } catch (error) {
+    throw generateError(
+      "97ffc403-64ca-4e99-92d6-81e5811eea9f",
+      "No se pudo agregar la imagen, reportar a soporte",
+      error
+    );
+  }
+}
+
+export const model = {
+    add
 }

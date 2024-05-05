@@ -23,4 +23,6 @@ async function performConnection(): Promise<Pool> {
   }
 }
 
+export const connection = performConnection();
 export default performConnection;
+
