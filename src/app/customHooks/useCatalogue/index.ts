@@ -20,7 +20,7 @@ export default function useCatalogue(): ReturnUseCatalogue {
           id: 1,
           image:
             "https://ibarramayoreo.com/images/IMAGENES/49827/02.jpg/A05",
-          title: "Ratrillo Gillette 2x1",
+          title: "Rastrillo Gillette 2x1",
         },
         {
             id:2,

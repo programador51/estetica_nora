@@ -18,11 +18,17 @@ const ContextFormCatalogue = createContext<ReturnUseForm>({
 export default function FormCatalogue(props: PropsFormCatalogue) {
   const hook = useFormCatalogue(props.type);
 
+  const callbackOnSubmit =
+    props.onSubmitedData === undefined ? () => {} : props.onSubmitedData;
+
   return (
     <ContextFormCatalogue.Provider value={hook}>
       <form
         {...props}
-        onSubmit={hook.form?.handleSubmit(console.log, console.log)}
+        onSubmit={hook.form?.handleSubmit(
+          (data) => callbackOnSubmit(data),
+          () => callbackOnSubmit(undefined)
+        )}
         noValidate
       >
         {props.children}

@@ -7,13 +7,17 @@ export interface AddProduct {
   costo: number;
   stockDisponible: number;
   descripcion: string;
-  titulo:string;
+  titulo: string;
 }
+
+export interface DtoAddProduct extends AddProduct {}
 
 export interface UpdateProduct extends AddProduct {
   id: number;
 }
 
+export interface DtoUpdateProduct extends UpdateProduct {}
+
 export interface ReturnUseForm {
-  form: (UseFormReturn<AddProduct | UpdateProduct, any, undefined>)|undefined;
+  form: UseFormReturn<AddProduct | UpdateProduct, any, undefined> | undefined;
 }

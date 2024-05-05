@@ -11,12 +11,15 @@ import FormCatalogue, {
   StockAvailable,
   Description,
 } from "@/app/structure/Forms/users/catalogue";
+import useCatalogueCRUD from "@/app/customHooks/useCatalogueCRUD";
 
 export default function AddProduct() {
+  const hook = useCatalogueCRUD();
+
   return (
     <FormCatalogue
       type="add"
-      onValidData={(data) => console.log({ valid: data })}
+      onSubmitedData={(data) => hook.setDto(data)}
       className={ui.container}
     >
       <h1>Alta producto</h1>
