@@ -15,3 +15,17 @@ export async function readFormData<T>(req: Request): Promise<T> {
 
   return indexedData as T;
 }
+
+export function toQueryParams(params: string[]):string {
+  const items = params.map((item, i) => {
+    if (typeof item !== "string") return null;
+
+    if (i === 0) return `?${item}`;
+
+    return `${item}&`;
+  });
+
+  let parsedItems = items.filter(item=>item!==null) as string[];
+
+  return parsedItems.reduce((query,item)=>query+=item,"");
+}
