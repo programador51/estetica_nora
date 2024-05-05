@@ -1,4 +1,7 @@
 import { DtoAddProduct } from "@/app/customHooks/useFormCatalogue/types";
+import { promptError } from "@/app/helpers/alerts";
+import { parseError } from "@/app/helpers/errors";
+import { CustomError } from "@/app/helpers/errors/types";
 import { isOkRes } from "@/app/helpers/fetch";
 
 export async function addProduct(dto: DtoAddProduct, files: File[]) {
@@ -19,8 +22,14 @@ export async function addProduct(dto: DtoAddProduct, files: File[]) {
       return true;
     }
 
+    const error: CustomError = await res.json();
+
+    promptError(error);
+
     return false;
   } catch (error) {
+    promptError(parseError(error));
     return false;
   }
 }
+
