@@ -23,6 +23,7 @@ Importante, **no subir archivos** `.env`. Porque contienen información sensible
 - `DB_PASSWORD = VALOR_SECRETO_AQUI`
 - `DB_PORT = VALOR_SECRETO_AQUI`
 - `DB_URI = VALOR_SECRETO_AQUI`
+- `IMG_BB = VALOR_SECRETO_AQUI`
 
 ![ejemplo_visual](https://i.ibb.co/7jpRWNc/2024-05-03-16-40-16-env-local-estetica-nora-Visual-Studio-Code.png)
 

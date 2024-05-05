@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@types/formidable": "^3.4.5",
     "@types/uuid": "^9.0.8",
+    "axios": "^1.6.8",
     "filesize": "^10.1.1",
     "formidable": "^3.5.1",
     "mysql2": "^3.9.7",
