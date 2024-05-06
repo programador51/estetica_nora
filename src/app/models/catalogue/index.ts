@@ -10,7 +10,7 @@ import {
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
 import { generateError } from "@/app/helpers/errors";
-import { Connection, PoolConnection, RowDataPacket } from "mysql2/promise";
+import { PoolConnection, RowDataPacket } from "mysql2/promise";
 
 async function add(dto: DtoAddProduct): Promise<number> {
   let db: PoolConnection;
