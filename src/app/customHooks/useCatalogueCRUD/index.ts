@@ -5,9 +5,10 @@ import {
   StateCatalogueCRUD,
 } from "./types";
 import { addProduct } from "@/app/helpers/api/v1/catalogue";
+import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateCatalogueCRUD = {
-  isLoading: true,
+  isLoading: false,
   dto: undefined,
   files: [],
 };
@@ -16,6 +17,8 @@ export default function useCatalogueCRUD(
   id: null | number = null
 ): ReturnUseCatalogueCRUD {
   const [state, setState] = useState(INITIAL_STATE);
+
+  const router = useRouter();
 
   useEffect(() => {
     (async function () {
@@ -38,17 +41,19 @@ export default function useCatalogueCRUD(
   async function attemptAdd() {
     if (state.dto === undefined) return;
 
-    setState(current=>({
+    setState((current) => ({
       ...current,
-      isLoading:true
+      isLoading: true,
     }));
 
     const wasAdded = await addProduct(state.dto, state.files);
 
-    setState(current=>({
+    setState((current) => ({
       ...current,
-      isLoading:false
+      isLoading: false,
     }));
+
+    if (wasAdded) router.push("/app/catalogo");
   }
 
   return {
