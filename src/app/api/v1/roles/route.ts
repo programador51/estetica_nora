@@ -1,4 +1,4 @@
-import { UserOption } from "@/app/molecule/UserAccess/types";
+import { UserOption } from "@/app/molecule/userAccess/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
