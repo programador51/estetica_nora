@@ -9,15 +9,16 @@ export interface UserOption {
 export interface UserOptionsSelect extends UserOption {
   value: number;
   label: string;
+  rol?: string; // Ahora 'rol' es opcional
 }
 
-export interface StateUserAccess {
+export interface StateuserAccess {
   isLoading: boolean;
   options: UserOptionsSelect[];
   selected: UserOptionsSelect | null | MultiValue<UserOptionsSelect>;
 }
 
-export interface PropsUsersSelect {
+export interface PropsuserAccess {
   onChange?: (user: UserOptionsSelect) => void;
   value?: number | null;
 }
