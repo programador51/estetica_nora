@@ -1,47 +1,58 @@
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
+import { UserOption } from "@/app/molecule/usersSelect/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     const dbRecords: ServiceOption[] = [
         {
-          name: "Corte de caballero",
+          name: "Haircut",
           id: 1,
-          picture: "https://www.primor.eu/blog/wp-content/uploads/2023/11/CORTE-PELO-HOMBRE-1.jpg",
+          picture: "https://example.com/haircut.jpg",
           costPrice: 20,
-          sellPrice: 70,
-          durationOnMinutes: 15,
-          toleranceOnMinutes: 5,
-          susceptibleToChange: false
-        },
-        {
-          name: "Corte Bob",
-          id: 2,
-          picture: "https://estiloybelleza.com/blog/wp-content/uploads/2021/08/longbob1.jpg",
-          costPrice: 50,
-          sellPrice: 200,
+          sellPrice: 30,
           durationOnMinutes: 30,
           toleranceOnMinutes: 5,
           susceptibleToChange: true
         },
         {
-          name: "Decolorado de cabello rubio",
-          id: 3,
-          picture: "https://resizer.sevilla.abc.es/resizer/resizer.php?imagen=https://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/sites/14/2022/01/productos-cuidar-rubio-platino-casa.jpg&nuevoancho=652",
-          costPrice: 15,
-          sellPrice: 25,
-          durationOnMinutes: 90,
+          name: "Massage",
+          id: 2,
+          picture: "https://example.com/massage.jpg",
+          costPrice: 40,
+          sellPrice: 60,
+          durationOnMinutes: 60,
           toleranceOnMinutes: 10,
           susceptibleToChange: true
         },
         {
-          name: "Retoque corte de caballero",
-          id: 4,
-          picture: "https://www.primor.eu/blog/wp-content/uploads/2023/11/CORTE-PELO-HOMBRE-1.jpg",
-          costPrice: 20,
-          sellPrice: 70,
-          durationOnMinutes: 10,
+          name: "Manicure",
+          id: 3,
+          picture: "https://example.com/manicure.jpg",
+          costPrice: 15,
+          sellPrice: 25,
+          durationOnMinutes: 45,
           toleranceOnMinutes: 5,
-          susceptibleToChange: false
+          susceptibleToChange: true
+        },
+        {
+          name: "Pedicure",
+          id: 4,
+          picture: "https://example.com/pedicure.jpg",
+          costPrice: 20,
+          sellPrice: 35,
+          durationOnMinutes: 60,
+          toleranceOnMinutes: 5,
+          susceptibleToChange: true
+        },
+        {
+          name: "Facial",
+          id: 5,
+          picture: "https://example.com/facial.jpg",
+          costPrice: 50,
+          sellPrice: 80,
+          durationOnMinutes: 60,
+          toleranceOnMinutes: 10,
+          susceptibleToChange: true
         }
       ];
       
