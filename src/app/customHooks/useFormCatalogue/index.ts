@@ -18,7 +18,7 @@ export default function useFormCatalogue(
 
   const form = useForm<AddProduct | UpdateProduct>({
     resolver: yupResolver(schemaToUse),
-    mode: "onChange",
+    mode: "all",
   });
 
   return {

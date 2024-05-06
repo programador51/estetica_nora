@@ -12,6 +12,7 @@ import FormCatalogue, {
   Description,
 } from "@/app/structure/Forms/users/catalogue";
 import useCatalogueCRUD from "@/app/customHooks/useCatalogueCRUD";
+import Spinner from "@/app/molecule/Spinner";
 
 export default function AddProduct() {
   const hook = useCatalogueCRUD();
@@ -28,11 +29,16 @@ export default function AddProduct() {
       <CostPrice label="Costo" />
       <StockAvailable label="Stock disponible" />
       <Description />
-      <Button type="submit">Agregar producto</Button>
+
+      {hook.isLoading ? (
+        <Spinner text="Agregando" />
+      ) : (
+        <Button type="submit">Agregar producto</Button>
+      )}
 
       <div className={ui.filesContainer}>
         <Files onChange={hook.setFiles}>
-          <FileInput multiple={true} />
+          <FileInput multiple={true} disabled={hook.isLoading} />
           <FilesList />
         </Files>
       </div>

@@ -37,7 +37,18 @@ export default function useCatalogueCRUD(
 
   async function attemptAdd() {
     if (state.dto === undefined) return;
+
+    setState(current=>({
+      ...current,
+      isLoading:true
+    }));
+
     const wasAdded = await addProduct(state.dto, state.files);
+
+    setState(current=>({
+      ...current,
+      isLoading:false
+    }));
   }
 
   return {
