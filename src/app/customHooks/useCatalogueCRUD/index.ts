@@ -38,7 +38,6 @@ export default function useCatalogueCRUD(
   async function attemptAdd() {
     if (state.dto === undefined) return;
     const wasAdded = await addProduct(state.dto, state.files);
-    
   }
 
   return {

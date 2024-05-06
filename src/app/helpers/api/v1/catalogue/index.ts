@@ -1,5 +1,5 @@
 import { DtoAddProduct } from "@/app/customHooks/useFormCatalogue/types";
-import { promptError } from "@/app/helpers/alerts";
+import { promptError, promptSuccess } from "@/app/helpers/alerts";
 import { parseError } from "@/app/helpers/errors";
 import { CustomError } from "@/app/helpers/errors/types";
 import { isOkRes } from "@/app/helpers/fetch";
@@ -21,6 +21,12 @@ export async function addProduct(dto: DtoAddProduct, files: File[]) {
     });
 
     if (isOkRes(res)) {
+      const data = await res.json();
+
+      promptSuccess({
+        title: "Éxito",
+        text: data.message,
+      });
       return true;
     }
 

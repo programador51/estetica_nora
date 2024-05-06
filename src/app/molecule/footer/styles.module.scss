@@ -8,6 +8,8 @@
   flex-direction: column;
   iframe {
     margin: 10px 0;
+    display: block;
+    border: none !important;
   }
 }
 

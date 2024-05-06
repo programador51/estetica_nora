@@ -22,7 +22,7 @@ export default function Catalogue() {
         </div>
 
         <ProductCards />
-        <Pagination/>
+        <Pagination page={hook.page} pages={hook.pages} />
       </div>
     </ContextCatalogue.Provider>
   );

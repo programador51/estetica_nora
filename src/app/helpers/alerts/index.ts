@@ -27,7 +27,14 @@ export function promptError(error: CustomError) {
   Swal.fire({
     icon: "error",
     title: "Error",
-    titleText:`${error.errorCode}`,
+    titleText: `${error.errorCode}`,
     text: `${error.message}`,
+  });
+}
+
+export function promptSuccess(options?: SweetAlertOptions) {
+  Swal.fire({
+    icon: "success",
+    ...options,
   });
 }

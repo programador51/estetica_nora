@@ -11,7 +11,7 @@ export interface ProductI {
   venta: number | string;
   costo: number | string;
   stockDisponible: number;
-  imagen: string | File | Blob;
+  imagen: string[];
   titulo: string;
 }
 

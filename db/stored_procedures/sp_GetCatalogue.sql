@@ -14,8 +14,20 @@ BEGIN
     SELECT COUNT(*) INTO total_records FROM Catalogo;
 
     -- Retrieve paginated records
-    SELECT *
+    SELECT Catalogo.id,
+           Catalogo.descripcion,
+           Catalogo.venta,
+           Catalogo.costo,
+           Catalogo.stockDisponible,
+           Catalogo.titulo,
+           (SELECT JSON_ARRAYAGG(urlFoto)
+            FROM Galeria
+            WHERE Galeria.idEntidad = Catalogo.id
+              AND Galeria.tipo = 'catalogo'
+              AND Galeria.estatus = 1) AS imagen
+
     FROM Catalogo
+
     LIMIT rows_per_page OFFSET offset_value;
 
     CALL CalculateTotalPages(total_records, rows_per_page, total_pages);
