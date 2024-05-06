@@ -15,8 +15,9 @@ export default function ProductCards() {
     <ProductCard
       key={`${key.current}-${i}`}
       id={product.id}
-      image={product.image}
-      title={product.title}
+      image={product.imagen[0]}
+      stock={product.stockDisponible}
+      title={product.titulo}
     />
   ));
 }

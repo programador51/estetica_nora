@@ -2,10 +2,14 @@ import React from "react";
 import { PropsPagination } from "./types";
 import ui from "./styles.module.scss";
 
-export default function Pagination({ page = 1, pages = 1 }: PropsPagination) {
+export default function Pagination({
+  page = 1,
+  pages = 1,
+  onChange = () => {},
+}: PropsPagination) {
   return (
     <div className={ui.pagination}>
-      <button>
+      <button disabled={page === 1} onClick={(e) => onChange(1)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -24,7 +28,7 @@ export default function Pagination({ page = 1, pages = 1 }: PropsPagination) {
           />
         </svg>
       </button>
-      <button>
+      <button disabled={page === 1} onClick={(e) => onChange(page - 1)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -38,10 +42,14 @@ export default function Pagination({ page = 1, pages = 1 }: PropsPagination) {
           />
         </svg>
       </button>
-      <button>{page === 1 ? "-" : page - 1}</button>
-      <button>{page}</button>
-      <button>{page === pages ? "-" : page + 1}</button>
-      <button>
+      <button onClick={(e) => onChange(page - 1)} disabled={page === 1}>
+        {page === 1 ? "-" : page - 1}
+      </button>
+      <button disabled>{page}</button>
+      <button onClick={(e) => onChange(page + 1)} disabled={page === pages}>
+        {page === pages ? "-" : page + 1}
+      </button>
+      <button disabled={page === pages} onClick={(e) => onChange(page + 1)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -55,7 +63,7 @@ export default function Pagination({ page = 1, pages = 1 }: PropsPagination) {
           />
         </svg>
       </button>
-      <button>
+      <button onClick={(e) => onChange(pages)} disabled={page === pages}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

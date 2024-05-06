@@ -17,10 +17,28 @@
 
   p {
     font-weight: bold;
+    margin: 0;
   }
 }
 
 .productOverview {
   display: flex;
   gap: 0 10px;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+}
+
+.stock {
+  display: flex;
+
+  b {
+    &:after {
+      content: ":";
+      margin: 0 2.5px 0 0;
+    }
+  }
 }
