@@ -22,16 +22,13 @@ export async function POST(req: Request) {
 
     const idInserted = await model.add(dto);
 
-    const querysDbFiles = filesUploaded.map((data) =>
-      modelGallery
-        .add(idInserted, "catalogo", data.display_url)
-        .then((res) => res)
-        .catch((e) => {
-          throw e;
-        })
-    );
-
-    await Promise.allSettled(querysDbFiles);
+    for (const data of filesUploaded) {
+      try {
+        await modelGallery.add(idInserted, "catalogo", data.display_url);
+      } catch (e) {
+        throw e;
+      }
+    }
 
     const okResponse = {
       message: "Alta de producto con éxito",
@@ -40,5 +37,23 @@ export async function POST(req: Request) {
     return NextResponse.json(okResponse, {
       status: 200,
     });
-  } catch (error) {}
+  } catch (error) {
+    return NextResponse.json(error);
+  }
+}
+
+export async function GET(req: Request) {
+  try {
+    const catalogue = await model.get({
+      page: 1,
+    });
+
+    return NextResponse.json(catalogue, {
+      status: 200,
+    });
+  } catch (error) {
+    return NextResponse.json(error, {
+      status: 500,
+    });
+  }
 }

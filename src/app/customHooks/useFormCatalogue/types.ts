@@ -21,3 +21,7 @@ export interface DtoUpdateProduct extends UpdateProduct {}
 export interface ReturnUseForm {
   form: UseFormReturn<AddProduct | UpdateProduct, any, undefined> | undefined;
 }
+
+export interface DtoGetProducts {
+  page: number;
+}

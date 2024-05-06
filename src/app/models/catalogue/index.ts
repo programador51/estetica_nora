@@ -1,5 +1,14 @@
-import { DtoAddProduct } from "@/app/customHooks/useFormCatalogue/types";
-import performConnection from "@/app/helpers/db/connection";
+import { ProductI } from "@/app/customHooks/useCatalogue/types";
+import {
+  DtoAddProduct,
+  DtoGetProducts,
+} from "@/app/customHooks/useFormCatalogue/types";
+import { ResDtoPaginated } from "@/app/helpers/api/v1/types";
+import {
+  getConnection,
+  performOneConnection,
+  retrieveOnlyConnection,
+} from "@/app/helpers/db/connection";
 import { generateError } from "@/app/helpers/errors";
 import { Connection, RowDataPacket } from "mysql2/promise";
 
@@ -7,7 +16,8 @@ async function add(dto: DtoAddProduct): Promise<number> {
   let db: Connection;
 
   try {
-    db = await performConnection();
+    await performOneConnection();
+    db = retrieveOnlyConnection();
   } catch (error) {
     throw error;
   }
@@ -28,8 +38,35 @@ async function add(dto: DtoAddProduct): Promise<number> {
   }
 }
 
+async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
+  try {
+    const db = await getConnection();
+
+    const [results] = await db.query<RowDataPacket[]>(`CALL GetCatalogue(?)`, [
+      dto.page,
+    ]);
+
+    const dtoResponse: ResDtoPaginated<ProductI> = {
+      pages: results[1][0]["total_pages"],
+      page: dto.page,
+      records: results[0] as ProductI[],
+      noRecordsFound: results[1][0]["total_records"],
+    };
+    console.log(dtoResponse);
+
+    return dtoResponse;
+  } catch (error) {
+    throw generateError(
+      "11ffc8d4-18b5-4b0e-9613-a2a620084ba8",
+      "No se pudo obtener el catálogo, reportar a soporte",
+      error
+    );
+  }
+}
+
 const model = {
   add,
+  get,
 };
 
 export default model;

@@ -2,7 +2,10 @@ import { toQueryParams } from "@/app/helpers/fetch";
 import axios, { AxiosError } from "axios";
 import { Data, ImgBbResponse } from "./types";
 import { generateError } from "@/app/helpers/errors";
-import performConnection from "@/app/helpers/db/connection";
+import performConnection, {
+  performOneConnection,
+  retrieveOnlyConnection,
+} from "@/app/helpers/db/connection";
 import { Connection, RowDataPacket } from "mysql2/promise";
 
 export async function uploadToBlobStorage(
@@ -61,7 +64,8 @@ export async function add(
   let db: Connection;
 
   try {
-    db = await performConnection();
+    await performOneConnection();
+    db = retrieveOnlyConnection();
   } catch (error) {
     throw error;
   }
@@ -81,5 +85,5 @@ export async function add(
 }
 
 export const model = {
-    add
-}
+  add,
+};

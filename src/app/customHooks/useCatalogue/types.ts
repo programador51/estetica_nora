@@ -7,8 +7,12 @@ export interface StateUseCatalogue {
 
 export interface ProductI {
   id: number;
-  image: string | File | Blob;
-  title: string;
+  descripcion: string;
+  venta: number | string;
+  costo: number | string;
+  stockDisponible: number;
+  imagen: string | File | Blob;
+  titulo: string;
 }
 
 export interface ReturnUseCatalogue extends StateUseCatalogue {}
