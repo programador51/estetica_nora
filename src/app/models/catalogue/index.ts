@@ -48,7 +48,7 @@ async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
       dto.page,
     ]);
 
-    db.release();
+    db.release()
 
     const dtoResponse: ResDtoPaginated<ProductI> = {
       pages: results[1][0]["total_pages"],

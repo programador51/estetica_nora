@@ -13,7 +13,9 @@ async function performConnection(): Promise<PoolConnection> {
       
     });
 
-    const pooled = connection.getConnection();
+    const pooled = await connection.getConnection();
+
+    pooled.on('connection',()=>console.log('Conectado a la base de datos （￣︶￣）↗　'))
 
     return pooled
 
