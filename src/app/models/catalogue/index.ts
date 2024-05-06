@@ -10,10 +10,10 @@ import {
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
 import { generateError } from "@/app/helpers/errors";
-import { Connection, RowDataPacket } from "mysql2/promise";
+import { Connection, PoolConnection, RowDataPacket } from "mysql2/promise";
 
 async function add(dto: DtoAddProduct): Promise<number> {
-  let db: Connection;
+  let db: PoolConnection;
 
   try {
     await performOneConnection();
@@ -27,6 +27,8 @@ async function add(dto: DtoAddProduct): Promise<number> {
       "CALL InsertIntoCatalogo(?, ?, ?, ?,?)",
       [dto.descripcion, dto.precio, dto.costo, dto.stockDisponible, dto.titulo]
     );
+
+    db.release();
 
     return results[0][0].id;
   } catch (error) {
@@ -46,13 +48,14 @@ async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
       dto.page,
     ]);
 
+    db.release();
+
     const dtoResponse: ResDtoPaginated<ProductI> = {
       pages: results[1][0]["total_pages"],
       page: dto.page,
       records: results[0] as ProductI[],
       noRecordsFound: results[1][0]["total_records"],
     };
-    console.log(dtoResponse);
 
     return dtoResponse;
   } catch (error) {

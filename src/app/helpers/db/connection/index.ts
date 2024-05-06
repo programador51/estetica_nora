@@ -1,18 +1,23 @@
-import mysql, { Connection, Pool } from "mysql2/promise";
+import mysql, { Connection, Pool, PoolConnection } from "mysql2/promise";
 import { generateError } from "../../errors";
 
-let pool: Connection | undefined = undefined;
+let pool: PoolConnection | undefined = undefined;
 
-async function performConnection(): Promise<Pool> {
+async function performConnection(): Promise<PoolConnection> {
   try {
     // Create the connection to database
     const connection = await mysql.createPool({
       uri: `${process.env.DB_URI}`,
       waitForConnections: true,
       queueLimit: 0,
+      
     });
 
-    return connection;
+    const pooled = connection.getConnection();
+
+    return pooled
+
+    // return connection;
   } catch (error) {
     const errorParsed = generateError(
       "8e9cf7ce-1576-4ea1-b58b-3152a86aae54",
