@@ -1,4 +1,4 @@
-import { UserOption } from "@/app/molecule/UserAccess/types";
+import { UserOption } from "@/app/molecule/userAccess/types";
 import { isOkRes } from "../../../fetch";
 
 export async function fetchUsers(): Promise<UserOption[]> {
