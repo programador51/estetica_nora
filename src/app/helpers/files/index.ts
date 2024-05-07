@@ -13,3 +13,16 @@ export async function fileToUrl(file: File): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
+
+export function findDeleteImages(
+  object: { [key: string]: string },
+  array: string[]
+) {
+  const missingRecords = [];
+  for (const [key, value] of Object.entries(object)) {
+    if (!array.includes(key)) {
+      missingRecords.push(value);
+    }
+  }
+  return missingRecords;
+}
