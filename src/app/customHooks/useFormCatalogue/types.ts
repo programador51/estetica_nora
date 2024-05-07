@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 
-export interface StateFormCatalogue{
-  isLoading:boolean;
+export interface StateFormCatalogue {
+  isLoading: boolean;
 }
 
 export type FormCatalogueType = "add" | "udpate";
@@ -18,6 +18,7 @@ export interface DtoAddProduct extends AddProduct {}
 
 export interface UpdateProduct extends AddProduct {
   id: number;
+  filesToDelete: string[];
 }
 
 export interface DtoUpdateProduct extends UpdateProduct {}

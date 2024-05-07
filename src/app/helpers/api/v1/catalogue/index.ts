@@ -1,4 +1,7 @@
-import { DtoAddProduct } from "@/app/customHooks/useFormCatalogue/types";
+import {
+  DtoAddProduct,
+  UpdateProduct,
+} from "@/app/customHooks/useFormCatalogue/types";
 import { promptError, promptSuccess } from "@/app/helpers/alerts";
 import { parseError } from "@/app/helpers/errors";
 import { CustomError } from "@/app/helpers/errors/types";
@@ -84,7 +87,7 @@ export async function getById(id: number): Promise<ProductI | null> {
       return data;
     }
 
-    const error:CustomError = await response.json();
+    const error: CustomError = await response.json();
 
     promptError(error);
 
@@ -92,5 +95,29 @@ export async function getById(id: number): Promise<ProductI | null> {
   } catch (error) {
     promptError(parseError(error));
     return null;
+  }
+}
+
+export async function updateProduct(dto: UpdateProduct, files: File[] = []) {
+  try {
+    const formData = new FormData();
+
+    formData.append("dto", JSON.stringify(dto));
+
+    if (files.length > 0)
+      files.forEach((file, i) => formData.append(`file_${i + 1}`, file));
+
+    const response = await fetch(`/api/v1/catalogue/${dto.id}`, {
+      method: "PUT",
+      body: formData,
+    });
+
+    if (isOkRes(response)) {
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    return false;
   }
 }

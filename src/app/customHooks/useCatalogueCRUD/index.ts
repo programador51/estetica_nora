@@ -4,7 +4,7 @@ import {
   ReturnUseCatalogueCRUD,
   StateCatalogueCRUD,
 } from "./types";
-import { addProduct } from "@/app/helpers/api/v1/catalogue";
+import { addProduct, updateProduct } from "@/app/helpers/api/v1/catalogue";
 import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateCatalogueCRUD = {
@@ -23,8 +23,7 @@ export default function useCatalogueCRUD(
   useEffect(() => {
     (async function () {
       if (typeof id !== "number") await attemptAdd();
-
-      console.log("ACTUALIZANDO...");
+      else await attemptUpdate();
     })();
   }, [state.dto]);
 
@@ -56,6 +55,28 @@ export default function useCatalogueCRUD(
     }));
 
     if (wasAdded) router.push("/app/catalogo");
+  }
+
+  async function attemptUpdate() {
+    if (typeof id !== "number" || state.dto === undefined) return;
+    setState((current) => ({
+      ...current,
+      isLoading: true,
+    }));
+
+    const wasUpdated = await updateProduct(
+      {
+        ...state.dto,
+        id,
+        filesToDelete: [],
+      },
+      state.files
+    );
+
+    setState((current) => ({
+      ...current,
+      isLoading: false,
+    }));
   }
 
   return {
