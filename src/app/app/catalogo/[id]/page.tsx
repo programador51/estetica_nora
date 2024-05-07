@@ -7,18 +7,25 @@ import FormCatalogue, {
   StockAvailable,
   Title,
 } from "@/app/structure/Forms/users/catalogue";
-import React from "react";
+import React, { useRef } from "react";
 import ui from "@/app/app/catalogo/agregar/styles.module.scss";
 import useCatalogueCRUD from "@/app/customHooks/useCatalogueCRUD";
 import Spinner from "@/app/molecule/Spinner";
 import Button from "@/app/atom/button";
 
+import { usePathname } from "next/navigation";
+
 export default function UpdateCatalogue() {
   const hook = useCatalogueCRUD();
 
+  const params = usePathname();
+
+  const id = useRef(+params.split("/").reverse()[0]).current;
+
   return (
     <FormCatalogue
-      type="add"
+      type="udpate"
+      idItemCatalogue={id}
       onSubmitedData={(data) => hook.setDto(data)}
       className={ui.container}
     >

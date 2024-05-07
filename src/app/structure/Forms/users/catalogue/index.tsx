@@ -16,7 +16,7 @@ const ContextFormCatalogue = createContext<ReturnUseForm>({
 });
 
 export default function FormCatalogue(props: PropsFormCatalogue) {
-  const hook = useFormCatalogue(props.type);
+  const hook = useFormCatalogue(props.type,props?.idItemCatalogue||null);
 
   const callbackOnSubmit =
     props.onSubmitedData === undefined ? () => {} : props.onSubmitedData;

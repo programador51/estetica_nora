@@ -15,5 +15,6 @@ export interface PropsFormCatalogue
     HTMLFormElement
   > {
   type: FormCatalogueType;
-  onSubmitedData?: (data: DataCallback[FormCatalogueType]|undefined) => void;
+  onSubmitedData?: (data: DataCallback[FormCatalogueType] | undefined) => void;
+  idItemCatalogue?: number;
 }

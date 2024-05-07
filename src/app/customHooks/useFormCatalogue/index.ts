@@ -10,9 +10,11 @@ import {
   schemaAddProduct,
   schemaEditProduct,
 } from "@/app/helpers/validations/catalogue";
+import { useEffect } from "react";
 
 export default function useFormCatalogue(
-  type: FormCatalogueType
+  type: FormCatalogueType,
+  id: number | null = null
 ): ReturnUseForm {
   const schemaToUse = type === "add" ? schemaAddProduct : schemaEditProduct;
 
@@ -20,6 +22,17 @@ export default function useFormCatalogue(
     resolver: yupResolver(schemaToUse),
     mode: "all",
   });
+
+  useEffect(() => {
+    (async function () {
+
+      console.log(id)
+
+      if (typeof id !== "number") return;
+
+      console.log("LOGICA PARA CONSULTAR API");
+    })();
+  }, [id]);
 
   return {
     form,
