@@ -10,6 +10,7 @@ async function performConnection(): Promise<PoolConnection> {
       uri: `${process.env.DB_URI}`,
       waitForConnections: true,
       queueLimit: 0,
+      connectionLimit:5
       
     });
 
