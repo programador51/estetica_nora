@@ -113,11 +113,25 @@ export async function updateProduct(dto: UpdateProduct, files: File[] = []) {
     });
 
     if (isOkRes(response)) {
+      const message =
+        dto.filesToDelete.length >= 1 ? "E imágenes borradas." : "";
+
+      promptSuccess({
+        title: "Éxito",
+        text: `Producto actualizado correctamente. ${message}`,
+      });
+
       return true;
     }
 
+    const ERROR: CustomError = await response.json();
+
+    promptError(ERROR);
+
     return false;
   } catch (error) {
+    promptError(parseError(error));
+
     return false;
   }
 }
