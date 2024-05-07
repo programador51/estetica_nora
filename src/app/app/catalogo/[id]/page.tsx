@@ -1,19 +1,19 @@
 "use client";
 import Files, { FileInput, FilesList } from "@/app/molecule/files";
-import React from "react";
-import ui from "./styles.module.scss";
-import Button from "@/app/atom/button";
 import FormCatalogue, {
-  Title,
-  SellPrice,
   CostPrice,
-  StockAvailable,
   Description,
+  SellPrice,
+  StockAvailable,
+  Title,
 } from "@/app/structure/Forms/users/catalogue";
+import React from "react";
+import ui from "@/app/app/catalogo/agregar/styles.module.scss";
 import useCatalogueCRUD from "@/app/customHooks/useCatalogueCRUD";
 import Spinner from "@/app/molecule/Spinner";
+import Button from "@/app/atom/button";
 
-export default function AddProduct() {
+export default function UpdateCatalogue() {
   const hook = useCatalogueCRUD();
 
   return (
@@ -22,7 +22,7 @@ export default function AddProduct() {
       onSubmitedData={(data) => hook.setDto(data)}
       className={ui.container}
     >
-      <h1>Alta producto</h1>
+      <h1>Actualización producto</h1>
       <Title label="Título" />
       <SellPrice label="Precio" />
       <CostPrice label="Costo" />
@@ -30,13 +30,13 @@ export default function AddProduct() {
       <Description />
 
       {hook.isLoading ? (
-        <Spinner text="Agregando" />
+        <Spinner text="Actualizando" />
       ) : (
-        <Button type="submit">Agregar producto</Button>
+        <Button type="submit">Actualizar producto</Button>
       )}
 
       <div className={ui.filesContainer}>
-        <Files onChange={hook.setFiles}>
+        <Files>
           <FileInput multiple={true} disabled={hook.isLoading} />
           <FilesList />
         </Files>
