@@ -48,7 +48,7 @@ async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
       dto.page,
     ]);
 
-    db.release()
+    db.release();
 
     const dtoResponse: ResDtoPaginated<ProductI> = {
       pages: results[1][0]["total_pages"],
@@ -67,9 +67,35 @@ async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
   }
 }
 
+async function byId(id: number):Promise<ProductI> {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    const [product] = await db.query<RowDataPacket[]>("CALL GetCatalogueItem(?)", [id]);
+
+    db.release();
+
+    return product[0][0];
+  } catch (error) {
+    throw generateError(
+      "472a37f7-171c-465c-b1f6-616919d37ba0",
+      "No se pudo obtener el producto, reportar a soporte",
+      error
+    );
+  }
+}
+
 const model = {
   add,
   get,
+  byId
 };
 
 export default model;

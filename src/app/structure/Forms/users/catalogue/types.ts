@@ -1,3 +1,4 @@
+import { ProductI } from "@/app/customHooks/useCatalogue/types";
 import {
   AddProduct,
   FormCatalogueType,
@@ -17,4 +18,5 @@ export interface PropsFormCatalogue
   type: FormCatalogueType;
   onSubmitedData?: (data: DataCallback[FormCatalogueType] | undefined) => void;
   idItemCatalogue?: number;
+  onLoadedProduct?:(product:ProductI)=>void;
 }

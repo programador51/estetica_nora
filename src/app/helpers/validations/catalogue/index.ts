@@ -54,7 +54,6 @@ const schemaEditProduct = yup.object().shape({
   precio,
   stockDisponible,
   descripcion,
-  id,
   titulo,
 });
 

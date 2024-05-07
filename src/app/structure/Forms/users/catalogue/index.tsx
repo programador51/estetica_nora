@@ -10,16 +10,20 @@ import { Controller } from "react-hook-form";
 import { PropsInput } from "@/app/atom/input/types";
 import WYSIWYG from "@/app/atom/WYSIWYG";
 import { ReactQuillProps } from "react-quill";
+import Spinner from "@/app/molecule/Spinner";
 
 const ContextFormCatalogue = createContext<ReturnUseForm>({
   form: undefined,
+  isLoading: false,
 });
 
 export default function FormCatalogue(props: PropsFormCatalogue) {
-  const hook = useFormCatalogue(props.type,props?.idItemCatalogue||null);
+  const hook = useFormCatalogue(props.type, props?.idItemCatalogue || null,props?.onLoadedProduct);
 
   const callbackOnSubmit =
     props.onSubmitedData === undefined ? () => {} : props.onSubmitedData;
+
+  if (hook.isLoading) return <Spinner text="Cargando producto" />;
 
   return (
     <ContextFormCatalogue.Provider value={hook}>

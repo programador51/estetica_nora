@@ -16,11 +16,10 @@ import Button from "@/app/atom/button";
 import { usePathname } from "next/navigation";
 
 export default function UpdateCatalogue() {
-  const hook = useCatalogueCRUD();
-
   const params = usePathname();
-
   const id = useRef(+params.split("/").reverse()[0]).current;
+
+  const hook = useCatalogueCRUD(id);
 
   return (
     <FormCatalogue

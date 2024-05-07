@@ -22,7 +22,9 @@ export default function useCatalogueCRUD(
 
   useEffect(() => {
     (async function () {
-      if (id === null) await attemptAdd();
+      if (typeof id !== "number") await attemptAdd();
+
+      console.log("ACTUALIZANDO...");
     })();
   }, [state.dto]);
 

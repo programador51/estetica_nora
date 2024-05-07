@@ -72,3 +72,25 @@ export async function getProducts(
     return ERROR;
   }
 }
+
+export async function getById(id: number): Promise<ProductI | null> {
+  try {
+    const response = await fetch(`/api/v1/catalogue/${id}`, {
+      method: "GET",
+    });
+
+    if (isOkRes(response)) {
+      const data = await response.json();
+      return data;
+    }
+
+    const error:CustomError = await response.json();
+
+    promptError(error);
+
+    return null;
+  } catch (error) {
+    promptError(parseError(error));
+    return null;
+  }
+}
