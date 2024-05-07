@@ -24,6 +24,7 @@ export default function UpdateCatalogue() {
   return (
     <FormCatalogue
       type="udpate"
+      id="updateCatalogue"
       idItemCatalogue={id}
       onLoadedProduct={(product) => hook.setSavedFiles(product.imagen)}
       onSubmitedData={(data) => hook.setDto(data)}
@@ -39,12 +40,17 @@ export default function UpdateCatalogue() {
       {hook.isLoading ? (
         <Spinner text="Actualizando" />
       ) : (
-        <Button type="submit">Actualizar producto</Button>
+        <Button form="updateCatalogue" type="submit">
+          Actualizar producto
+        </Button>
       )}
 
       {hook.filesLoadedFromApi ? (
         <div className={ui.filesContainer}>
-          <Files defaultFiles={hook.files} onChange={(files) => hook.setFiles(files)}>
+          <Files
+            defaultFiles={hook.files}
+            onChange={(files) => hook.setFiles(files)}
+          >
             <FileInput multiple={true} disabled={hook.isLoading} />
             <FilesList />
           </Files>

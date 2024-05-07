@@ -15,6 +15,7 @@ const INITIAL_STATE: StateCatalogueCRUD = {
   files: [],
   filesLoadedFromApi: false,
   initialPicturesUrls: [],
+
 };
 
 export default function useCatalogueCRUD(
@@ -96,6 +97,8 @@ export default function useCatalogueCRUD(
       ...current,
       isLoading: false,
     }));
+
+    if(wasUpdated) router.push("/app/catalogo");
   }
 
   const setSavedFiles = async (urls: string[]) => {
