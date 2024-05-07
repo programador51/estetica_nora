@@ -1,16 +1,6 @@
 import { MultiValue } from "react-select";
+import { UserOptionsSelect } from "../usersSelect/types";
 
-export interface UserOption {
-  rol: string;
-  id: number;
-  profilePicture: null | string;
-}
-
-export interface UserOptionsSelect extends UserOption {
-  value: number;
-  label: string;
-  rol?: string; // Ahora 'rol' es opcional
-}
 
 export interface StateuserAccess {
   isLoading: boolean;

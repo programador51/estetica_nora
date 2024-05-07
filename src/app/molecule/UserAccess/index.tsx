@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { GroupBase, MultiValue, OptionProps, StylesConfig } from "react-select";
 import Select2 from "react-select/creatable";
-import { PropsuserAccess, StateuserAccess, UserOptionsSelect } from "./types";
 import Spinner from "@/app/molecule/Spinner";
 import uiInput from "@/app/atom/input/styles.module.scss";
 import uiContainer from "@/app/molecule/userAccess/styles.module.scss";
 import { fetchRoles } from "@/app/helpers/api/v1/roles";
+import { UserOptionsSelect } from "../usersSelect/types";
+import { PropsuserAccess, StateuserAccess } from "./types";
+
 
 const customSelectStyles: StylesConfig<
   UserOptionsSelect,
@@ -81,7 +83,7 @@ const UserAccess: React.FC<PropsuserAccess> = ({
 
         const optionsCombo: UserOptionsSelect[] = usersApi.map((user) => ({
           ...user,
-          label: user.rol,
+          label: user.name,
           value: user.id,
         }));
 
