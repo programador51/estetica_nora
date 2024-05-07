@@ -2,6 +2,7 @@ import { ProductI } from "@/app/customHooks/useCatalogue/types";
 import {
   DtoAddProduct,
   DtoGetProducts,
+  DtoUpdateProduct,
 } from "@/app/customHooks/useFormCatalogue/types";
 import { ResDtoPaginated } from "@/app/helpers/api/v1/types";
 import {
@@ -67,7 +68,7 @@ async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
   }
 }
 
-async function byId(id: number):Promise<ProductI> {
+async function update(dto: DtoUpdateProduct) {
   let db: PoolConnection;
 
   try {
@@ -78,7 +79,42 @@ async function byId(id: number):Promise<ProductI> {
   }
 
   try {
-    const [product] = await db.query<RowDataPacket[]>("CALL GetCatalogueItem(?)", [id]);
+    await db.query("CALL UpdateCatalogue(?,?,?,?,?,?)", [
+      dto.descripcion,
+      dto.precio,
+      dto.costo,
+      dto.stockDisponible,
+      dto.titulo,
+      dto.id,
+    ]);
+
+    
+    db.release();
+
+  } catch (error) {
+    throw generateError(
+      "db2d2d85-2c5e-453f-8325-730a09a58b50",
+      "No se pudo actualizar el catálogo, reportar a soporte",
+      error
+    );
+  }
+}
+
+async function byId(id: number): Promise<ProductI> {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    const [product] = await db.query<RowDataPacket[]>(
+      "CALL GetCatalogueItem(?)",
+      [id]
+    );
 
     db.release();
 
@@ -95,7 +131,8 @@ async function byId(id: number):Promise<ProductI> {
 const model = {
   add,
   get,
-  byId
+  byId,
+  update
 };
 
 export default model;

@@ -1,4 +1,4 @@
-import mysql, { Connection, Pool, PoolConnection } from "mysql2/promise";
+import mysql, { PoolConnection } from "mysql2/promise";
 import { generateError } from "../../errors";
 
 let pool: PoolConnection | undefined = undefined;
@@ -14,14 +14,20 @@ async function performConnection(): Promise<PoolConnection> {
       
     });
 
+
+
     const pooled = await connection.getConnection();
 
     pooled.on('connection',()=>console.log('Conectado a la base de datos （￣︶￣）↗　'))
 
+
     return pooled
 
-    // return connection;
+    
   } catch (error) {
+
+    
+
     const errorParsed = generateError(
       "8e9cf7ce-1576-4ea1-b58b-3152a86aae54",
       "No se pudo conectar a la base de datos, reportar a soporte",

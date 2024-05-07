@@ -25,6 +25,7 @@ export default function UpdateCatalogue() {
     <FormCatalogue
       type="udpate"
       idItemCatalogue={id}
+      onLoadedProduct={product=>console.log({product})}
       onSubmitedData={(data) => hook.setDto(data)}
       className={ui.container}
     >

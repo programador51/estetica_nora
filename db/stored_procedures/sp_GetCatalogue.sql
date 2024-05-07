@@ -29,7 +29,7 @@ IFNULL(
                    JSON_ARRAY()
            ) AS imagen
 
-    FROM Catalogo
+    FROM Catalogo ORDER BY Catalogo.id DESC
 
     LIMIT rows_per_page OFFSET offset_value;
 
