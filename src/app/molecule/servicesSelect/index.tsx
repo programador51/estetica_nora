@@ -27,6 +27,9 @@ const customSelectStyles: StylesConfig<
   }),
   container: (provided) => ({
     ...provided,
+    position:"absolute",
+    bottom:"0",
+    width:"100%"
   }),
   control: (provided) => ({
     ...provided,
