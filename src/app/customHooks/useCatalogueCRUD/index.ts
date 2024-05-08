@@ -15,7 +15,6 @@ const INITIAL_STATE: StateCatalogueCRUD = {
   files: [],
   filesLoadedFromApi: false,
   initialPicturesUrls: [],
-
 };
 
 export default function useCatalogueCRUD(
@@ -78,6 +77,14 @@ export default function useCatalogueCRUD(
 
     const deletedImages = findDeleteImages(indexedFilesNames, currentFileNames);
 
+    const initialFileName = state.initialPicturesUrls.map(
+      (url) => url.split("/").reverse()[0]
+    );
+
+    const filesToAdd = state.files.filter(
+      (file) => !initialFileName.includes(file.name)
+    );
+
     if (typeof id !== "number" || state.dto === undefined) return;
     setState((current) => ({
       ...current,
@@ -90,7 +97,7 @@ export default function useCatalogueCRUD(
         id,
         filesToDelete: deletedImages,
       },
-      state.files
+      filesToAdd
     );
 
     setState((current) => ({
@@ -98,7 +105,7 @@ export default function useCatalogueCRUD(
       isLoading: false,
     }));
 
-    if(wasUpdated) router.push("/app/catalogo");
+    if (wasUpdated) router.push("/app/catalogo");
   }
 
   const setSavedFiles = async (urls: string[]) => {

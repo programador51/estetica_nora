@@ -28,6 +28,7 @@ export default function useFormCatalogue(
   const form = useForm<AddProduct | UpdateProduct>({
     resolver: yupResolver(schemaToUse),
     mode: "all",
+    shouldFocusError:true,
   });
 
   useEffect(() => {
