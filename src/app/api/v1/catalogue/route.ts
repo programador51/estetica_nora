@@ -13,12 +13,16 @@ export async function POST(req: Request) {
       typeof formData.dto === "string" ? formData.dto : "{}"
     );
 
+    ////////////////////////////////////////////////
+    // TODO: Convertir en una funcion
     let files = { ...formData };
     delete files.dto;
 
     const filesToUpload = Object.entries(files).map(([key, value]) => value);
 
     const filesUploaded = await uploadFiles(filesToUpload);
+
+    ////////////////////////////////////////////////
 
     const idInserted = await model.add(dto);
 

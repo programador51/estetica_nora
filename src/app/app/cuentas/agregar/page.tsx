@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ui from "./styles.module.scss";
-import UserAccess from "@/app/molecule/userAccess";//
+import UserAccess from "@/app/molecule/UserAccess";//
 import Button from "@/app/atom/button";
 
 //import useReservation from "@/app/customHooks/useReservation";//

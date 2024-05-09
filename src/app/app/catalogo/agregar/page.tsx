@@ -3,7 +3,6 @@ import Files, { FileInput, FilesList } from "@/app/molecule/files";
 import React from "react";
 import ui from "./styles.module.scss";
 import Button from "@/app/atom/button";
-import "react-quill/dist/quill.snow.css";
 import FormCatalogue, {
   Title,
   SellPrice,

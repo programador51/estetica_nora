@@ -20,13 +20,16 @@ BEGIN
            Catalogo.costo,
            Catalogo.stockDisponible,
            Catalogo.titulo,
-           (SELECT JSON_ARRAYAGG(urlFoto)
-            FROM Galeria
-            WHERE Galeria.idEntidad = Catalogo.id
-              AND Galeria.tipo = 'catalogo'
-              AND Galeria.estatus = 1) AS imagen
+IFNULL(
+                   (SELECT JSON_ARRAYAGG(urlFoto)
+                    FROM Galeria
+                    WHERE Galeria.idEntidad = Catalogo.id
+                      AND Galeria.tipo = 'catalogo'
+                      AND Galeria.estatus = 1),
+                   JSON_ARRAY()
+           ) AS imagen
 
-    FROM Catalogo
+    FROM Catalogo ORDER BY Catalogo.id DESC
 
     LIMIT rows_per_page OFFSET offset_value;
 

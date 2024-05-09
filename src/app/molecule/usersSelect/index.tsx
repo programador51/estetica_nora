@@ -19,6 +19,9 @@ const customSelectStyles: StylesConfig<
   }),
   container: (provided) => ({
     ...provided,
+    position:"absolute",
+    bottom:"0",
+    width:"100%"
   }),
   control: (provided) => ({
     ...provided,
@@ -83,8 +86,6 @@ export default function UsersSelect({
         label: user.name,
         value: user.id,
       }));
-
-      console.log({optionsCombo})
 
       setState((current) => ({
         ...current,

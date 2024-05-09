@@ -1,11 +1,5 @@
 import * as yup from "yup";
 
-const nombre = yup
-  .string()
-  .min(1, "Almenos 1 caracter")
-  .max(256, "Máximo 256 catacteres")
-  .required("Obligatorio");
-
 const costo = yup
   .number()
   .positive("El costo tiene que ser mayor o igual a 0")
@@ -31,15 +25,14 @@ const stockDisponible = yup
   .positive("El stock tiene que ser mayor o igual a 0")
   .required("Obligatorio");
 
-const descripcion = yup.string().default("");
+const descripcion = yup.string().default("").trim()
 
 const titulo = yup
   .string()
   .min(1, "Almenos 1 caracter")
   .max(256, "Máximo  256 caracteres")
+  .trim()
   .required("Obligatorio");
-
-const id = yup.number().positive("ID inválido").required("Obligatorio");
 
 const schemaAddProduct = yup.object().shape({
   costo,
@@ -54,14 +47,7 @@ const schemaEditProduct = yup.object().shape({
   precio,
   stockDisponible,
   descripcion,
-  id,
   titulo,
 });
 
 export { schemaAddProduct, schemaEditProduct };
-
-// nombre
-// precio
-// costo
-// stockDisponible
-// descripcion

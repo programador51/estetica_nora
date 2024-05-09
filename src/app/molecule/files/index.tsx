@@ -17,23 +17,32 @@ import { filesize } from "filesize";
 
 const ContextFiles = createContext<ReturnUseFiles | undefined>(undefined);
 
-export default function Files({ children , onChange = () => {} }: PropsFiles) {
-  const files = useFiles(onChange);
+export default function Files({
+  children,
+  onChange = () => {},
+  defaultFiles = [],
+}: PropsFiles) {
+  const files = useFiles(onChange,defaultFiles);
 
   return (
     <ContextFiles.Provider value={files}>{children}</ContextFiles.Provider>
   );
 }
 
-export function FileInput(props:PropsFileButton):JSX.Element|JSX.Element[] {
+export function FileInput(props: PropsFileButton): JSX.Element | JSX.Element[] {
   const files = useContext(ContextFiles);
 
   if (files === undefined) return <></>;
 
   return (
     <Fragment>
-      <Button {...props} theme="secondary" onClick={files.openFileBrowser} type="button">
-        {props.children || 'Cargar fotos'}
+      <Button
+        {...props}
+        theme="secondary"
+        onClick={files.openFileBrowser}
+        type="button"
+      >
+        {props.children || "Cargar fotos"}
       </Button>
 
       <input
@@ -85,7 +94,7 @@ function FileItem({ file, index }: { file: File; index: number }) {
         </div>
       </div>
 
-      <Button onClick={() => files.deleteFile(index)} theme="danger">
+      <Button onClick={() => files.deleteFile(index)} theme="danger" type="button">
         Borrar
       </Button>
     </div>

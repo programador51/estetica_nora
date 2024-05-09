@@ -6,14 +6,21 @@ const INITIAL_STATE: StateUseFiles = {
   files: [],
 };
 
-export default function useFiles(onChange:OnChangeFilesCallback): ReturnUseFiles {
-  const [state, setState] = useState(INITIAL_STATE);
+export default function useFiles(
+  onChange: OnChangeFilesCallback,
+  defaultFiles: File[] = []
+): ReturnUseFiles {
+  const [state, setState] = useState({
+    ...INITIAL_STATE,
+
+    files: defaultFiles,
+  });
 
   const fileInput = useRef<HTMLInputElement | null>(null);
 
-  useEffect(()=>{
-    onChange(state.files)
-  },[state.files])
+  useEffect(() => {
+    onChange(state.files);
+  }, [state.files]);
 
   const openFileBrowser = () => {
     fileInput.current?.click();
