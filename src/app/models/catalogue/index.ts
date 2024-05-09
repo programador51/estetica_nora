@@ -13,6 +13,7 @@ import {
 import { generateError } from "@/app/helpers/errors";
 import { PoolConnection, RowDataPacket } from "mysql2/promise";
 
+
 async function add(dto: DtoAddProduct): Promise<number> {
   let db: PoolConnection;
 
