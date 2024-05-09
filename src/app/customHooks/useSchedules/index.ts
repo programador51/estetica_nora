@@ -1,55 +1,47 @@
+import { KeysDayName } from "@/app/molecule/ScheduleCard/types";
 import { useEffect, useState } from "react";
 
 type DaySchedule = {
-  name: string;
-  schedule: string;
+  isLoading: false;
+  schedules: {
+    day: KeysDayName;
+    endTime: number;
+    startTime: number;
+  }[];
+  day: number;
+  startTime: number;
+  endTime: number;
 };
 
-const INITIAL_SCHEDULES: DaySchedule[] = [
-  {
-    name: "Lunes",
-    schedule: "10:00am - 07:00pm",
-  },
-  {
-    name: "Martes",
-    schedule: "10:00am - 07:00pm",
-  },
-  {
-    name: "Miércoles",
-    schedule: "10:00am - 07:00pm",
-  },
-  {
-    name: "Jueves",
-    schedule: "10:00am - 07:00pm",
-  },
-  {
-    name: "Viernes",
-    schedule: "10:00am - 07:00pm",
-  },
-  {
-    name: "Sábado",
-    schedule: "10:00am - 07:00pm",
-  },
-  {
-    name: "Domingo",
-    schedule: "10:00am - 07:00pm",
-  },
-];
+const INITIAL_SCHEDULES: DaySchedule = {
+  isLoading: false,
+  schedules: [
+    { day: 1, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 1 (Monday) from 9 AM to 5 PM
+    { day: 2, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 2 (Tuesday) from 9 AM to 5 PM
+    { day: 3, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 3 (Wednesday) from 9 AM to 5 PM
+    { day: 4, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 4 (Thursday) from 9 AM to 5 PM
+    { day: 5, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 5 (Friday) from 9 AM to 5 PM
+    { day: 6, startTime: 10 * 3600, endTime: 16 * 3600 }, // Day 6 (Saturday) from 10 AM to 4 PM
+    { day: 7, startTime: 10 * 3600, endTime: 16 * 3600 }, // Day 7 (Sunday) from 10 AM to 4 PM
+  ],
+  day: 1,
+  endTime: 0,
+  startTime: 0,
+};
 
 export default function useSchedules() {
-  const [schedules, setSchedules] = useState<DaySchedule[]>(INITIAL_SCHEDULES);
-  const [isLoading, setIsLoading] = useState(true);
+  const [schedules, setSchedules] = useState(INITIAL_SCHEDULES);
 
-  useEffect(() => {
-    // Simulamos una carga de datos
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // Retardo de 1 segundo para simular carga
-
-  }, []);
+  const deleteSchedule = (index: number) =>
+    setSchedules((current) => ({
+      ...current,
+      schedules: current.schedules.filter(
+        (schedule, currentIndex) => index !== currentIndex
+      ),
+    }));
 
   return {
-    schedules,
-    isLoading,
+    ...schedules,
+    deleteSchedule,
   };
 }

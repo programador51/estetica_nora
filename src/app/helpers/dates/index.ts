@@ -8,19 +8,27 @@ export function dateToText(date: Date) {
   }
 }
 
-export function formatTime(minutes:number) {
+export function formatTime(minutes: number) {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
-  
+
   let result = "";
-  
+
   if (hours > 0) {
-      result += hours + "hr ";
+    result += hours + "hr ";
   }
-  
+
   if (remainingMinutes > 0) {
-      result += remainingMinutes + "min";
+    result += remainingMinutes + "min";
   }
-  
+
   return result.trim();
+}
+
+export function secondsToTime(seconds: number) {
+  return new Intl.DateTimeFormat("es-MX", {
+    hour12: true,
+    timeStyle: "medium",
+    timeZone:'America/Mexico_City'
+  }).format(seconds);
 }
