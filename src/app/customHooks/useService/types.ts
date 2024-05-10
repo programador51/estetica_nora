@@ -1,8 +1,9 @@
 export interface StateUseService {
   isLoading: boolean;
-  page: number;
-  pages: number;
-  products: ProductI[];
+  dto: DtoServiceAbc;
+  files: File[];
+  filesLoadedFromApi: boolean;
+  initialPicturesUrls: string[];
 }
 
 export interface ProductI {
@@ -10,5 +11,7 @@ export interface ProductI {
   image: string | File | Blob;
   title: string;
 }
+
+export type DtoServiceAbc = undefined;
 
 export interface ReturnUseCatalogue extends StateUseService {}
