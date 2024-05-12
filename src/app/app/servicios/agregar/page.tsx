@@ -12,6 +12,7 @@ import React from "react";
 import Files, { FileInput, FilesList } from "@/app/molecule/files";
 import Button from "@/app/atom/button";
 import useService from "@/app/customHooks/useService";
+import Spinner from "@/app/molecule/Spinner";
 
 export default function AddService() {
   const hook = useService("add");
@@ -30,7 +31,11 @@ export default function AddService() {
       <Tolerance label="Tolerancia" />
       <Description />
 
-      <Button type="submit">Agregar servicio</Button>
+      {hook.isUpdating ? (
+        <Spinner text="Agregando servicio" />
+      ) : (
+        <Button type="submit">Agregar servicio</Button>
+      )}
 
       <Files onChange={(files) => hook.setCurrentFiles(files)}>
         <FileInput />

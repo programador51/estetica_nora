@@ -1,4 +1,9 @@
-import { AddService, DtoAddService } from "@/app/customHooks/useFormServices/types";
+import {
+  AddService,
+  DtoAddService,
+} from "@/app/customHooks/useFormServices/types";
+import { promptError, promptSuccess } from "@/app/helpers/alerts";
+import { CustomError } from "@/app/helpers/errors/types";
 import { isOkRes } from "@/app/helpers/fetch";
 import { PaginatedRecords } from "@/app/helpers/fetch/types";
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
@@ -60,11 +65,23 @@ export async function sendDtoToApi(dto: DtoAddService, files: File[] = []) {
     });
 
     if (isOkRes(res)) {
+      const data = await res.json();
+
+      promptSuccess({
+        title: "Alta exitosa",
+        text: data.message,
+      });
+
       return true;
     }
 
+    const error: CustomError = await res.json();
+
+    promptError(error);
+
     return false;
   } catch (error) {
+    promptError(error as CustomError);
     return false;
   }
 }

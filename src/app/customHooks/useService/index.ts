@@ -3,6 +3,7 @@ import { StateUseService } from "./types";
 import { AddService } from "../useFormServices/types";
 import { FormServiceType } from "@/app/structure/Forms/services/types";
 import { sendDtoToApi } from "@/app/helpers/api/v1/services";
+import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateUseService = {
   isLoading: true,
@@ -15,6 +16,7 @@ const INITIAL_STATE: StateUseService = {
 
 export default function useService(type: FormServiceType) {
   const [state, setState] = useState(INITIAL_STATE);
+  const router = useRouter();
 
   useEffect(() => {
     (async function () {
@@ -30,6 +32,8 @@ export default function useService(type: FormServiceType) {
           ...current,
           isUpdating: false,
         }));
+
+        if (wasAdded) router.push("/app/servicios");
       }
     })();
   }, [state.dto]);
