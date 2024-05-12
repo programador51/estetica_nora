@@ -15,6 +15,17 @@ export default function ServicesList() {
   if (hook.services.length <= 0) return <></>;
 
   return hook.services.map((service, i) => (
-    <ServiceItem {...service} key={`${key.current}-${i}`} renderView={true}/>
+    <ServiceItem
+      costPrice={+service.costo}
+      durationOnMinutes={service.duracionEnMinutos}
+      id={service.id}
+      key={`${key.current}-${i}`}
+      name={service.titulo}
+      picture={service.imagen[0]}
+      sellPrice={+service.venta}
+      susceptibleToChange={service.suceptibleEnCambios}
+      toleranceOnMinutes={service.toleranciaEnMinutos}
+      renderView={true}
+    />
   ));
 }

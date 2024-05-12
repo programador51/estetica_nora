@@ -8,7 +8,7 @@ export interface ServiceOption {
   sellPrice: number;
   durationOnMinutes: number;
   toleranceOnMinutes: number;
-  susceptibleToChange: boolean;
+  susceptibleToChange: boolean|number;
 }
 
 export interface ServiceOptionsSelect extends ServiceOption {

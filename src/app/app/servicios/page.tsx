@@ -6,6 +6,7 @@ import ServicesList from "./servicesList";
 import Button from "@/app/atom/button";
 import ui from "./styles.module.scss";
 import Pagination from "@/app/molecule/pagination";
+import Link from "next/link";
 
 export default function Services() {
   const hook = useServices();
@@ -14,7 +15,9 @@ export default function Services() {
     <ServiceContext.Provider value={hook}>
       <div className={ui.services}>
         <h1>Servicios</h1>
-        <Button>Agregar servicio</Button>
+        <Link href={"/app/servicios/agregar"}>
+          <Button>Agregar servicio</Button>
+        </Link>
 
         <ServicesList />
 

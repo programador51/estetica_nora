@@ -2,7 +2,7 @@ import { toQueryParams } from "@/app/helpers/fetch";
 import axios, { AxiosError } from "axios";
 import { Data, ImgBbResponse } from "./types";
 import { generateError } from "@/app/helpers/errors";
-import performConnection, {
+import {
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
@@ -84,6 +84,21 @@ export async function add(
   }
 }
 
+export async function massiveAdd(
+  files: Data[],
+  id: number,
+  type: "catalogo" | "servicios"
+) {
+  for (const data of files) {
+    try {
+      await add(id, type, data.display_url);
+    } catch (e) {
+      throw e;
+    }
+  }
+}
+
 export const model = {
   add,
+  massiveAdd
 };

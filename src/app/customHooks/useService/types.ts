@@ -1,8 +1,12 @@
+import { AddService } from "../useFormServices/types";
+
 export interface StateUseService {
   isLoading: boolean;
-  page: number;
-  pages: number;
-  products: ProductI[];
+  dto: DtoServiceAbc;
+  files: File[];
+  filesLoadedFromApi: boolean;
+  initialPicturesUrls: string[];
+  isUpdating:boolean; 
 }
 
 export interface ProductI {
@@ -10,5 +14,7 @@ export interface ProductI {
   image: string | File | Blob;
   title: string;
 }
+
+export type DtoServiceAbc = undefined | AddService;
 
 export interface ReturnUseCatalogue extends StateUseService {}
