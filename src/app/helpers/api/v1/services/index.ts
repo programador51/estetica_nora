@@ -1,4 +1,4 @@
-import { AddService } from "@/app/customHooks/useFormServices/types";
+import { AddService, DtoAddService } from "@/app/customHooks/useFormServices/types";
 import { isOkRes } from "@/app/helpers/fetch";
 import { PaginatedRecords } from "@/app/helpers/fetch/types";
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
@@ -46,11 +46,11 @@ export async function fetchServicesPaginated(
   }
 }
 
-export async function sendDtoToApi(dto: AddService, files: File[] = []) {
+export async function sendDtoToApi(dto: DtoAddService, files: File[] = []) {
   try {
     const formData = new FormData();
 
-    formData.append("dto", JSON.stringify(dto));
+    formData.append("dto", `${JSON.stringify(dto)}`);
 
     files.forEach((file, i) => formData.append(`file_${i + 1}`, file));
 

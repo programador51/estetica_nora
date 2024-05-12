@@ -9,6 +9,8 @@ export interface AddService {
   tolerancia: number;
 }
 
+export interface DtoAddService extends AddService{}
+
 export interface ReturnUseFormServices{
   form: (UseFormReturn<AddService, any, undefined>)|undefined;
 }
