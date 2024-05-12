@@ -11,10 +11,17 @@ import ui from "./styles.module.scss";
 import React from "react";
 import Files, { FileInput, FilesList } from "@/app/molecule/files";
 import Button from "@/app/atom/button";
+import useService from "@/app/customHooks/useService";
 
 export default function AddService() {
+  const hook = useService("add");
+
   return (
-    <FormServices typeForm="add" className={ui.container}>
+    <FormServices
+      typeForm="add"
+      className={ui.container}
+      onSubmited={(data) => hook.setDto(data)}
+    >
       <h1>Alta servicio</h1>
       <Title label="Título" />
       <SellPrice label="Precio" />
@@ -25,7 +32,7 @@ export default function AddService() {
 
       <Button type="submit">Agregar servicio</Button>
 
-      <Files>
+      <Files onChange={(files) => hook.setCurrentFiles(files)}>
         <FileInput />
         <FilesList />
       </Files>

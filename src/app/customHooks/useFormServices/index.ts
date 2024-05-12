@@ -20,6 +20,8 @@ export default function useFormServices(
     resolver: yupResolver(schemaToUse),
     mode: "all",
     shouldFocusError: true,
+    criteriaMode:"firstError",
+    
   });
 
   return {

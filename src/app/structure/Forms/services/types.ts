@@ -1,3 +1,5 @@
+import { AddService } from "@/app/customHooks/useFormServices/types";
+
 export type FormServiceType = "add" | "update";
 
 export interface PropsFormServices
@@ -6,6 +8,6 @@ export interface PropsFormServices
     HTMLFormElement
   > {
   idService?: number;
-  onSubmited?: () => void;
+  onSubmited?: (data: AddService|undefined) => void;
   typeForm: FormServiceType;
 }

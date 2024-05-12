@@ -18,9 +18,20 @@ const ContextFormServices = createContext<ReturnUseFormServices>({
 export default function FormServices(props: PropsFormServices) {
   const hook = useFormServices(props.typeForm);
 
+  const { onSubmited = () => {} } = props;
+
   return (
     <ContextFormServices.Provider value={hook}>
-      <form {...props}>{props.children}</form>
+      <form
+        {...props}
+        onSubmit={hook.form?.handleSubmit(
+          (data) => onSubmited(data),
+          (e) => onSubmited(undefined)
+        )}
+        noValidate
+      >
+        {props.children}
+      </form>
     </ContextFormServices.Provider>
   );
 }
