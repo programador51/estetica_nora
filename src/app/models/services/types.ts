@@ -6,4 +6,6 @@ export interface ServicesPaginated {
   suceptibleEnCambios: boolean;
   titulo: string;
   imagen: string[];
+  toleranciaEnMinutos:number;
+  duracionEnMinutos:number;
 }

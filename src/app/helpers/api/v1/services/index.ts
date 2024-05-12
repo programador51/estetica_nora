@@ -7,6 +7,8 @@ import { CustomError } from "@/app/helpers/errors/types";
 import { isOkRes } from "@/app/helpers/fetch";
 import { PaginatedRecords } from "@/app/helpers/fetch/types";
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
+import { ResDtoPaginated } from "../types";
+import { ServicesPaginated } from "@/app/models/services/types";
 
 export async function fetchServices(): Promise<ServiceOption[]> {
   try {
@@ -28,20 +30,21 @@ export async function fetchServices(): Promise<ServiceOption[]> {
 
 export async function fetchServicesPaginated(
   page: number
-): Promise<PaginatedRecords<ServiceOption>> {
-  const ERROR_DATA = {
+): Promise<ResDtoPaginated<ServicesPaginated>> {
+  const ERROR_DATA: ResDtoPaginated<ServicesPaginated> = {
     page: 1,
     pages: 1,
     records: [],
+    noRecordsFound: 0,
   };
 
   try {
-    const res = await fetch(`/api/v1/services/${page}`, {
+    const res = await fetch(`/api/v1/services/page/${page}`, {
       method: "GET",
     });
 
     if (isOkRes(res)) {
-      const services: PaginatedRecords<ServiceOption> = await res.json();
+      const services: ResDtoPaginated<ServicesPaginated> = await res.json();
       return services;
     }
 
