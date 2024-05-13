@@ -1,13 +1,10 @@
 import React from "react";
+import Select from "@/app/atom/select";
+import { PropsSelect } from "@/app/atom/select/types";
 
-export default function WeekDay(
-  props: React.DetailedHTMLProps<
-    React.SelectHTMLAttributes<HTMLSelectElement>,
-    HTMLSelectElement
-  >
-) {
+export default function WeekDay(props: PropsSelect) {
   return (
-    <select {...props}>
+    <Select {...props}>
       <option value="1">Lunes </option>
       <option value="2">Martes </option>
       <option value="3">Miercoles </option>
@@ -15,6 +12,6 @@ export default function WeekDay(
       <option value="5">Viernes </option>
       <option value="6">Sabado</option>
       <option value="7">Domingo</option>
-    </select>
+    </Select>
   );
 }

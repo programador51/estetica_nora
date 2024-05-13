@@ -1,16 +1,20 @@
+import { timeStringToSeconds } from "@/app/helpers/dates";
 import { KeysDayName } from "@/app/molecule/ScheduleCard/types";
-import { useEffect, useState } from "react";
+import { FormEvent, FormEventHandler, useEffect, useState } from "react";
+import { ScheduleForm } from "./types";
+
+type ScheduleItem = {
+  day: KeysDayName;
+  endTime: number;
+  startTime: number;
+};
 
 type DaySchedule = {
   isLoading: false;
-  schedules: {
-    day: KeysDayName;
-    endTime: number;
-    startTime: number;
-  }[];
+  schedules: ScheduleItem[];
   day: number;
-  startTime: number;
-  endTime: number;
+  startTime: string;
+  endTime: string;
 };
 
 const INITIAL_SCHEDULES: DaySchedule = {
@@ -25,8 +29,8 @@ const INITIAL_SCHEDULES: DaySchedule = {
     { day: 7, startTime: 10 * 3600, endTime: 16 * 3600 }, // Day 7 (Sunday) from 10 AM to 4 PM
   ],
   day: 1,
-  endTime: 0,
-  startTime: 0,
+  endTime: "",
+  startTime: "",
 };
 
 export default function useSchedules() {
@@ -40,8 +44,39 @@ export default function useSchedules() {
       ),
     }));
 
+  const appendSchedule = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    let values: ScheduleForm = {
+      desde: "",
+      dia: 1,
+      hasta: "",
+    };
+
+    formData.forEach((value, name) => (values = { ...values, [name]: value }));
+
+    values.desde = timeStringToSeconds(values.desde);
+    values.hasta = timeStringToSeconds(values.hasta);
+
+    const schedule: ScheduleItem = {
+      day: values.dia,
+      endTime: values.hasta,
+      startTime: values.desde,
+    };
+
+    setSchedules((current) => ({
+      ...current,
+      schedules: [schedule, ...current.schedules],
+    }));
+
+    e.currentTarget.reset();
+  };
+
   return {
     ...schedules,
     deleteSchedule,
+    appendSchedule,
   };
 }

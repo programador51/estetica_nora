@@ -10,8 +10,23 @@
   padding: 10px 0;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    gap:15px 0;
+.container,
+.formSchedule {
+  display: flex;
+  flex-direction: column;
+  gap: 15px 0;
+  h1 {
+    margin: 5px 0;
+  }
+}
+
+.itemCard {
+  background: var(--secondaryBackground);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.rangeTime {
+  display: flex;
+  gap: 0 5px;
 }

@@ -26,9 +26,22 @@ export function formatTime(minutes: number) {
 }
 
 export function secondsToTime(seconds: number) {
-  return new Intl.DateTimeFormat("es-MX", {
-    hour12: true,
-    timeStyle: "medium",
-    timeZone:'America/Mexico_City'
-  }).format(seconds);
+  // Convert seconds to hours, minutes, and optionally AM/PM
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const period = hours >= 12 ? " pm" : " am";
+
+  // Convert hours to 12-hour format
+  const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12 AM
+
+  // Format the time string
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  return `${formattedHours}:${formattedMinutes}${period}`;
+}
+
+export function timeStringToSeconds(timeString: string | number) {
+  if (typeof timeString === "number") return timeString;
+
+  const [hours, minutes] = timeString.split(":").map(Number);
+  return hours * 3600 + minutes * 60;
 }

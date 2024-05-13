@@ -4,19 +4,16 @@ import { ReturnUseTimeTablesItem, StateUseTimeTables } from "./types";
 const INITIAL_STATE: StateUseTimeTables = {
   page: 1,
   isLoading: true,
-  days:[],
+  days: [],
   timetables: [
-
     {
       day: {
-        start: "10:00:00", 
-        end: "19:00:00"
+        start: "10:00:00",
+        end: "19:00:00",
       },
       name: "Domingo",
-      urlPicture:""
+      urlPicture: "",
     },
-
-  
   ],
 };
 

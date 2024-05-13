@@ -19,10 +19,13 @@ export default function Schedules() {
     <div className={ui.container}>
       <h1 className={ui.header}>Horario Estética</h1>
 
-      <form>
-        <WeekDay />
-        <Input type="time" label="Desde" />
-        <Input type="time" label="Hasta" />
+      <form
+        className={ui.formSchedule}
+        onSubmit={(e) => hook.appendSchedule(e)}
+      >
+        <WeekDay name="dia" label="Día" />
+        <Input name="desde" required type="time" label="Desde" />
+        <Input name="hasta" required type="time" label="Hasta" />
 
         <Button>Agregar</Button>
       </form>

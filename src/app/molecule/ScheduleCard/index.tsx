@@ -38,9 +38,10 @@ export default function Schedule({
           <b>
             <p>{NAME_DATE[day] || "ND"}</p>
           </b>
-          <p>
-            <time>{secondsToTime(startTime*1000)}</time>-
-            <time>{secondsToTime(endTime*1000)}</time>
+          <p className={ui.rangeTime}>
+            <time>{secondsToTime(startTime)}</time>
+            <span>-</span>
+            <time>{secondsToTime(endTime)}</time>
           </p>
         </div>
       </div>
