@@ -7,11 +7,20 @@ import useSchedules from "@/app/customHooks/useSchedules";
 import Schedule from "@/app/molecule/ScheduleCard";
 import { v4 } from "uuid";
 import WeekDay from "@/app/molecule/weekDay";
+import Spinner from "@/app/molecule/Spinner";
 
 export default function Schedules() {
   const hook = useSchedules();
 
   const key = useRef(`${v4()}`);
+
+  if (hook.isLoading)
+    return (
+      <div className={ui.container}>
+        <h1 className={ui.header}>Horario Estética</h1>
+        <Spinner text="Cargando horario" />
+      </div>
+    );
 
   return (
     <div className={ui.container}>
@@ -22,12 +31,30 @@ export default function Schedules() {
         onSubmit={(e) => hook.appendSchedule(e)}
       >
         <WeekDay required name="dia" label="Día" />
-        <Input placeholder="Selecciona o escribe aquí" name="desde" required type="time" label="Desde" />
-        <Input name="hasta" placeholder="Selecciona o escribe aquí" required type="time" label="Hasta" />
-        <Button>Agregar</Button>
+        <Input
+          placeholder="Selecciona o escribe aquí"
+          name="desde"
+          required
+          type="time"
+          label="Desde"
+        />
+        <Input
+          name="hasta"
+          placeholder="Selecciona o escribe aquí"
+          required
+          type="time"
+          label="Hasta"
+        />
+        <Button disabled={hook.isUpdating}>Agregar</Button>
       </form>
 
-      <Button theme="secondary">Guardar cambios</Button>
+      {hook.isUpdating ? (
+        <Spinner text="Actualizando horario" />
+      ) : (
+        <Button onClick={hook.addScheduleToDb} theme="secondary">
+          Guardar cambios
+        </Button>
+      )}
 
       {hook.schedules.map((schedule, i) => (
         <Schedule

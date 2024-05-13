@@ -1,12 +1,8 @@
-import { TimeTablesItem } from "@/app/molecule/timetablesItem/types";
+import { ScheduleItem } from "../useSchedules";
 
 export interface StateUseTimeTables {
-  page: number;
   isLoading: boolean;
-  timetables: TimeTablesItem[];
-  days:Date[]
+  schedules: ScheduleItem[];
 }
 
 export interface ReturnUseTimeTablesItem extends StateUseTimeTables {}
-
-

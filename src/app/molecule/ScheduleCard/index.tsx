@@ -21,7 +21,7 @@ export default function Schedule({
   startTime,
   id,
   urlPicture = "",
-  onDelete = () => {},
+  onDelete = undefined,
 }: TimeTablesItem) {
   const handleOnDelete = async () => {
     const { isConfirmed } = await promptConfirmation({
@@ -29,7 +29,7 @@ export default function Schedule({
       text: "Estas seguro, esta acción no se puede des-hacer",
     });
 
-    if (isConfirmed) onDelete();
+    if (isConfirmed && onDelete !== undefined) onDelete();
   };
 
   return (
@@ -47,11 +47,13 @@ export default function Schedule({
         </div>
       </div>
 
-      <div>
-        <Button theme="danger" onClick={handleOnDelete}>
-          Borrar
-        </Button>
-      </div>
+      {onDelete === undefined ? null : (
+        <div>
+          <Button theme="danger" onClick={handleOnDelete}>
+            Borrar
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -12,7 +12,7 @@ export interface TimeTablesItem {
    */
   endTime: number;
 
-  onDelete?: () => void;
+  onDelete?: (() => void)|undefined;
 }
 
 export type KeysDayName = 1 | 2 | 3 | 4 | 5 | 6 | 7;

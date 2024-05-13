@@ -1,30 +1,29 @@
 import React, { useContext, useRef } from "react";
 import Spinner from "@/app/molecule/Spinner";
 import { v4 } from "uuid";
-import ui from "../styles.module.scss";
-
-import TimeTablesItem from "@/app/molecule/timetablesItem";//nueva
-import { ContextReservations } from "@/app/Contexts/ReservationsContext";//DaysContext
-
-import { ContextTimeTables } from "@/app/Contexts/TimetablesContext";//nueva
+import { ContextTimeTables } from "@/app/Contexts/TimetablesContext"; //nueva
+import Schedule from "@/app/molecule/ScheduleCard";
 
 export default function HorariosCards() {
   const hook = useContext(ContextTimeTables);
 
   const key = useRef(`${v4()}`);
 
-  if (hook.isLoading) return <Spinner text="Cargando " />;
+  if (hook.isLoading) return <Spinner text="Cargando horarios" />;
 
   return (
-    <div className={ui.items}>
-      {hook.timetables && hook.timetables.map((item, i) => (
-        <TimeTablesItem
-          key={`${key.current}-${i}`}
-          name={item.name}
+    <>
+      {hook.schedules.map((item, i) => (
+        <Schedule
           day={item.day}
-          urlPicture={item.urlPicture}
+          endTime={item.endTime}
+          id={item.id}
+          startTime={item.startTime}
+          onDelete={undefined}
+          key={`${key.current}-${i}`}
+          urlPicture={""}
         />
-    ))}
-    </div>
+      ))}
+    </>
   );
 }
