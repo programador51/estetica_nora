@@ -115,9 +115,10 @@ export default function useSchedules() {
   };
 
   function checkScheduleExists(day: number, from: number, to: number) {
+    debugger;
     const scheduleToValidate = schedules.schedules.find(
       (schedule) =>
-        schedule.day === day &&
+        +schedule.day === +day &&
         (schedule.endTime <= to || schedule.startTime >= from)
     );
 
