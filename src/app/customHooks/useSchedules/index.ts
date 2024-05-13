@@ -2,6 +2,7 @@ import { timeStringToSeconds } from "@/app/helpers/dates";
 import { KeysDayName } from "@/app/molecule/ScheduleCard/types";
 import { FormEvent, FormEventHandler, useEffect, useState } from "react";
 import { ScheduleForm } from "./types";
+import { promptError } from "@/app/helpers/alerts";
 
 type ScheduleItem = {
   day: KeysDayName;
@@ -67,7 +68,11 @@ export default function useSchedules() {
     e.currentTarget.reset();
 
     if (alreadySchedule) {
-      alert("No puedes agregar un horario que se sobreponga con otro");
+      promptError({
+        errorCode:'Datos inválidos',
+        message:'No puedes agregar el horario, se sobre pone con otro',
+        error:{}
+      });
       return;
     }
 
@@ -96,3 +101,4 @@ export default function useSchedules() {
     appendSchedule,
   };
 }
+

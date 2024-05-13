@@ -23,12 +23,13 @@ export default function Schedules() {
         className={ui.formSchedule}
         onSubmit={(e) => hook.appendSchedule(e)}
       >
-        <WeekDay name="dia" label="Día" />
-        <Input name="desde" required type="time" label="Desde" />
-        <Input name="hasta" required type="time" label="Hasta" />
-
+        <WeekDay required name="dia" label="Día" />
+        <Input placeholder="Selecciona o escribe aquí" name="desde" required type="time" label="Desde" />
+        <Input name="hasta" placeholder="Selecciona o escribe aquí" required type="time" label="Hasta" />
         <Button>Agregar</Button>
       </form>
+
+      <Button theme="secondary">Guardar cambios</Button>
 
       {hook.schedules.map((schedule, i) => (
         <Schedule
