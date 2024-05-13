@@ -1,10 +1,12 @@
 import { timeStringToSeconds } from "@/app/helpers/dates";
 import { KeysDayName } from "@/app/molecule/ScheduleCard/types";
-import { FormEvent, FormEventHandler, useEffect, useState } from "react";
+import { useState } from "react";
 import { ScheduleForm } from "./types";
 import { promptError } from "@/app/helpers/alerts";
+import { v4 } from "uuid";
 
 type ScheduleItem = {
+  id:string|number;
   day: KeysDayName;
   endTime: number;
   startTime: number;
@@ -54,6 +56,7 @@ export default function useSchedules() {
     values.hasta = timeStringToSeconds(values.hasta);
 
     const schedule: ScheduleItem = {
+      id:v4(),
       day: values.dia,
       endTime: values.hasta,
       startTime: values.desde,

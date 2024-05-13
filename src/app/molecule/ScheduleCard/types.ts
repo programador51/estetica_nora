@@ -1,4 +1,5 @@
 export interface TimeTablesItem {
+  id:string|number;
   urlPicture?: string | null;
   day: KeysDayName;
   /**

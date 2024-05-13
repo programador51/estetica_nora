@@ -1,9 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import ui from "./styles.module.scss";
-import DateInput from "@/app/molecule/dateInput";
 import Input from "@/app/atom/input";
-import Money from "@/app/atom/money";
 import Button from "@/app/atom/button";
 import useSchedules from "@/app/customHooks/useSchedules";
 import Schedule from "@/app/molecule/ScheduleCard";
@@ -33,6 +31,7 @@ export default function Schedules() {
 
       {hook.schedules.map((schedule, i) => (
         <Schedule
+          id={schedule.id}
           onDelete={() => hook.deleteSchedule(i)}
           key={`${key.current}-${i}`}
           day={schedule.day}

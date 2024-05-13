@@ -19,6 +19,7 @@ export default function Schedule({
   day,
   endTime,
   startTime,
+  id,
   urlPicture = "",
   onDelete = () => {},
 }: TimeTablesItem) {
