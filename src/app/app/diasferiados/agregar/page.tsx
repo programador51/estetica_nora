@@ -1,27 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ui from "./styles.module.scss";
 import DateInput from "@/app/molecule/dateInput";
 import Input from "@/app/atom/input";
 import Money from "@/app/atom/money";
 import Button from "@/app/atom/button";
-
 import useSchedules from "@/app/customHooks/useSchedules";
+import Schedule from "@/app/molecule/ScheduleCard";
+import { v4 } from "uuid";
+import WeekDay from "@/app/molecule/weekDay";
 
-export default function Holidays() {
-
+export default function Schedules() {
   const hook = useSchedules();
+
+  const key = useRef(`${v4()}`);
 
   return (
     <div className={ui.container}>
-      <h1 className={ui.header}>Días Feriados</h1>
+      <h1 className={ui.header}>Dias Feriados</h1>
 
-      <DateInput />
-      <Input type="time" label="Desde" />
-      <Input type="time" label="Hasta" />
+      <form
+        className={ui.formSchedule}
+        onSubmit={(e) => hook.appendSchedule(e)}
+      >
+        <WeekDay required name="dia" label="Día" />
+        <Input placeholder="Selecciona o escribe aquí" name="desde" required type="time" label="Desde" />
+        <Input name="hasta" placeholder="Selecciona o escribe aquí" required type="time" label="Hasta" />
+        <Button>Agregar</Button>
+      </form>
 
-      <Button>Agregar</Button>
-      </div>
-  
+      <Button theme="secondary">Guardar cambios</Button>
+
+      {hook.schedules.map((schedule, i) => (
+        <Schedule
+          onDelete={() => hook.deleteSchedule(i)}
+          key={`${key.current}-${i}`}
+          day={schedule.day}
+          endTime={schedule.endTime}
+          startTime={schedule.startTime}
+        />
+      ))}
+    </div>
   );
 }
