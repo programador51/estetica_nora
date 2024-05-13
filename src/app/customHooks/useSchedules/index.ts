@@ -19,15 +19,7 @@ type DaySchedule = {
 
 const INITIAL_SCHEDULES: DaySchedule = {
   isLoading: false,
-  schedules: [
-    { day: 1, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 1 (Monday) from 9 AM to 5 PM
-    { day: 2, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 2 (Tuesday) from 9 AM to 5 PM
-    { day: 3, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 3 (Wednesday) from 9 AM to 5 PM
-    { day: 4, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 4 (Thursday) from 9 AM to 5 PM
-    { day: 5, startTime: 9 * 3600, endTime: 17 * 3600 }, // Day 5 (Friday) from 9 AM to 5 PM
-    { day: 6, startTime: 10 * 3600, endTime: 16 * 3600 }, // Day 6 (Saturday) from 10 AM to 4 PM
-    { day: 7, startTime: 10 * 3600, endTime: 16 * 3600 }, // Day 7 (Sunday) from 10 AM to 4 PM
-  ],
+  schedules: [],
   day: 1,
   endTime: "",
   startTime: "",
@@ -66,13 +58,37 @@ export default function useSchedules() {
       startTime: values.desde,
     };
 
+    const alreadySchedule = checkScheduleExists(
+      values.dia,
+      values.desde,
+      values.hasta
+    );
+
+    e.currentTarget.reset();
+
+    if (alreadySchedule) {
+      alert("No puedes agregar un horario que se sobreponga con otro");
+      return;
+    }
+
     setSchedules((current) => ({
       ...current,
       schedules: [schedule, ...current.schedules],
     }));
-
-    e.currentTarget.reset();
   };
+
+  function checkScheduleExists(day: number, from: number, to: number) {
+    const scheduleToValidate = schedules.schedules.find(
+      (schedule) =>
+        schedule.day === day &&
+        (schedule.endTime <= to || schedule.startTime >= from)
+    );
+
+    if (scheduleToValidate === undefined || scheduleToValidate === null)
+      return false;
+
+    return true;
+  }
 
   return {
     ...schedules,
