@@ -42,24 +42,28 @@ export function secondsToTime(seconds: number) {
 export function timeStringToSeconds(timeString: string | number) {
   if (typeof timeString === "number") return timeString;
 
-  const [hours, minutes] = timeString.split(":").map(Number);
-  return hours * 3600 + minutes * 60;
+  try {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    return hours * 3600 + minutes * 60;
+  } catch (error) {
+    return 0;
+  }
 }
 
-export function secondsToHHMM(seconds:number) {
+export function secondsToHHMM(seconds: number) {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
 
-  const formattedHours = String(hours).padStart(2, '0');
-  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
 
   return `${formattedHours}:${formattedMinutes}`;
 }
 
-export function secondsToDate(seconds:number){
+export function secondsToDate(seconds: number) {
   const currentDay = new Date();
-  currentDay.setHours(0,0,0,0);
-  currentDay.setSeconds(seconds)
+  currentDay.setHours(0, 0, 0, 0);
+  currentDay.setSeconds(seconds);
 
   return currentDay;
 }

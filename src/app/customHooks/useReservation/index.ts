@@ -1,4 +1,4 @@
-import { promptConfirmation } from "@/app/helpers/alerts";
+import { promptConfirmation, promptSuccess } from "@/app/helpers/alerts";
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
 import {
   OverviewCalculation,
@@ -133,7 +133,7 @@ export default function useReservation(id?: number): ReturnUseService {
   };
 
   const attemptAddReservation = async() => {
-    promptConfirmation({
+    promptSuccess({
       title:'Cita reservada',
       text:'Reservación guardada con éxito, se puntual con la cita programada 🙌😁'
     })

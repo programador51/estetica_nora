@@ -18,6 +18,7 @@ export default function TimeFieldReservation() {
         clearIcon={false}
         name="time"
         required
+        amPmAriaLabel=""
         shouldOpenClock={() => false}
         minTime={secondsToHHMM(hook.minTime)}
         maxTime={secondsToHHMM(hook.maxTime)}
