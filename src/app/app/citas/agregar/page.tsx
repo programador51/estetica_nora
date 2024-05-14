@@ -11,13 +11,8 @@ import ContextReservation from "@/app/Contexts/ReservationContext";
 import Services from "./services";
 import Time from "@/app/atom/time";
 import Spinner from "@/app/molecule/Spinner";
-import TimePicker from "react-time-picker";
-import {
-  secondsToHHMM,
-  secondsToTime,
-  timeStringToSeconds,
-} from "@/app/helpers/dates";
-import TimeField from "@/app/atom/timeField";
+import TimeFieldReservation from "./TimeFieldReservation";
+import ScheduleTime from "./ScheduleTime";
 
 export default function AddReservation() {
   const hook = useReservation();
@@ -40,27 +35,14 @@ export default function AddReservation() {
               }
             />
 
-            <TimeField
-              clearIcon={false}
-              name="time"
-              required
-              shouldOpenClock={()=>false}
-              minTime={secondsToHHMM(hook.minTime)}
-              maxTime={secondsToHHMM(hook.maxTime)}
-              value={secondsToTime(hook.timeReservation)}
-              onChange={(time) =>
-                hook.setTimeReservation(timeStringToSeconds(time as string))
-              }
-            />
+            <TimeFieldReservation />
           </>
         )}
 
-        <UsersSelect onChange={(user) => console.log(user.id)} />
+        <UsersSelect onChange={(user) => hook.setCustomer(user)} />
         <ServicesSelect onChange={hook.appendService} />
 
         <Services />
-
-        <Button>Crear reservación</Button>
 
         <div className={ui.time}>
           <b>Tiempo total</b>
@@ -71,6 +53,18 @@ export default function AddReservation() {
           <b>Precio</b>
           <Money>{hook.total}</Money>
         </div>
+
+        <ScheduleTime />
+        <Button
+          onClick={hook.attemptAddReservation}
+          disabled={
+            hook.services.length <= 0 ||
+            hook.customer === undefined ||
+            typeof hook.timeReservation !== "number"
+          }
+        >
+          Crear reservación
+        </Button>
       </div>
     </ContextReservation.Provider>
   );

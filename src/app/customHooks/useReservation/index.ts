@@ -4,9 +4,11 @@ import {
   OverviewCalculation,
   ReturnUseService,
   StateUseReservation,
+  TimeReservation,
 } from "./types";
 import { useEffect, useState } from "react";
 import useTimeTables from "@/app/customHooks/useTimeTables";
+import { UserOptionsSelect } from "@/app/molecule/usersSelect/types";
 
 const INITIAL_STATE: StateUseReservation = {
   isLoading: false,
@@ -17,7 +19,8 @@ const INITIAL_STATE: StateUseReservation = {
   disabledWeekDays: [],
   minTime: 0,
   maxTime: 0,
-  timeReservation:0,
+  timeReservation: 0,
+  customer: undefined,
 };
 
 export default function useReservation(id?: number): ReturnUseService {
@@ -75,7 +78,6 @@ export default function useReservation(id?: number): ReturnUseService {
         minTime: minStartTime,
       }));
     });
-
   }, [state.day, schedule.schedules]);
 
   useEffect(() => {
@@ -130,19 +132,36 @@ export default function useReservation(id?: number): ReturnUseService {
     return false; // Enable day otherwise
   };
 
-  const setTimeReservation = (time:number) => setState(current=>({
-    ...current,
-    timeReservation:time
-  }));
+  const attemptAddReservation = async() => {
+    promptConfirmation({
+      title:'Cita reservada',
+      text:'Reservación guardada con éxito, se puntual con la cita programada 🙌😁'
+    })
+  }
+
+  const setTimeReservation = (time: TimeReservation) => {
+    setState((current) => ({
+      ...current,
+      timeReservation: time,
+    }));
+  };
+
+  const setCustomer = (customer: UserOptionsSelect) =>
+    setState((current) => ({
+      ...current,
+      customer,
+    }));
 
   return {
     promptCancelation,
     appendService,
     setTimeReservation,
     deleteService,
+    setCustomer,
     setDayReservation,
     schedule,
     tileDisabled,
+    attemptAddReservation,
     ...state,
   };
 }

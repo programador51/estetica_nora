@@ -1,10 +1,13 @@
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
 import { ReturnUseTimeTablesItem } from "../useTimeTables/types";
+import { UserOptionsSelect } from "@/app/molecule/usersSelect/types";
 
 export interface OverviewCalculation {
   durationOnMinutes: number;
   total: number;
 }
+
+export type TimeReservation = number | null | undefined;
 
 export interface StateUseReservation extends OverviewCalculation {
   isLoading: boolean;
@@ -12,8 +15,9 @@ export interface StateUseReservation extends OverviewCalculation {
   day: Date;
   disabledWeekDays: number[];
   minTime: number;
-  timeReservation: number;
+  timeReservation: TimeReservation;
   maxTime: number;
+  customer: UserOptionsSelect | undefined;
 }
 
 export interface ReturnUseService extends StateUseReservation {
@@ -23,5 +27,7 @@ export interface ReturnUseService extends StateUseReservation {
   deleteService: (index: number) => void;
   setDayReservation: (day: Date) => void;
   tileDisabled: ({ date, view }: { date: Date; view: string }) => boolean;
-  setTimeReservation: (time: number) => void;
+  setTimeReservation: (time: TimeReservation) => void;
+  setCustomer: (customer: UserOptionsSelect) => void;
+  attemptAddReservation: () => Promise<void>;
 }

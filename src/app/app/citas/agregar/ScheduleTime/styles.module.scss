@@ -1,0 +1,11 @@
+.scheduleProgrammed {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  gap: 5px 0;
+  align-items: flex-end;
+  text-align: right;
+  p{
+    margin:0;
+  }
+}

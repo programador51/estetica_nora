@@ -21,6 +21,9 @@ const ContextReservation = createContext<ReturnUseService>({
   setTimeReservation: () => {},
   tileDisabled: () => false,
   timeReservation: 0,
+  customer:undefined,
+  setCustomer:()=>{},
+  attemptAddReservation:async()=>{}
 });
 
 export default ContextReservation;

@@ -55,3 +55,11 @@ export function secondsToHHMM(seconds:number) {
 
   return `${formattedHours}:${formattedMinutes}`;
 }
+
+export function secondsToDate(seconds:number){
+  const currentDay = new Date();
+  currentDay.setHours(0,0,0,0);
+  currentDay.setSeconds(seconds)
+
+  return currentDay;
+}
