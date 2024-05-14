@@ -2,7 +2,6 @@
 import React from "react";
 import ui from "./styles.module.scss";
 import DateInput from "@/app/molecule/dateInput";
-import Input from "@/app/atom/input";
 import UsersSelect from "@/app/molecule/usersSelect";
 import Money from "@/app/atom/money";
 import Button from "@/app/atom/button";
@@ -13,6 +12,12 @@ import Services from "./services";
 import Time from "@/app/atom/time";
 import Spinner from "@/app/molecule/Spinner";
 import TimePicker from "react-time-picker";
+import {
+  secondsToHHMM,
+  secondsToTime,
+  timeStringToSeconds,
+} from "@/app/helpers/dates";
+import TimeField from "@/app/atom/timeField";
 
 export default function AddReservation() {
   const hook = useReservation();
@@ -34,7 +39,19 @@ export default function AddReservation() {
                 date instanceof Date ? hook.setDayReservation(date) : null
               }
             />
-            <TimePicker onChange={(e) => console.log(e)} />
+
+            <TimeField
+              clearIcon={false}
+              name="time"
+              required
+              shouldOpenClock={()=>false}
+              minTime={secondsToHHMM(hook.minTime)}
+              maxTime={secondsToHHMM(hook.maxTime)}
+              value={secondsToTime(hook.timeReservation)}
+              onChange={(time) =>
+                hook.setTimeReservation(timeStringToSeconds(time as string))
+              }
+            />
           </>
         )}
 

@@ -9,15 +9,19 @@ export interface OverviewCalculation {
 export interface StateUseReservation extends OverviewCalculation {
   isLoading: boolean;
   services: ServiceOption[];
-  day:Date;
-  disabledWeekDays:number[];
+  day: Date;
+  disabledWeekDays: number[];
+  minTime: number;
+  timeReservation: number;
+  maxTime: number;
 }
 
 export interface ReturnUseService extends StateUseReservation {
   appendService: (service: ServiceOption) => void;
   promptCancelation: () => Promise<void>;
-  schedule:ReturnUseTimeTablesItem;
+  schedule: ReturnUseTimeTablesItem;
   deleteService: (index: number) => void;
-  setDayReservation:(day:Date)=>void;
-  tileDisabled:({ date, view }: { date: Date; view: string })=>boolean;
+  setDayReservation: (day: Date) => void;
+  tileDisabled: ({ date, view }: { date: Date; view: string }) => boolean;
+  setTimeReservation: (time: number) => void;
 }

@@ -43,6 +43,47 @@
   }
 }
 
+.timeField{
+
+  *{
+    border:none !important;
+  }
+
+  position: relative;
+  height: 75px;
+  width: 100%;
+
+  > div{
+    position: absolute;
+    left:0;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    border:2.5px solid var(--secondaryBackground) !important; 
+    border-radius: 15px;
+    height: 50px;
+    background: white;
+    padding: 0 15px;
+    
+  }
+
+  label{
+    background: white;
+    padding: 3.5px 20px;
+    height: 25px;
+    text-align: left;
+    border-radius: 10px;
+    margin:-15px 0 0 10px;
+    position: absolute;
+    left:0;
+    z-index: 1;
+    top:25px;
+    display: flex;
+    align-items: center;
+    
+  }
+}
+
 @keyframes focusInput{
   from{
     border-color: transparent;

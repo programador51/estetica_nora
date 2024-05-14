@@ -8,7 +8,19 @@ const ContextReservation = createContext<ReturnUseService>({
   promptCancelation: async () => {},
   services: [],
   total: 0,
-  deleteService:()=>{},
+  deleteService: () => {},
+  day: new Date(),
+  disabledWeekDays: [],
+  maxTime: 0,
+  minTime: 0,
+  schedule: {
+    isLoading: true,
+    schedules: [],
+  },
+  setDayReservation: () => {},
+  setTimeReservation: () => {},
+  tileDisabled: () => false,
+  timeReservation: 0,
 });
 
 export default ContextReservation;

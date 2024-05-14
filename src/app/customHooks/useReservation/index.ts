@@ -15,6 +15,9 @@ const INITIAL_STATE: StateUseReservation = {
   total: 0,
   day: new Date(),
   disabledWeekDays: [],
+  minTime: 0,
+  maxTime: 0,
+  timeReservation:0,
 };
 
 export default function useReservation(id?: number): ReturnUseService {
@@ -48,13 +51,39 @@ export default function useReservation(id?: number): ReturnUseService {
   }, [state.services]);
 
   useEffect(() => {
+    const weekday = state.day.getDay();
+
+    const schedulesFound = schedule.schedules.filter(
+      (schedule) => schedule.day === weekday
+    );
+
+    // Initialize variables to hold the minimum startTime and maximum endTime
+    let minStartTime = Infinity;
+    let maxEndTime = -Infinity;
+
+    // Iterate through each time slot object
+    schedulesFound.forEach((slot) => {
+      // Update minStartTime if the current slot's startTime is smaller
+      minStartTime = Math.min(minStartTime, slot.startTime);
+
+      // Update maxEndTime if the current slot's endTime is larger
+      maxEndTime = Math.max(maxEndTime, slot.endTime);
+
+      setState((current) => ({
+        ...current,
+        maxTime: maxEndTime,
+        minTime: minStartTime,
+      }));
+    });
+
+  }, [state.day, schedule.schedules]);
+
+  useEffect(() => {
     let allowedWeekDays = new Set();
 
-    const weekDays = [1, 2, 3, 4, 5, 6,7];
+    const weekDays = [1, 2, 3, 4, 5, 6, 7];
 
-    schedule.schedules.forEach((schedule) =>
-      allowedWeekDays.add(schedule.day )
-    );
+    schedule.schedules.forEach((schedule) => allowedWeekDays.add(schedule.day));
 
     const parsedAllowedDays = Array.from(allowedWeekDays) as number[];
 
@@ -101,9 +130,15 @@ export default function useReservation(id?: number): ReturnUseService {
     return false; // Enable day otherwise
   };
 
+  const setTimeReservation = (time:number) => setState(current=>({
+    ...current,
+    timeReservation:time
+  }));
+
   return {
     promptCancelation,
     appendService,
+    setTimeReservation,
     deleteService,
     setDayReservation,
     schedule,
