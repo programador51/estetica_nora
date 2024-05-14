@@ -11,6 +11,8 @@ import useReservation from "@/app/customHooks/useReservation";
 import ContextReservation from "@/app/Contexts/ReservationContext";
 import Services from "./services";
 import Time from "@/app/atom/time";
+import Spinner from "@/app/molecule/Spinner";
+import TimePicker from "react-time-picker";
 
 export default function AddReservation() {
   const hook = useReservation();
@@ -19,8 +21,23 @@ export default function AddReservation() {
     <ContextReservation.Provider value={hook}>
       <div className={ui.container}>
         <h1 className={ui.header}>Alta cita</h1>
-        <DateInput />
-        <Input type="time" label="Hora" />
+
+        {hook.schedule.isLoading ? (
+          <Spinner text="Cargando horarios" />
+        ) : (
+          <>
+            <DateInput
+              minDate={new Date()}
+              value={hook.day}
+              tileDisabled={hook.tileDisabled}
+              onChange={(date) =>
+                date instanceof Date ? hook.setDayReservation(date) : null
+              }
+            />
+            <TimePicker onChange={(e) => console.log(e)} />
+          </>
+        )}
+
         <UsersSelect onChange={(user) => console.log(user.id)} />
         <ServicesSelect onChange={hook.appendService} />
 

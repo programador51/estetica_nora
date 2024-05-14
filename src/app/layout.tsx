@@ -5,7 +5,8 @@ import "@/app/globalLaptop.scss";
 import "@/app/variables.scss";
 import Navigation from "@/app/molecule/navigation";
 import Footer from "@/app/molecule/footer";
-
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
 const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
