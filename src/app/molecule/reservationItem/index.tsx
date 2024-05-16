@@ -3,6 +3,7 @@ import { ReservationItem as TypeReservationItem } from "./types";
 import Button from "@/app/atom/button";
 import ui from "./styles.module.scss";
 import useReservation from "@/app/customHooks/useReservation";
+import HandledImage from "@/app/atom/image";
 
 export default function ReservationItem({
   name,
@@ -13,14 +14,7 @@ export default function ReservationItem({
   return (
     <div className={ui.itemCard}>
       <div>
-        <img
-          src={
-            typeof urlPicture === "string"
-              ? urlPicture
-              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-          }
-          alt={`foto_de_perfil_${name}`}
-        />
+        <HandledImage src={urlPicture} alt={`foto_de_perfil_${name}`} />
 
         <div>
           <b>
