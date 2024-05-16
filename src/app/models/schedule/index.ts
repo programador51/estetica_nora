@@ -5,7 +5,6 @@ import {
 import { generateError } from "@/app/helpers/errors";
 import { PoolConnection, RowDataPacket } from "mysql2/promise";
 import { DtoAddScheduleItem, DtoScheduleItem } from "./types";
-import { KeysDayName } from "@/app/molecule/ScheduleCard/types";
 
 async function getSchedules(): Promise<DtoScheduleItem[]> {
   let db: PoolConnection;

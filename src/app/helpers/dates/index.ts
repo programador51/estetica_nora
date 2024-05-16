@@ -50,6 +50,16 @@ export function timeStringToSeconds(timeString: string | number) {
   }
 }
 
+export function formatDateToYYYYMMDD(date:Date) {
+  // Extract year, month, and day from the Date object
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(date.getDate()).padStart(2, '0');
+
+  // Concatenate year, month, and day with no separator
+  return `${year}-${month}-${day}`;
+}
+
 export function secondsToHHMM(seconds: number) {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);

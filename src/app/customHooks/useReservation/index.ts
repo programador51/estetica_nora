@@ -9,6 +9,8 @@ import {
 import { useEffect, useState } from "react";
 import useTimeTables from "@/app/customHooks/useTimeTables";
 import { UserOptionsSelect } from "@/app/molecule/usersSelect/types";
+import { addReservation } from "@/app/helpers/api/v1/reservation";
+import { formatDateToYYYYMMDD, secondsToHHMM } from "@/app/helpers/dates";
 
 const INITIAL_STATE: StateUseReservation = {
   isLoading: false,
@@ -133,10 +135,20 @@ export default function useReservation(id?: number): ReturnUseService {
   };
 
   const attemptAddReservation = async() => {
-    promptSuccess({
-      title:'Cita reservada',
-      text:'Reservación guardada con éxito, se puntual con la cita programada 🙌😁'
-    })
+    
+    if(state.customer===undefined) return
+
+    const wasAdded = await addReservation({
+      customer:state.customer.id || state.customer.value,
+      day:formatDateToYYYYMMDD(state.day),
+      services:state.services.map(service=>({
+        cost:service.costPrice,
+        id:service.id,
+        price:service.sellPrice
+      })),
+      timeStart:secondsToHHMM(state.timeReservation || 0)
+    });
+
   }
 
   const setTimeReservation = (time: TimeReservation) => {
