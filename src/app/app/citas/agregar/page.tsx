@@ -55,16 +55,21 @@ export default function AddReservation() {
         </div>
 
         <ScheduleTime />
-        <Button
-          onClick={hook.attemptAddReservation}
-          disabled={
-            hook.services.length <= 0 ||
-            hook.customer === undefined ||
-            typeof hook.timeReservation !== "number"
-          }
-        >
-          Crear reservación
-        </Button>
+
+        {hook.isUpdating ? (
+          <Spinner text="Aplicando reservación" />
+        ) : (
+          <Button
+            onClick={hook.attemptAddReservation}
+            disabled={
+              hook.services.length <= 0 ||
+              hook.customer === undefined ||
+              typeof hook.timeReservation !== "number"
+            }
+          >
+            Crear reservación
+          </Button>
+        )}
       </div>
     </ContextReservation.Provider>
   );

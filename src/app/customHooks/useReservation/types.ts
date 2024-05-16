@@ -18,6 +18,7 @@ export interface StateUseReservation extends OverviewCalculation {
   timeReservation: TimeReservation;
   maxTime: number;
   customer: UserOptionsSelect | undefined;
+  isUpdating:boolean;
 }
 
 export interface ReturnUseService extends StateUseReservation {

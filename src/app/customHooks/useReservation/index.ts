@@ -11,6 +11,7 @@ import useTimeTables from "@/app/customHooks/useTimeTables";
 import { UserOptionsSelect } from "@/app/molecule/usersSelect/types";
 import { addReservation } from "@/app/helpers/api/v1/reservation";
 import { formatDateToYYYYMMDD, secondsToHHMM } from "@/app/helpers/dates";
+import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateUseReservation = {
   isLoading: false,
@@ -23,12 +24,15 @@ const INITIAL_STATE: StateUseReservation = {
   maxTime: 0,
   timeReservation: 0,
   customer: undefined,
+  isUpdating: false,
 };
 
 export default function useReservation(id?: number): ReturnUseService {
   const [state, setState] = useState(INITIAL_STATE);
 
   const schedule = useTimeTables();
+
+  const router = useRouter();
 
   useEffect(() => {
     const overview = calculateOverview();
@@ -134,22 +138,32 @@ export default function useReservation(id?: number): ReturnUseService {
     return false; // Enable day otherwise
   };
 
-  const attemptAddReservation = async() => {
-    
-    if(state.customer===undefined) return
+  const attemptAddReservation = async () => {
+    if (state.customer === undefined) return;
+
+    setState((current) => ({
+      ...current,
+      isUpdating: true,
+    }));
 
     const wasAdded = await addReservation({
-      customer:state.customer.id || state.customer.value,
-      day:formatDateToYYYYMMDD(state.day),
-      services:state.services.map(service=>({
-        cost:service.costPrice,
-        id:service.id,
-        price:service.sellPrice
+      customer: state.customer.id || state.customer.value,
+      day: formatDateToYYYYMMDD(state.day),
+      services: state.services.map((service) => ({
+        cost: service.costPrice,
+        id: service.id,
+        price: service.sellPrice,
       })),
-      timeStart:secondsToHHMM(state.timeReservation || 0)
+      timeStart: secondsToHHMM(state.timeReservation || 0),
     });
 
-  }
+    setState((current) => ({
+      ...current,
+      isUpdating: false,
+    }));
+
+    if (wasAdded) router.push("/app/citas");
+  };
 
   const setTimeReservation = (time: TimeReservation) => {
     setState((current) => ({
