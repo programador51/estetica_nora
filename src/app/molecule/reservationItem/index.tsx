@@ -10,7 +10,6 @@ export default function ReservationItem({
   reservation,
   urlPicture = null,
 }: TypeReservationItem) {
-  const hook = useReservation(1);
   return (
     <div className={ui.itemCard}>
       <div>
@@ -35,9 +34,9 @@ export default function ReservationItem({
       </div>
 
       <div>
-        <Button theme="danger" onClick={hook.promptCancelation}>
+        {/* <Button theme="danger" onClick={hook.promptCancelation}>
           Cancelar reservación
-        </Button>
+        </Button> */}
         <Button theme="secondary">Ver detalle</Button>
       </div>
     </div>

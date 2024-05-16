@@ -23,7 +23,8 @@ const ContextReservation = createContext<ReturnUseService>({
   timeReservation: 0,
   customer:undefined,
   setCustomer:()=>{},
-  attemptAddReservation:async()=>{}
+  attemptAddReservation:async()=>{},
+  isUpdating:false
 });
 
 export default ContextReservation;

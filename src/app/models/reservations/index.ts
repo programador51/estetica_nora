@@ -69,7 +69,7 @@ async function add(dto: DtoAddReservation) {
 }
 
 async function paginated(
-  page: number|string
+  page: number | string
 ): Promise<ResDtoPaginated<DtoReservationPaginated>> {
   let db: PoolConnection;
 
@@ -100,9 +100,34 @@ async function paginated(
   }
 }
 
+async function cancel(id: number) {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    await db.query(`CALL CancelReservation(?)`, [id]);
+  } catch (error) {
+    const parsedError = error as any;
+    throw generateError(
+      "08cdadec-77b2-41a8-abf6-bf5c0cb069e3",
+      parsedError.message,
+      error
+    );
+  } finally {
+    db.release();
+  }
+}
+
 const model = {
   add,
   paginated,
+  cancel
 };
 
 export default model;
