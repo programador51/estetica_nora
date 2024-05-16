@@ -5,4 +5,5 @@ export const ContextReservations = createContext<ReturnUseReservationItem>({
   isLoading: true,
   page: 1,
   reservations: [],
+  pages:0
 });
