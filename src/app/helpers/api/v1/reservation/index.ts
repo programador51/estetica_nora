@@ -2,6 +2,8 @@ import { DtoAddReservation } from "@/app/api/v1/reservation/types";
 import { promptError } from "@/app/helpers/alerts";
 import { CustomError } from "@/app/helpers/errors/types";
 import { isOkRes } from "@/app/helpers/fetch";
+import { DtoReservationPaginated } from "@/app/models/reservations/types";
+import { ResDtoPaginated } from "../types";
 
 export async function addReservation(dto: DtoAddReservation) {
   try {
@@ -22,5 +24,32 @@ export async function addReservation(dto: DtoAddReservation) {
   } catch (error) {
     promptError(error as CustomError);
     return false;
+  }
+}
+
+export async function getReservationsPaginated(
+  page: number
+): Promise<ResDtoPaginated<DtoReservationPaginated>> {
+  const error_data: ResDtoPaginated<DtoReservationPaginated> = {
+    page: 1,
+    pages: 0,
+    records: [],
+    noRecordsFound: 0,
+  };
+
+  try {
+    const res = await fetch(`/api/v1/reservation/page/${page}`, {
+      method: "GET",
+    });
+
+    if (isOkRes(res)) {
+      const data: ResDtoPaginated<DtoReservationPaginated> = await res.json();
+
+      return data;
+    }
+
+    return error_data;
+  } catch (error) {
+    return error_data;
   }
 }
