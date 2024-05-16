@@ -2,14 +2,18 @@ import React from "react";
 import { ReservationItem as TypeReservationItem } from "./types";
 import Button from "@/app/atom/button";
 import ui from "./styles.module.scss";
-import useReservation from "@/app/customHooks/useReservation";
 import HandledImage from "@/app/atom/image";
+import useReservationCard from "@/app/customHooks/useReservationCard";
+import uiSpinner from "@/app/molecule/Spinner/styles.module.scss";
 
 export default function ReservationItem({
   name,
   reservation,
   urlPicture = null,
+  id
 }: TypeReservationItem) {
+  const hook = useReservationCard(id);
+
   return (
     <div className={ui.itemCard}>
       <div>
@@ -34,9 +38,17 @@ export default function ReservationItem({
       </div>
 
       <div>
-        {/* <Button theme="danger" onClick={hook.promptCancelation}>
-          Cancelar reservación
-        </Button> */}
+        <Button
+          theme="danger"
+          onClick={hook.promptCancellation}
+          disabled={hook.isCancelling}
+        >
+          {hook.isCancelling ? (
+            <span className={uiSpinner.loadingText}>Cancelando</span>
+          ) : (
+            "Cancelar reservación"
+          )}
+        </Button>
         <Button theme="secondary">Ver detalle</Button>
       </div>
     </div>

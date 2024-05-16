@@ -7,6 +7,7 @@ const INITIAL_STATE: StateUseReservations = {
   page: 1,
   isLoading: true,
   reservations: [],
+  pages:0,
 };
 
 export default function useReservations(): ReturnUseReservationItem {
@@ -26,6 +27,7 @@ export default function useReservations(): ReturnUseReservationItem {
           name: item.nombre,
           reservation: new Date(item.fechaReservacion),
           urlPicture: null,
+          id:item.id
         })
       );
 
@@ -33,6 +35,7 @@ export default function useReservations(): ReturnUseReservationItem {
         ...current,
         isLoading: false,
         reservations: itemsParsed,
+        pages:reservations.pages
       }));
     })();
   }, [state.page]);

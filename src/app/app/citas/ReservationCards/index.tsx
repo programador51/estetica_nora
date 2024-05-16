@@ -20,6 +20,7 @@ export default function ReservationCards() {
           name={item.name}
           reservation={item.reservation}
           urlPicture={item.urlPicture}
+          id={item.id}
         />
       ))}
     </div>

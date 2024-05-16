@@ -6,6 +6,7 @@ import Button from "@/app/atom/button";
 import ReservationCards from "./ReservationCards";
 import Link from "next/link";
 import { ContextReservations } from "@/app/Contexts/ReservationsContext";
+import Pagination from "@/app/molecule/pagination";
 
 export default function Reservations() {
   const hook = useReservations();
@@ -14,12 +15,14 @@ export default function Reservations() {
     <ContextReservations.Provider value={hook}>
       <div className={ui.header}>
         <h1>Citas</h1>
-        <Link href={'/app/citas/agregar'}>
-        <Button>Agregar reservación</Button>
+        <Link href={"/app/citas/agregar"}>
+          <Button>Agregar reservación</Button>
         </Link>
       </div>
 
       <ReservationCards />
+
+      <Pagination page={hook.page} pages={hook.pages} />
     </ContextReservations.Provider>
   );
 }

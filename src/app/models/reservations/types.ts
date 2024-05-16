@@ -6,4 +6,5 @@ export interface DtoReservationPaginated {
   hasta: string;
   administrador: number;
   estatus: string;
+  id:number;
 }

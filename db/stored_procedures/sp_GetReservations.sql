@@ -12,10 +12,16 @@ BEGIN
     -- Get total number of records
     SELECT COUNT(*) INTO total_records FROM Reservaciones;
 
-    -- Retrieve paginated records
-    SELECT cuenta, total, nombre, fechaReservacion, hasta, administrador, estatus
-    FROM Reservaciones
-
+    -- Retrieve paginated records    -- Retrieve paginated records
+    SELECT cuenta,
+           total,
+           nombre,
+           fechaReservacion,
+           hasta,
+           administrador,
+           estatus,
+           id
+    FROM Reservaciones    ORDER BY id DESC
     LIMIT rows_per_page OFFSET offset_value;
 
     CALL CalculateTotalPages(total_records, rows_per_page, total_pages);

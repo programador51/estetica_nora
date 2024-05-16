@@ -1,5 +1,6 @@
 create
-    definer = uclxadpcaqdi0ofu@`%` procedure AddReservation(IN day_param date, IN time_param time, IN finish_param time)
+    definer = uclxadpcaqdi0ofu@`%` procedure AddReservation(IN day_param date, IN time_param time, IN finish_param time,
+                                                            IN total_param decimal(10, 2))
 BEGIN
     SET @weekdayNumber = DAYOFWEEK(day_param) - 1;
     SET @weekdayName = CASE @weekdayNumber
@@ -18,8 +19,8 @@ BEGIN
     INTO @schedulesFound
     FROM Horario
     WHERE dia = @weekdayName
-      AND time_param >= Horario.desde
-      AND finish_param <= Horario.hasta;
+      AND (time_param >= Horario.desde
+        OR finish_param <= Horario.hasta);
 
 #     Validate there's a schedule for that day
     IF @schedulesFound <= 0 THEN
@@ -41,11 +42,14 @@ BEGIN
     WHERE fechaReservacion >= @startDateTime
       AND hasta <= @endDateTime;
 
-    IF @schedulesFound > 0 THEN
+
+    IF @numberOfReservationsOverlap >= 1 THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT =
                     'No se puede hacer la cita, ya esta ocupado el horario que se solicita';
     END IF;
 
+    INSERT INTO Reservaciones (cuenta, total, fechaReservacion, hasta, estatus, administrador)
+    VALUES (1, total_param, @startDateTime, @endDateTime, 'reservado', 2);
 END;
 
