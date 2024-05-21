@@ -16,6 +16,8 @@ const ContextService = createContext<ReturnUseService>({
   schedule: {
     isLoading: false,
     schedules: [],
+    refetch:false,
+    refetchSchedule:()=>{}
   },
   setDayReservation: () => {},
   setTimeReservation: () => {},
