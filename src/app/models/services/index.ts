@@ -32,9 +32,10 @@ async function addService(dto: DtoAddService): Promise<number> {
         ?,
         ?,
         ?,
+        ?,
         ?
     );`,
-      [dto.precio, dto.costo, dto.tolerancia, dto.duracion, 0, dto.descripcion]
+      [dto.precio, dto.costo, dto.tolerancia, dto.duracion, 0, dto.descripcion,dto.titulo]
     );
 
     return result[0][0].id;
