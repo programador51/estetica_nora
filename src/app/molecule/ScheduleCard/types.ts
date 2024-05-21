@@ -1,6 +1,5 @@
 export interface TimeTablesItem {
   id:string|number;
-  urlPicture?: string | null;
   day: KeysDayName;
   /**
    * En ms
@@ -12,7 +11,11 @@ export interface TimeTablesItem {
    */
   endTime: number;
 
-  onDelete?: (() => void)|undefined;
+  /**
+   * Callback executed when the user confirms the delete of an item
+   * @returns {void}
+   */
+  onDeleted?:()=>void;
 }
 
 export type KeysDayName = 1 | 2 | 3 | 4 | 5 | 6 | 7;

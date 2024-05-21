@@ -19,9 +19,8 @@ export default function HorariosCards() {
           endTime={item.endTime}
           id={item.id}
           startTime={item.startTime}
-          onDelete={undefined}
           key={`${key.current}-${i}`}
-          urlPicture={""}
+          onDeleted={hook.refetchSchedule}
         />
       ))}
     </>

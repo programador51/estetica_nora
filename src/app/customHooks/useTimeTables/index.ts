@@ -5,6 +5,7 @@ import { getSchedule } from "@/app/helpers/api/v1/schedule";
 const INITIAL_STATE: StateUseTimeTables = {
   isLoading: true,
   schedules: [],
+  refetch: false,
 };
 
 export default function useTimeTables(): ReturnUseTimeTablesItem {
@@ -30,9 +31,17 @@ export default function useTimeTables(): ReturnUseTimeTablesItem {
         })),
       }));
     })();
-  }, []);
+  }, [state.refetch]);
+
+  const refetchSchedule = () => {
+    setState((current) => ({
+      ...current,
+      refetch: !current.refetch,
+    }));
+  };
 
   return {
     ...state,
+    refetchSchedule
   };
 }

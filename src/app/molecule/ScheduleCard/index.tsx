@@ -1,9 +1,10 @@
 import ui from "@/app/app/horarios/agregar/styles.module.scss";
-import React from "react";
+import React, { useState } from "react";
 import { DayName, TimeTablesItem } from "./types";
 import Button from "@/app/atom/button";
 import { promptConfirmation } from "@/app/helpers/alerts";
 import { secondsToTime } from "@/app/helpers/dates";
+import { deleteSchedule } from "@/app/helpers/api/v1/schedule";
 
 const NAME_DATE: DayName = {
   1: "Lunes",
@@ -20,16 +21,31 @@ export default function Schedule({
   endTime,
   startTime,
   id,
-  urlPicture = "",
-  onDelete = undefined,
+  onDeleted = () => {},
 }: TimeTablesItem) {
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const handleOnDelete = async () => {
     const { isConfirmed } = await promptConfirmation({
       title: "Borrar horario",
       text: "Estas seguro, esta acción no se puede des-hacer",
     });
 
-    if (isConfirmed && onDelete !== undefined) onDelete();
+    setIsDeleting(true);
+
+    if (isConfirmed && typeof id !== "number") {
+      onDeleted();
+      setIsDeleting(false);
+      return;
+    }
+
+    if (isConfirmed && typeof id === "number") {
+      const wasDeleted = await deleteSchedule(id);
+
+      if (wasDeleted) onDeleted();
+
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -47,13 +63,11 @@ export default function Schedule({
         </div>
       </div>
 
-      {onDelete === undefined ? null : (
-        <div>
-          <Button theme="danger" onClick={handleOnDelete}>
-            Borrar
-          </Button>
-        </div>
-      )}
+      <div>
+        <Button disabled={isDeleting} theme="danger" onClick={handleOnDelete}>
+          Borrar
+        </Button>
+      </div>
     </div>
   );
 }

@@ -62,3 +62,29 @@ export async function attemptAddSchedule(schedules: DtoAddScheduleItem[]) {
     return false;
   }
 }
+
+/**
+ * 
+ * @param id - Id of the schedule to delete from the system
+ */
+export async function deleteSchedule(id: number) {
+  try {
+    const res = await fetch(`/api/v1/schedule/delete/${id}`, {
+      method: "DELETE",
+    });
+
+    if (isOkRes(res)) {
+      return true;
+    }
+
+    const error: CustomError = await res.json();
+
+    promptError(error);
+
+    return false;
+  } catch (error) {
+    promptError(error as CustomError);
+
+    return false;
+  }
+}
