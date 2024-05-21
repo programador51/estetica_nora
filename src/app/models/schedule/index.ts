@@ -74,9 +74,32 @@ async function addSchedules(schedules: DtoAddScheduleItem[] = []) {
   }
 }
 
+/**
+ * Delete a schedule from the app, users won't be longer to do reservation on that time anymore
+ * @param id - Id of the schedule to delete
+ */
+async function cancelSchedule(id: number) {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    await db.query(`CALL DeleteSchedule(?)`, [id]);
+  } catch (error) {
+  } finally {
+    db.release();
+  }
+}
+
 const model = {
   get: getSchedules,
   add: addSchedules,
+  cancel:cancelSchedule
 };
 
 export default model;
