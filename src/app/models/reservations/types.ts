@@ -1,3 +1,5 @@
+export type ReservationStatus = 'cancelado' | 'terminado' | 'reservado';
+
 export interface DtoReservationPaginated {
   cuenta: number | null;
   total: string;
@@ -5,6 +7,6 @@ export interface DtoReservationPaginated {
   fechaReservacion: string;
   hasta: string;
   administrador: number;
-  estatus: string;
+  estatus: ReservationStatus;
   id:number;
 }

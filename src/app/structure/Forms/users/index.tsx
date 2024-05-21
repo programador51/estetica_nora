@@ -15,6 +15,7 @@ import ConfirmPasswords, {
 } from "@/app/molecule/confirmPasswords";
 import Files, { FileInput, FilesList } from "@/app/molecule/files";
 import ui from "./styles.module.scss";
+import { DtoLoginUser, DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
 
 const FormUsersContext = createContext<ReturnUseFormUsers>({
   form: undefined,
@@ -23,12 +24,19 @@ const FormUsersContext = createContext<ReturnUseFormUsers>({
 export default function FormUsers(props: PropsFormUsers) {
   const hook = useFormUsers(props.type);
 
+  const { onSubmitedForm = () => {} } = props;
+
+  const handleSubmit = (data:DtoRegisterUser | DtoLoginUser) => {
+    if(props.type==='register') onSubmitedForm(data as DtoRegisterUser);
+    else onSubmitedForm(data as DtoLoginUser);
+  }
+
   return (
     <FormUsersContext.Provider value={hook}>
       <form
         {...props}
         noValidate
-        onSubmit={hook.form?.handleSubmit(console.log, console.log)}
+        onSubmit={hook.form?.handleSubmit(handleSubmit, e=>console.log('ERROR',e))}
       >
         {props.children}
       </form>

@@ -3,11 +3,12 @@
   flex-direction: column;
   gap: 10px;
 
-  svg{
-    fill:rgb(31, 31, 31);
+  svg {
+    fill: rgb(31, 31, 31);
   }
 
-  img,svg {
+  img,
+  svg {
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -28,4 +29,21 @@
   background: var(--secondaryBackground);
   border-radius: 10px;
   padding: 20px;
+}
+
+.cancelado {
+  color: var(--danger);
+  font-weight: bold;
+}
+
+.terminado,
+.reservado {
+  color: rgb(29, 114, 29);
+  font-weight: bold;
+}
+
+.overviewReservation{
+  display: flex;
+  flex-direction: column;
+  gap:5px 0;
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StateReservationCard } from "./types";
+import { ReturnReservationCard, StateReservationCard } from "./types";
 import { promptConfirmation } from "@/app/helpers/alerts";
 import { cancelReservation } from "@/app/helpers/api/v1/reservation";
 
@@ -7,7 +7,7 @@ const INITIAL_STATE: StateReservationCard = {
   isCancelling: false,
 };
 
-export default function useReservationCard(id: number) {
+export default function useReservationCard(id: number,onCancelated = () => {}):ReturnReservationCard {
   const [state, setState] = useState(INITIAL_STATE);
 
   const promptCancellation = async () => {
@@ -23,6 +23,8 @@ export default function useReservationCard(id: number) {
       }));
 
       const wasCancelated = await cancelReservation(id);
+
+      if(wasCancelated) onCancelated()
 
       setState((current) => ({
         ...current,

@@ -5,6 +5,7 @@ const ContextRegisterUser = createContext<ReturnUseRegisterUser>({
     isRegistering:false,
     profilePicture:null,
     setProfilePicture:()=>{},
+    attemptRegisterUser:async()=>{}
 });
 
 export default ContextRegisterUser;

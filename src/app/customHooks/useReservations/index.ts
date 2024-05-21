@@ -8,6 +8,7 @@ const INITIAL_STATE: StateUseReservations = {
   isLoading: true,
   reservations: [],
   pages:0,
+  refetch:false
 };
 
 export default function useReservations(): ReturnUseReservationItem {
@@ -27,7 +28,8 @@ export default function useReservations(): ReturnUseReservationItem {
           name: item.nombre,
           reservation: new Date(item.fechaReservacion),
           urlPicture: null,
-          id:item.id
+          id:item.id,
+          estatus:item.estatus
         })
       );
 
@@ -38,9 +40,16 @@ export default function useReservations(): ReturnUseReservationItem {
         pages:reservations.pages
       }));
     })();
-  }, [state.page]);
+  }, [state.page,state.refetch]);
+
+  const refetchServices = () => setState(current=>({
+    ...current,
+    page:1,
+    refetch:!current.refetch
+  }));
 
   return {
     ...state,
+    refetchServices
   };
 }

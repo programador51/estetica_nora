@@ -16,11 +16,13 @@ export default function ReservationCards() {
     <div className={ui.items}>
       {hook.reservations.map((item, i) => (
         <ReservationItem
+          estatus={item.estatus}
           key={`${key.current}-${i}`}
           name={item.name}
           reservation={item.reservation}
           urlPicture={item.urlPicture}
           id={item.id}
+          onCancelated={hook.refetchServices}
         />
       ))}
     </div>

@@ -36,7 +36,7 @@ export async function getReservationsPaginated(
 ): Promise<ResDtoPaginated<DtoReservationPaginated>> {
   const error_data: ResDtoPaginated<DtoReservationPaginated> = {
     page: 1,
-    pages: 0,
+    pages: 1,
     records: [],
     noRecordsFound: 0,
   };
@@ -48,12 +48,16 @@ export async function getReservationsPaginated(
 
     if (isOkRes(res)) {
       const data: ResDtoPaginated<DtoReservationPaginated> = await res.json();
-
       return data;
     }
 
+    const error:CustomError = await res.json();
+
+    promptError(error)
+
     return error_data;
   } catch (error) {
+    promptError(error as CustomError)
     return error_data;
   }
 }

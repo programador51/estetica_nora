@@ -1,5 +1,12 @@
 import { UserOption } from "@/app/molecule/usersSelect/types";
 import { NextRequest, NextResponse } from "next/server";
+import email from "@/app/models/email";
+import { readFormData } from "@/app/helpers/fetch";
+import { DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
+
+interface PostUser {
+  [key: string | "dto"]: File | string;
+}
 
 export async function GET(req: NextRequest) {
   const dbRecords: UserOption[] = [
@@ -61,11 +68,35 @@ export async function GET(req: NextRequest) {
   ];
 
   try {
-    return NextResponse.json(dbRecords,{
-      status:200,
+    return NextResponse.json(dbRecords, {
+      status: 200,
     });
   } catch (error) {
     console.log(error);
     return NextResponse.json([]);
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const formData = await readFormData<PostUser>(req);
+
+    const dto: DtoRegisterUser =
+      typeof formData.dto === "string" ? JSON.parse(formData?.dto) : {};
+
+    email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
+
+    return NextResponse.json(
+      {
+        message: "Cuenta creada con éxito",
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    return NextResponse.json(error, {
+      status: 500,
+    });
   }
 }

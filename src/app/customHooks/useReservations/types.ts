@@ -4,7 +4,10 @@ export interface StateUseReservations {
   page: number;
   isLoading: boolean;
   reservations: ReservationItem[];
-  pages:number;
+  pages: number;
+  refetch: boolean;
 }
 
-export interface ReturnUseReservationItem extends StateUseReservations {}
+export interface ReturnUseReservationItem extends StateUseReservations {
+  refetchServices: () => void;
+}

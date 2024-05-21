@@ -19,5 +19,6 @@ export interface StateUseRegisterUser {
 }
 
 export interface ReturnUseRegisterUser extends StateUseRegisterUser {
-  setProfilePicture: (pictures: File|null) => void;
+  setProfilePicture: (pictures: File | null) => void;
+  attemptRegisterUser: (data: DtoRegisterUser) => Promise<void>;
 }

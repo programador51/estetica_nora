@@ -9,6 +9,7 @@ import useNavigation, {
 } from "@/app/customHooks/useNavigation";
 import { ReturnUseNavigation } from "@/app/customHooks/useNavigation/types";
 import BurguerButton from "@/app/molecule/navigation/burguerButton";
+import HandledImage from "@/app/atom/image";
 
 export const ContextNavigation = createContext<ReturnUseNavigation>({
   ...INITIAL_STATE,
@@ -23,7 +24,8 @@ export default function Navigation() {
       <Menu />
       <nav className={ui.nav}>
         <Link href={"/"}>
-          <img src="/logo.png" alt="estética_nora_logo" />
+          <HandledImage src="/logo.png" alt="estética_nora_logo" />
+
           <div>
             <p>Estética Nora</p>
             <p>Unisex</p>
@@ -31,7 +33,7 @@ export default function Navigation() {
         </Link>
 
         <button onClick={hook.toggleMenu}>
-          <BurguerButton/>
+          <BurguerButton />
         </button>
       </nav>
     </ContextNavigation.Provider>
