@@ -59,7 +59,7 @@ export default function Schedules() {
       {hook.schedules.map((schedule, i) => (
         <Schedule
           id={schedule.id}
-          onDelete={() => hook.deleteSchedule(i)}
+          onDeleted={() => hook.deleteSchedule(i)}
           key={`${key.current}-${i}`}
           day={schedule.day}
           endTime={schedule.endTime}
