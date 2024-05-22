@@ -7,7 +7,7 @@ export const INITIAL_STATE: StateUseApp = {
     fullName: "Nora",
     phone: "+52 81 2173 2091",
     email: "correo@correo.com",
-    type: "admin",
+    type: "administrador",
     picture: "",
   },
 };

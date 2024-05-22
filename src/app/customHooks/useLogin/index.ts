@@ -3,7 +3,7 @@ import { ReturnUseLogin, StateUseLogin } from "./types";
 import { TypeAccount } from "@/app/molecule/typeAccount/types";
 
 const INITIAL_STATE: StateUseLogin = {
-  type: "user",
+  type: "administrador",
   isLoging: false,
 };
 

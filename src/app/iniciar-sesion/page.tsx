@@ -18,7 +18,7 @@ export default function Login() {
         <Input
           placeholder="Escribe aquí"
           label={
-            hook.type === "user" ? "Correo usuario" : "Correo administrador"
+            hook.type === "usuario" ? "Correo usuario" : "Correo administrador"
           }
           type="email"
         />

@@ -30,5 +30,7 @@ begin
     VALUES (telefono_param, correo_param, primerNombre_param,
             segundoNombre_param, apellidoP_param, apellidoM_param,
             tipoCuenta_param, contrasena_param, null, foto_param, 0);
+
+    SELECT LAST_INSERT_ID() AS id;
 end;
 

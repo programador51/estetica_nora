@@ -2,11 +2,13 @@ import {
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
-import { PoolConnection } from "mysql2/promise";
+import { PoolConnection, RowDataPacket } from "mysql2/promise";
 import bcrypt from "bcrypt";
 import { DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
 import { generateError } from "@/app/helpers/errors";
 import { CustomError } from "@/app/helpers/errors/types";
+import { TypeAccount } from "@/app/molecule/typeAccount/types";
+import { DtoUser } from "./types";
 
 async function createUser(
   dto: DtoRegisterUser,
@@ -23,8 +25,10 @@ async function createUser(
 
   const hashedPassword = bcrypt.hashSync(dto.contrasena, 10);
 
+  let idUser = 0;
+
   try {
-    await db.query(
+    const [result] = await db.query<RowDataPacket[]>(
       `CALL AddAccount(
         ?,
         ?,
@@ -45,9 +49,12 @@ async function createUser(
         dto.apellidoMaterno,
         dto.tipoDeCuenta,
         hashedPassword,
-        null,
+        urlProfilePicture,
       ]
     );
+
+    idUser = result[0][0].id;
+
   } catch (error) {
     const parsed = error as CustomError;
     throw generateError(
@@ -55,6 +62,50 @@ async function createUser(
       parsed.message,
       error
     );
+  } finally {
+    db.release();
+  }
+
+  try {
+    const user = await getUser("usuario", idUser, null);
+    return user;
+  } catch (error) { throw error}
+}
+
+/**
+ * Fetch the information of an account with his id
+ * @param id - Id of the user to fetch their data
+ */
+async function getUser(
+  type: TypeAccount,
+  id: number,
+  email: string | null = null
+): Promise<DtoUser> {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    const [result] = await db.query<RowDataPacket[]>(`CALL GetAccount(?,?,?)`, [
+      id,
+      email,
+      type,
+    ]);
+
+    return result[0][0] as DtoUser;
+  } catch (error) {
+    throw generateError(
+      "73361359-ab22-4e22-baae-aae09cda2c66",
+      "No se pudo obtener la cuenta, reportar a soporte",
+      error
+    );
+  } finally {
+    db.release();
   }
 }
 

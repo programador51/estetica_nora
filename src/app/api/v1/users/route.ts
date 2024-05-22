@@ -7,6 +7,7 @@ import user from "@/app/models/users";
 import { model as blob, uploadToBlobStorage } from "@/app/models/gallery";
 import { retrieveFilesFromReq } from "@/app/helpers/api/v1/files";
 import { Data } from "@/app/models/gallery/types";
+import jwt from "jsonwebtoken";
 
 interface PostUser {
   [key: string | "dto"]: File | string;
@@ -83,11 +84,13 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: Request) {
   try {
+    // Retrieve data from http request
     const formData = await readFormData<PostUser>(req);
 
     const dto: DtoRegisterUser =
       typeof formData.dto === "string" ? JSON.parse(formData?.dto) : {};
 
+    // Read profile picture and upload
     const files = retrieveFilesFromReq(formData);
 
     let resApiBlob: Data | null = null;
@@ -98,18 +101,53 @@ export async function POST(req: Request) {
 
     const url = resApiBlob !== null ? resApiBlob.medium.url : null;
 
-    await user.create(dto, url);
+    // Create account with information
+    let accountCreated = await user.create(dto, url);
 
+    // Delete password from response object
+    let unrefAccounted = { ...accountCreated };
+
+    delete unrefAccounted.contrasena_hash;
+    delete unrefAccounted.contrasena_hash_temporal;
+
+    // Send email confirmation account creation
     email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
 
-    return NextResponse.json(
+    // Sign tokens for auth
+    const accessToken = jwt.sign(
+      unrefAccounted,
+      process.env.JWT_ACCESS_TOKEN || "ND"
+    );
+    const refreshToken = jwt.sign(
+      unrefAccounted,
+      process.env.JWT_REFRESH_TOKEN || "ND",
       {
-        message: "Cuenta creada con éxito",
-      },
-      {
-        status: 200,
+        expiresIn: "1h",
       }
     );
+
+    const res = NextResponse.json({
+      message: "Cuenta creada con éxito",
+      dto: unrefAccounted,
+      accessToken,
+      refreshToken,
+    });
+
+    res.cookies.set({
+      name: "nora_access",
+      value: accessToken,
+      httpOnly: true,
+      sameSite: "strict",
+    });
+
+    res.cookies.set({
+      name: "nora_refresh",
+      value: refreshToken,
+      httpOnly: true,
+      sameSite: "strict",
+    });
+
+    return res;
   } catch (error) {
     return NextResponse.json(error, {
       status: 500,

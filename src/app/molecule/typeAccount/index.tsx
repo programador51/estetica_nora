@@ -5,7 +5,7 @@ import { PropsTypeAccount, TypeAccount as IntTypeAccount } from "./types";
 
 export default function TypeAccount({
   onChange = () => {},
-  value = "user",
+  value = "usuario",
 }: PropsTypeAccount) {
   const idUser = v4();
   const idAdmin = v4();
@@ -19,9 +19,9 @@ export default function TypeAccount({
           type="radio"
           name={"typeUser"}
           id={idUser}
-          value="user"
+          value="usuario"
           onChange={(e) => onChange(e.target.value as IntTypeAccount)}
-          checked={value === "user"}
+          checked={value === "usuario"}
         />
         <label htmlFor={idUser}>
           <svg
@@ -43,9 +43,9 @@ export default function TypeAccount({
           type="radio"
           name={"typeUser"}
           id={idAdmin}
-          value={"admin"}
+          value={"administrador"}
           onChange={(e) => onChange(e.target.value as IntTypeAccount)}
-          checked={value === "admin"}
+          checked={value === "administrador"}
         />
         <label htmlFor={idAdmin}>
           <svg

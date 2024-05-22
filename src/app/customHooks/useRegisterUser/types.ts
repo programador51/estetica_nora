@@ -1,4 +1,4 @@
-type TypeAccount = 'administrador'|'usuario'|'superAdministrador';
+import { TypeAccount } from "@/app/molecule/typeAccount/types";
 
 export interface DtoRegisterUser {
   correo: string;
