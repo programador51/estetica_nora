@@ -1,35 +1,38 @@
 "use client";
 import React from "react";
-import Input from "@/app/atom/input";
 import Button from "@/app/atom/button";
 import ui from "./styles.module.scss";
 import TypeAccount from "@/app/molecule/typeAccount";
 import Link from "next/link";
 import useLogin from "@/app/customHooks/useLogin";
+import FormUsers, { Email, Password } from "@/app/structure/Forms/users";
 
 export default function Login() {
   const hook = useLogin();
 
   return (
     <div className={ui.loginContainer}>
-      <form className={ui.login}>
+      <FormUsers
+        type="login"
+        className={ui.login}
+        onSubmitedForm={(data) => hook.attemptLoginUser(data)}
+      >
         <h1>Iniciar sesión</h1>
 
-        <Input
-          placeholder="Escribe aquí"
+        <Email
           label={
             hook.type === "usuario" ? "Correo usuario" : "Correo administrador"
           }
-          type="email"
         />
-
-        <Input placeholder="Escribe aquí" label="Contraseña" type="password" />
+        <Password label="Contraseña" placeholder="Escribe aquí" />
 
         <TypeAccount onChange={hook.setTypeAccount} value={hook.type} />
 
-        <Link href={"/app/citas"}>
+        {/* <Link href={"/app/citas"}>
           <Button type="button">Ingresar</Button>
-        </Link>
+        </Link> */}
+
+        <Button type="submit">Ingresar</Button>
 
         <Link href={"/olvide-cuenta"}>
           <Button type="button" theme="secondary">
@@ -42,7 +45,7 @@ export default function Login() {
             Crear cuenta
           </Button>
         </Link>
-      </form>
+      </FormUsers>
     </div>
   );
 }

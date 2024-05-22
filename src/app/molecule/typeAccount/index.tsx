@@ -41,7 +41,7 @@ export default function TypeAccount({
 
         <input
           type="radio"
-          name={"typeUser"}
+          name={"tipoDeCuenta"}
           id={idAdmin}
           value={"administrador"}
           onChange={(e) => onChange(e.target.value as IntTypeAccount)}

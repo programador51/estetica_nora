@@ -15,7 +15,11 @@ import ConfirmPasswords, {
 } from "@/app/molecule/confirmPasswords";
 import Files, { FileInput, FilesList } from "@/app/molecule/files";
 import ui from "./styles.module.scss";
-import { DtoLoginUser, DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
+import {
+  DtoLoginUser,
+  DtoRegisterUser,
+} from "@/app/customHooks/useRegisterUser/types";
+import { PropsInput } from "@/app/atom/input/types";
 
 const FormUsersContext = createContext<ReturnUseFormUsers>({
   form: undefined,
@@ -26,17 +30,19 @@ export default function FormUsers(props: PropsFormUsers) {
 
   const { onSubmitedForm = () => {} } = props;
 
-  const handleSubmit = (data:DtoRegisterUser | DtoLoginUser) => {
-    if(props.type==='register') onSubmitedForm(data as DtoRegisterUser);
+  const handleSubmit = (data: DtoRegisterUser | DtoLoginUser) => {
+    if (props.type === "register") onSubmitedForm(data as DtoRegisterUser);
     else onSubmitedForm(data as DtoLoginUser);
-  }
+  };
 
   return (
     <FormUsersContext.Provider value={hook}>
       <form
         {...props}
         noValidate
-        onSubmit={hook.form?.handleSubmit(handleSubmit, e=>console.log('ERROR',e))}
+        onSubmit={hook.form?.handleSubmit(handleSubmit, (e) =>
+          console.log("ERROR", e)
+        )}
       >
         {props.children}
       </form>
@@ -48,13 +54,11 @@ export function ProfilePicture({
   id,
   onChange = () => {},
 }: PropsInputProfilePic) {
-  const [profilePicture, setProfilePicture] = useState<File | null>(
-    null
-  );
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
 
-  useEffect(()=>{
-    onChange(profilePicture)
-  },[profilePicture])
+  useEffect(() => {
+    onChange(profilePicture);
+  }, [profilePicture]);
 
   return (
     <div>
@@ -75,7 +79,7 @@ export function ProfilePicture({
   );
 }
 
-export function Email() {
+export function Email(props:PropsInput) {
   const hook = useContext(FormUsersContext);
 
   if (hook.form === undefined) return <></>;
@@ -89,9 +93,9 @@ export function Email() {
           <Input
             {...field}
             placeholder="Escribe aquí"
-            label="Correo"
             type="email"
             autoComplete="off"
+            {...props}
           />
 
           <ErrorMessage
@@ -272,6 +276,30 @@ export function PasswordConfirmation() {
 
             <ErrorPassword />
           </ConfirmPasswords>
+
+          <ErrorMessage
+            errors={hook.form?.formState.errors}
+            name="contrasena"
+            render={({ message }) => <CustomError>{message}</CustomError>}
+          />
+        </div>
+      )}
+    />
+  );
+}
+
+export function Password(props: PropsInput) {
+  const hook = useContext(FormUsersContext);
+
+  if (hook.form === undefined) return <></>;
+
+  return (
+    <Controller
+      name="contrasena"
+      control={hook.form.control}
+      render={({ field }) => (
+        <div>
+          <Input {...field} type="password" {...props} />
 
           <ErrorMessage
             errors={hook.form?.formState.errors}
