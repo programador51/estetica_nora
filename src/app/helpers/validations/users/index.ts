@@ -34,11 +34,16 @@ const contrasena = yup
   .max(256, "Máximo 256 caracteres")
   .required("Campo obligatorio");
 
-const telefono = yup.string();
+const telefono = yup
+  .string()
+  .required("Teléfono obligatorio")
+  .min(12, "Tienes que proporcionar los 10 números del teléfono");
 
-const tipoDeCuenta = yup.string().oneOf([
-  'administrador','usuario','superAdministrador'
-]).required('El tipo de cuenta es obligatorio').default('usuario');
+const tipoDeCuenta = yup
+  .string()
+  .oneOf(["administrador", "usuario", "superAdministrador"])
+  .required("El tipo de cuenta es obligatorio")
+  .default("usuario");
 
 export const schemaRegisterUsers = yup.object().shape({
   correo,
@@ -48,11 +53,11 @@ export const schemaRegisterUsers = yup.object().shape({
   apellidoMaterno,
   contrasena,
   telefono,
-  tipoDeCuenta
+  tipoDeCuenta,
 });
 
 export const schemaLoginUsers = yup.object().shape({
   correo,
   contrasena,
-  tipoDeCuenta
+  tipoDeCuenta,
 });

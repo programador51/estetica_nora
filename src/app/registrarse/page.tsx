@@ -22,33 +22,33 @@ export default function Register() {
 
   return (
     <ContextRegisterUser.Provider value={hook}>
-      <FormUsers
-        type="register"
-        className={ui.containerRegister}
-        onSubmitedForm={(data) =>
-          hook.attemptRegisterUser(data as DtoRegisterUser)
-        }
-      >
-        <h1>Registro cuenta</h1>
+        <FormUsers
+          type="register"
+          className={ui.containerRegister}
+          onSubmitedForm={(data) =>
+            hook.attemptRegisterUser(data as DtoRegisterUser)
+          }
+        >
+          <h1>Registro cuenta</h1>
 
-        <ProfilePicture onChange={hook.setProfilePicture} />
+          <ProfilePicture onChange={hook.setProfilePicture} />
 
-        <Email />
-        <Phone />
-        <FirstName />
-        <MiddleName />
-        <MotherName />
-        <ParentName />
-        <PasswordConfirmation />
+          <Email />
+          <Phone />
+          <FirstName />
+          <MiddleName />
+          <MotherName />
+          <ParentName />
+          <PasswordConfirmation />
 
-        {hook.isRegistering ? (
-          <Spinner text="Creando cuenta" />
-        ) : (
-          <Button type="submit" disabled={hook.isRegistering}>
-            Registrarse
-          </Button>
-        )}
-      </FormUsers>
-    </ContextRegisterUser.Provider>
+          {hook.isRegistering ? (
+            <Spinner text="Creando cuenta" />
+          ) : (
+            <Button type="submit" disabled={hook.isRegistering}>
+              Registrarse
+            </Button>
+          )}
+        </FormUsers>
+      </ContextRegisterUser.Provider>
   );
 }

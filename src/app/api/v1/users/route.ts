@@ -3,7 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import email from "@/app/models/email";
 import { readFormData } from "@/app/helpers/fetch";
 import { DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
-import user from '@/app/models/users';
+import user from "@/app/models/users";
+import { model as blob, uploadToBlobStorage } from "@/app/models/gallery";
+import { retrieveFilesFromReq } from "@/app/helpers/api/v1/files";
+import { Data } from "@/app/models/gallery/types";
 
 interface PostUser {
   [key: string | "dto"]: File | string;
@@ -85,9 +88,19 @@ export async function POST(req: Request) {
     const dto: DtoRegisterUser =
       typeof formData.dto === "string" ? JSON.parse(formData?.dto) : {};
 
-      await user.create(dto);
+    const files = retrieveFilesFromReq(formData);
 
-      email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
+    let resApiBlob: Data | null = null;
+
+    if (files.length > 0) {
+      resApiBlob = await uploadToBlobStorage(files[0]);
+    }
+
+    const url = resApiBlob !== null ? resApiBlob.medium.url : null;
+
+    await user.create(dto, url);
+
+    email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
 
     return NextResponse.json(
       {

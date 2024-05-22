@@ -118,7 +118,7 @@ export function Phone() {
         <div>
           <PhoneInput
             {...field}
-            placeholder="Escribe aquí (Opcional)"
+            placeholder="Escribe aquí"
             label="Teléfono"
             autoComplete="off"
           />

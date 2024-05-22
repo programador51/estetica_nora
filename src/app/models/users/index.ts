@@ -6,8 +6,12 @@ import { PoolConnection } from "mysql2/promise";
 import bcrypt from "bcrypt";
 import { DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
 import { generateError } from "@/app/helpers/errors";
+import { CustomError } from "@/app/helpers/errors/types";
 
-async function createUser(dto: DtoRegisterUser) {
+async function createUser(
+  dto: DtoRegisterUser,
+  urlProfilePicture: null | string = null
+) {
   let db: PoolConnection;
 
   try {
@@ -33,7 +37,7 @@ async function createUser(dto: DtoRegisterUser) {
         ?
     )`,
       [
-        dto.telefono,
+        dto.telefono.replaceAll("-", ""),
         dto.correo,
         dto.primerNombre,
         dto.segundoNombre,
@@ -45,9 +49,10 @@ async function createUser(dto: DtoRegisterUser) {
       ]
     );
   } catch (error) {
+    const parsed = error as CustomError;
     throw generateError(
       "94d92763-87f9-459a-8630-19e062144040",
-      "No se pudo crear la cuenta, reportar a soporte",
+      parsed.message,
       error
     );
   }
