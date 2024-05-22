@@ -25,17 +25,22 @@ export default function Phone(props: PropsInput) {
     }
 
     setPhoneNumber(formattedPhoneNumber);
+
+    const { onChange = () => {} } = props;
+
+    onChange(e);
   };
   return (
     <Input
+    {...props}
+    onChange={(e) => handleChange(e)}
+
       placeholder="Escribe aquí"
-      {...props}
-      label="Teléfono"
       type="tel"
       value={phoneNumber}
-      onChange={(e) => handleChange(e)}
       title="Número telefonico en formato xx-xxxx-xxxx"
       pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}"
+
     />
   );
 }

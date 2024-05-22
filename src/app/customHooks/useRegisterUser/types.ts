@@ -1,3 +1,5 @@
+type TypeAccount = 'administrador'|'usuario'|'superAdministrador';
+
 export interface DtoRegisterUser {
   correo: string;
   primerNombre: string;
@@ -6,11 +8,13 @@ export interface DtoRegisterUser {
   apellidoMaterno: string;
   contrasena: string;
   telefono: string;
+  tipoDeCuenta:TypeAccount;
 }
 
 export interface DtoLoginUser {
   correo: string;
   contrasena: string;
+  tipoDeCuenta:TypeAccount;
 }
 
 export interface StateUseRegisterUser {

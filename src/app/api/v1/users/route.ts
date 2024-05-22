@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import email from "@/app/models/email";
 import { readFormData } from "@/app/helpers/fetch";
 import { DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
+import user from '@/app/models/users';
 
 interface PostUser {
   [key: string | "dto"]: File | string;
@@ -84,7 +85,9 @@ export async function POST(req: Request) {
     const dto: DtoRegisterUser =
       typeof formData.dto === "string" ? JSON.parse(formData?.dto) : {};
 
-    email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
+      await user.create(dto);
+
+      email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
 
     return NextResponse.json(
       {

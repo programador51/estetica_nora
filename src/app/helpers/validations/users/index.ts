@@ -36,6 +36,10 @@ const contrasena = yup
 
 const telefono = yup.string();
 
+const tipoDeCuenta = yup.string().oneOf([
+  'administrador','usuario','superAdministrador'
+]).required('El tipo de cuenta es obligatorio').default('usuario');
+
 export const schemaRegisterUsers = yup.object().shape({
   correo,
   primerNombre,
@@ -43,10 +47,12 @@ export const schemaRegisterUsers = yup.object().shape({
   apellidoPaterno,
   apellidoMaterno,
   contrasena,
-  telefono
+  telefono,
+  tipoDeCuenta
 });
 
 export const schemaLoginUsers = yup.object().shape({
   correo,
   contrasena,
+  tipoDeCuenta
 });
