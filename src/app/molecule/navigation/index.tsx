@@ -14,6 +14,10 @@ import HandledImage from "@/app/atom/image";
 export const ContextNavigation = createContext<ReturnUseNavigation>({
   ...INITIAL_STATE,
   ...METHODS,
+  app: {
+    isLoading: false,
+    profile: undefined,
+  },
 });
 
 export default function Navigation() {

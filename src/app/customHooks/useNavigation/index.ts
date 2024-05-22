@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { ReturnUseNavigation, StateNavigation } from "./types";
 import ui from "@/app/molecule/navigation/menu/styles.module.scss";
+import useApp from "../useApp";
 
 export const INITIAL_STATE = {
   displayGuestProfile: true,
@@ -19,6 +20,8 @@ export default function useNavigation(): ReturnUseNavigation {
     displayMenu: false,
     firstRender: true,
   });
+
+  const app = useApp();
 
   const menu: MutableRefObject<HTMLDivElement | null> | null =
     useRef<null | HTMLDivElement>(null);
@@ -58,5 +61,6 @@ export default function useNavigation(): ReturnUseNavigation {
     menu,
     ...state,
     toggleMenu,
+    app
   };
 }

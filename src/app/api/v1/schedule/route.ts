@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import schedule from "@/app/models/schedule";
-import { NextApiRequest } from "next";
 
 export async function GET(req: NextRequest) {
   try {

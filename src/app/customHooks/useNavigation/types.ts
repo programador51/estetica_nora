@@ -1,4 +1,5 @@
 import { MutableRefObject } from "react";
+import { ReturnUseApp } from "../useApp/types";
 
 export interface StateNavigation {
   displayGuestProfile: boolean;
@@ -9,4 +10,5 @@ export interface StateNavigation {
 export interface ReturnUseNavigation extends StateNavigation {
   menu: MutableRefObject<HTMLDivElement | null> | null;
   toggleMenu: () => void;
+  app:ReturnUseApp;
 }

@@ -1,3 +1,5 @@
+import { TypeAccount } from "@/app/molecule/typeAccount/types";
+
 export interface DtoUser {
   id: number;
   telefono: string;
@@ -8,7 +10,7 @@ export interface DtoUser {
   apellidoMaterno: string;
   contrasena_hash?: string;
   contrasena_hash_temporal?: string;
-  tipoDeCuenta: string;
+  tipoDeCuenta: TypeAccount;
   fotoPerfil: string;
   cuentaDesactivada: number;
 }

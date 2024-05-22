@@ -1,5 +1,23 @@
 import { UserOption } from "@/app/molecule/usersSelect/types";
 import { isOkRes } from "../../../fetch";
+import { DtoUser } from "@/app/models/users/types";
+
+export async function resumeSession():Promise<DtoUser|undefined>{
+  try {
+    const res = await fetch("/api/v1/auth", {
+      method: "GET",
+    });
+
+    if(isOkRes(res)){
+      const sessionData = await res.json();
+      return sessionData;
+    }
+
+    return undefined;
+  } catch (error) {
+    return undefined;
+  }
+}
 
 export async function fetchUsers(): Promise<UserOption[]> {
   try {

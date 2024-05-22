@@ -8,7 +8,7 @@ export interface StateUseApp {
     email: string;
     type: TypeAccount;
     picture: string;
-  };
+  }|undefined;
 }
 
 export interface ReturnUseApp extends StateUseApp{
