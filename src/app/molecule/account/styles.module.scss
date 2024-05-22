@@ -6,10 +6,10 @@
 
   img {
     border-radius: 999px;
-    object-fit: contain;
+    object-fit: cover;
+    height: 50px;
+    width: 50px;
   }
-
-  img,
   svg {
     height: 50px;
   }

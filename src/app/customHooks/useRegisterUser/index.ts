@@ -33,6 +33,10 @@ export default function useRegisterUser(): ReturnUseRegisterUser {
 
     if (wasAdded) {
       router.push("/app/citas");
+
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     }
 
     setState((current) => ({
