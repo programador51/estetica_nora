@@ -7,7 +7,7 @@ export const INITIAL_STATE: StateUseApp = {
   isLoading: true,
   profile: undefined,
   isClossingSession: false,
-};
+  };
 
 export default function useApp(): ReturnUseApp {
   const [state, setState] = useState(INITIAL_STATE);

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import ui from "./styles.module.scss";
 import MenuItem from "@/app/atom/menuItem";
 import Account from "@/app/molecule/account";
@@ -13,12 +13,21 @@ export default function Menu() {
 
       <div className={ui.menuItems}>
         <MenuItem link={"/"}>Inicio</MenuItem>
-        <MenuItem link={"/app/citas"}>Citas</MenuItem>
-        <MenuItem link={"/app/catalogo"}>Catálogo</MenuItem>
-        <MenuItem link={"/app/servicios"}>Servicios</MenuItem>
-        <MenuItem link={"/app/horarios"}>Horario </MenuItem>
-        <MenuItem link={"/app/diasferiados"}>Días feriados </MenuItem>
-        <MenuItem link={"/app/cuentas"}>Cuentas </MenuItem>
+
+        {hook.app.profile === undefined ? null : (
+          <MenuItem link={"/app/citas"}>Citas</MenuItem>
+        )}
+
+        {hook.app.profile === undefined ||
+        hook.app.profile.type === "usuario" ? null : (
+          <Fragment>
+            <MenuItem link={"/app/catalogo"}>Catálogo</MenuItem>
+            <MenuItem link={"/app/servicios"}>Servicios</MenuItem>
+            <MenuItem link={"/app/horarios"}>Horario </MenuItem>
+            <MenuItem link={"/app/diasferiados"}>Días feriados </MenuItem>
+            <MenuItem link={"/app/cuentas"}>Cuentas </MenuItem>
+          </Fragment>
+        )}
       </div>
     </div>
   );
