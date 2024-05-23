@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { ReturnUseApp, StateUseApp } from "./types";
-import { resumeSession } from "@/app/helpers/api/v1/accounts";
+import { parseNameOfUser, resumeSession } from "@/app/helpers/api/v1/accounts";
 import { closeSessionUser } from "@/app/helpers/api/v1/users";
 
 export const INITIAL_STATE: StateUseApp = {
   isLoading: true,
   profile: undefined,
   isClossingSession: false,
-  };
+};
 
 export default function useApp(): ReturnUseApp {
   const [state, setState] = useState(INITIAL_STATE);
@@ -26,11 +26,11 @@ export default function useApp(): ReturnUseApp {
           ...current,
           profile: {
             email: session.correo,
-            fullName: "".concat(
-              session.primerNombre + " ",
-              session.segundoNombre || " " + " ",
-              session.apellidoPaterno || " " + " ",
-              session.apellidoMaterno || " "
+            fullName: parseNameOfUser(
+              session.primerNombre,
+              session.segundoNombre,
+              session.apellidoPaterno,
+              session.apellidoMaterno
             ),
             phone: session.telefono,
             picture: session.fotoPerfil,

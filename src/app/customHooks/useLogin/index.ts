@@ -3,7 +3,6 @@ import { ReturnUseLogin, StateUseLogin } from "./types";
 import { TypeAccount } from "@/app/molecule/typeAccount/types";
 import { DtoLoginUser } from "@/app/customHooks/useRegisterUser/types";
 import { loginUser } from "@/app/helpers/api/v1/users";
-import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateUseLogin = {
   type: "administrador",
@@ -12,7 +11,6 @@ const INITIAL_STATE: StateUseLogin = {
 
 export default function useLogin(): ReturnUseLogin {
   const [state, setState] = useState(INITIAL_STATE);
-  const router = useRouter();
 
   const setTypeAccount = (type: TypeAccount) => {
     setState((current) => ({

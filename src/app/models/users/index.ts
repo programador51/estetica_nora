@@ -54,7 +54,6 @@ async function createUser(
     );
 
     idUser = result[0][0].id;
-
   } catch (error) {
     const parsed = error as CustomError;
     throw generateError(
@@ -69,7 +68,9 @@ async function createUser(
   try {
     const user = await getUser("usuario", idUser, null);
     return user;
-  } catch (error) { throw error}
+  } catch (error) {
+    throw error;
+  }
 }
 
 /**
@@ -109,9 +110,38 @@ async function getUser(
   }
 }
 
+/**
+ * Retrieve all the accounts active on the system
+ */
+async function getAllUsers(): Promise<DtoUser[]> {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    const [result] = await db.query<RowDataPacket[]>(`CALL GetAllAccounts()`);
+
+    return result[0] as DtoUser[];
+  } catch (error) {
+    throw generateError(
+      "c46a3f8d-adee-4210-8895-fea628e298eb",
+      "No se pudo obtener la lista de usuarios registrados, reportar a soporte",
+      error
+    );
+  } finally {
+    db.release();
+  }
+}
+
 const model = {
   create: createUser,
-  get:getUser
+  get: getUser,
+  getAll:getAllUsers
 };
 
 export default model;

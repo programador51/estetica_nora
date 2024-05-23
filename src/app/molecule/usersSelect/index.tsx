@@ -85,7 +85,7 @@ export default function UsersSelect({
         ...user,
         label: user.name,
         value: user.id,
-      }));
+      })).filter(item=>item.type==='usuario')
 
       setState((current) => ({
         ...current,

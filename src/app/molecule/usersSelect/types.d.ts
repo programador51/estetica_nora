@@ -1,9 +1,11 @@
 import { MultiValue } from "react-select";
+import { TypeAccount } from "../typeAccount/types";
 
 export interface UserOption {
   name: string;
   id: number;
   profilePicture: null | string;
+  type:TypeAccount;
 }
 
 export interface UserOptionsSelect extends UserOption {
