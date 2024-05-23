@@ -111,6 +111,7 @@ async function getUser(
 
 const model = {
   create: createUser,
+  get:getUser
 };
 
 export default model;

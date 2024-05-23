@@ -33,7 +33,7 @@ export default function Register() {
 
           <ProfilePicture onChange={hook.setProfilePicture} />
 
-          <Email />
+          <Email label="Correo"/>
           <Phone />
           <FirstName />
           <MiddleName />

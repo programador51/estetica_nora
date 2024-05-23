@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import ui from "./styles.module.scss";
 import { ContextNavigation } from "../navigation";
 import HandledImage from "@/app/atom/image";
+import { formatNumberPhone } from "@/app/helpers/numbers";
 
 export default function Account() {
   const navigation = useContext(ContextNavigation);
@@ -32,7 +33,7 @@ export default function Account() {
             <div className={ui.profileInfo}>
               <p>{navigation.app.profile.fullName}</p>
               <p>{navigation.app.profile.email}</p>
-              <p>{navigation.app.profile.phone}</p>
+              <p>{formatNumberPhone(navigation.app.profile.phone)}</p>
             </div>
           </div>
         )}

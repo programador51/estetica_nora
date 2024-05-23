@@ -7,7 +7,7 @@ import user from "@/app/models/users";
 import { model as blob, uploadToBlobStorage } from "@/app/models/gallery";
 import { retrieveFilesFromReq } from "@/app/helpers/api/v1/files";
 import { Data } from "@/app/models/gallery/types";
-import jwt from "jsonwebtoken";
+import auth from "@/app/models/auth";
 
 interface PostUser {
   [key: string | "dto"]: File | string;
@@ -104,31 +104,15 @@ export async function POST(req: Request) {
     // Create account with information
     let accountCreated = await user.create(dto, url);
 
-    // Delete password from response object
-    let unrefAccounted = { ...accountCreated };
-
-    delete unrefAccounted.contrasena_hash;
-    delete unrefAccounted.contrasena_hash_temporal;
-
     // Send email confirmation account creation
     email.sendCreationAccountEmail(dto.correo, dto.primerNombre);
 
     // Sign tokens for auth
-    const accessToken = jwt.sign(
-      unrefAccounted,
-      process.env.JWT_ACCESS_TOKEN || "ND"
-    );
-    const refreshToken = jwt.sign(
-      unrefAccounted,
-      process.env.JWT_REFRESH_TOKEN || "ND",
-      {
-        expiresIn: "1h",
-      }
-    );
+    const [accessToken, refreshToken] = auth.generateTokens(accountCreated);
 
     const res = NextResponse.json({
       message: "Cuenta creada con éxito",
-      dto: unrefAccounted,
+      dto: accountCreated,
       accessToken,
       refreshToken,
     });

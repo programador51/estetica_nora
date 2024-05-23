@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { Fragment } from "react";
 import Button from "@/app/atom/button";
 import ui from "./styles.module.scss";
 import TypeAccount from "@/app/molecule/typeAccount";
 import Link from "next/link";
 import useLogin from "@/app/customHooks/useLogin";
 import FormUsers, { Email, Password } from "@/app/structure/Forms/users";
+import Spinner from "@/app/molecule/Spinner";
 
 export default function Login() {
   const hook = useLogin();
@@ -28,23 +29,25 @@ export default function Login() {
 
         <TypeAccount onChange={hook.setTypeAccount} value={hook.type} />
 
-        {/* <Link href={"/app/citas"}>
-          <Button type="button">Ingresar</Button>
-        </Link> */}
+        {hook.isLoging ? (
+          <Spinner text="Iniciando sesión" />
+        ) : (
+          <Fragment>
+            <Button type="submit">Ingresar</Button>
 
-        <Button type="submit">Ingresar</Button>
+            <Link href={"/olvide-cuenta"}>
+              <Button type="button" theme="secondary">
+                Olvide mi contraseña
+              </Button>
+            </Link>
 
-        <Link href={"/olvide-cuenta"}>
-          <Button type="button" theme="secondary">
-            Olvide mi contraseña
-          </Button>
-        </Link>
-
-        <Link href={"/registrarse"}>
-          <Button type="button" theme="secondary">
-            Crear cuenta
-          </Button>
-        </Link>
+            <Link href={"/registrarse"}>
+              <Button type="button" theme="secondary">
+                Crear cuenta
+              </Button>
+            </Link>
+          </Fragment>
+        )}
       </FormUsers>
     </div>
   );

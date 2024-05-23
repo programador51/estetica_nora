@@ -5,7 +5,6 @@ import {
   StateUseRegisterUser,
 } from "./types";
 import { addUser } from "@/app/helpers/api/v1/users";
-import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateUseRegisterUser = {
   isRegistering: false,
@@ -14,8 +13,6 @@ const INITIAL_STATE: StateUseRegisterUser = {
 
 export default function useRegisterUser(): ReturnUseRegisterUser {
   const [state, setState] = useState(INITIAL_STATE);
-
-  const router = useRouter();
 
   const setProfilePicture = (picture: File | null) =>
     setState((current) => ({
@@ -32,11 +29,7 @@ export default function useRegisterUser(): ReturnUseRegisterUser {
     const wasAdded = await addUser(data, state.profilePicture);
 
     if (wasAdded) {
-      router.push("/app/citas");
-
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
+      window.location.href = `${window.location.origin}/app/citas`;
     }
 
     setState((current) => ({
