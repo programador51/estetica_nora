@@ -9,8 +9,9 @@ export interface StateUseApp {
     type: TypeAccount;
     picture: string;
   }|undefined;
+  isClossingSession:boolean;
 }
 
 export interface ReturnUseApp extends StateUseApp{
-
+  attemptCloseSession:()=>Promise<void>;
 }

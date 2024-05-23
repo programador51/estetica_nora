@@ -1,6 +1,9 @@
 import { UserOption } from "@/app/molecule/usersSelect/types";
 import { isOkRes } from "../../../fetch";
-import { DtoLoginUser, DtoRegisterUser } from "@/app/customHooks/useRegisterUser/types";
+import {
+  DtoLoginUser,
+  DtoRegisterUser,
+} from "@/app/customHooks/useRegisterUser/types";
 import { promptError } from "@/app/helpers/alerts";
 import { CustomError } from "@/app/helpers/errors/types";
 
@@ -56,26 +59,46 @@ export async function addUser(
  * @param dto - Information for login account
  * @returns {Promise<boolean>} True if credentials are correct
  */
-export async function loginUser(dto:DtoLoginUser){
+export async function loginUser(dto: DtoLoginUser) {
   try {
-
     const res = await fetch("/api/v1/auth/login", {
       method: "POST",
-      body:JSON.stringify(dto)
+      body: JSON.stringify(dto),
     });
 
-    if(isOkRes(res)){
+    if (isOkRes(res)) {
       return true;
     }
 
     const error = await res.json();
 
-    promptError(error)
+    promptError(error);
 
     return false;
   } catch (error) {
+    promptError(error as CustomError);
 
-    promptError(error as CustomError)
+    return true;
+  }
+}
+
+export async function closeSessionUser() {
+  try {
+    const res = await fetch("/api/v1/auth", {
+      method: "DELETE",
+    });
+
+    if (isOkRes(res)) {
+      return true;
+    }
+
+    const error = await res.json();
+
+    promptError(error);
+
+    return false;
+  } catch (error) {
+    promptError(error as CustomError);
 
     return true;
   }

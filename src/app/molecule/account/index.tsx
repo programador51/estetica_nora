@@ -39,9 +39,18 @@ export default function Account() {
         )}
 
         {navigation.app.profile === undefined ? (
-          <Link href={"/iniciar-sesion"}>Iniciar sesión</Link>
+          <Link className={ui.loginLink} href={"/iniciar-sesion"}>
+            Iniciar sesión
+          </Link>
+        ) : !navigation.app.isClossingSession ? (
+          <p
+            className={ui.logoutLink}
+            onClick={navigation.app.attemptCloseSession}
+          >
+            Cerrar sesión
+          </p>
         ) : (
-          <Link href={"/"}>Cerrar sesión</Link>
+          <></>
         )}
       </div>
     );

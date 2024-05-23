@@ -39,3 +39,19 @@
   gap:0 10px;
   align-items: center;
 }
+
+.loginLink{
+  color:var(--primaryColor);
+  font-weight: bold;
+}
+
+.logoutLink{
+  color:var(--danger);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  &:hover{
+    text-decoration: underline;
+    
+  }
+}

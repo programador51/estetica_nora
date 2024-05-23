@@ -17,6 +17,8 @@ export const ContextNavigation = createContext<ReturnUseNavigation>({
   app: {
     isLoading: false,
     profile: undefined,
+    isClossingSession:false,
+    attemptCloseSession:async()=>{}
   },
 });
 

@@ -20,3 +20,20 @@ export async function GET(req: NextRequest) {
     });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const res = NextResponse.json({
+      message: "Sesión cerrada",
+    });
+
+    res.cookies.delete("nora_access");
+    res.cookies.delete("nora_refresh");
+
+    return res;
+  } catch (error) {
+    return NextResponse.json(error, {
+      status: 500,
+    });
+  }
+}
