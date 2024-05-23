@@ -50,11 +50,13 @@ async function add(dto: DtoAddReservation) {
 
     const finishTime = secondsToHHMM(finishOnSeconds);
 
-    await db.query(`CALL AddReservation(?,?,?,?)`, [
+    await db.query(`CALL AddReservation(?,?,?,?,?,?)`, [
       dto.day,
       dto.timeStart,
       finishTime,
       totalSell,
+      dto.customer,
+      dto.customerName
     ]);
   } catch (error) {
     const messageError = error as any;

@@ -1,6 +1,7 @@
 create
     definer = uclxadpcaqdi0ofu@`%` procedure AddReservation(IN day_param date, IN time_param time, IN finish_param time,
-                                                            IN total_param decimal(10, 2))
+                                                            IN total_param decimal(10, 2), IN idCuenta_param INT,
+                                                            IN nombre_param VARCHAR(256))
 BEGIN
     SET @weekdayNumber = DAYOFWEEK(day_param) - 1;
     SET @weekdayName = CASE @weekdayNumber
@@ -49,7 +50,7 @@ BEGIN
                     'No se puede hacer la cita, ya esta ocupado el horario que se solicita';
     END IF;
 
-    INSERT INTO Reservaciones (cuenta, total, fechaReservacion, hasta, estatus, administrador)
-    VALUES (1, total_param, @startDateTime, @endDateTime, 'reservado', 2);
+    INSERT INTO Reservaciones (cuenta, total, fechaReservacion, hasta, estatus, administrador, nombre)
+    VALUES (idCuenta_param, total_param, @startDateTime, @endDateTime, 'reservado', 2, nombre_param);
 END;
 

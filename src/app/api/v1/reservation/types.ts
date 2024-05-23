@@ -7,6 +7,7 @@ interface ServiceReservation {
 export interface DtoAddReservation {
   day: string;
   timeStart: string;
-  customer: number | string;
+  customer: number|null;
   services: ServiceReservation[];
+  customerName:string;
 }

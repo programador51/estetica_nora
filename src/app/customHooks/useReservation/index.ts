@@ -147,7 +147,8 @@ export default function useReservation(id?: number): ReturnUseService {
     }));
 
     const wasAdded = await addReservation({
-      customer: state.customer.id || state.customer.value,
+      customer: state.customer.id || null,
+      customerName:state.customer.label,
       day: formatDateToYYYYMMDD(state.day),
       services: state.services.map((service) => ({
         cost: service.costPrice,
