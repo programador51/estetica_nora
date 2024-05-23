@@ -50,12 +50,15 @@ export default function useNavigation(): ReturnUseNavigation {
     }));
   };
   useEffect(() => {
+
+    if(app.isLoading) return
+
     if (menu.current === null) return;
 
     const links = menu.current.querySelectorAll("a");
 
     links.forEach((link) => link.addEventListener("click", toggleMenu));
-  }, []);
+  }, [app.isLoading]);
 
   return {
     menu,
