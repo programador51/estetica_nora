@@ -9,4 +9,5 @@ export interface DtoReservationPaginated {
   administrador: number;
   estatus: ReservationStatus;
   id:number;
+  fotoPerfil:string|null;
 }

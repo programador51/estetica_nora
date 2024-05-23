@@ -27,7 +27,7 @@ export default function useReservations(): ReturnUseReservationItem {
         (item) => ({
           name: item.nombre,
           reservation: new Date(item.fechaReservacion),
-          urlPicture: null,
+          urlPicture: item.fotoPerfil,
           id:item.id,
           estatus:item.estatus
         })
