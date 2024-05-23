@@ -9,6 +9,7 @@ export interface ServiceOption {
   durationOnMinutes: number;
   toleranceOnMinutes: number;
   susceptibleToChange: boolean|number;
+  imagen:string[];
 }
 
 export interface ServiceOptionsSelect extends ServiceOption {

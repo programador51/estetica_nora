@@ -48,7 +48,7 @@ export default function useReservation(id?: number): ReturnUseService {
     function calculateOverview() {
       const data: OverviewCalculation = state.services.reduce(
         (indexed, service) => ({
-          total: indexed.total + service.sellPrice,
+          total: indexed.total + (+service.sellPrice),
           durationOnMinutes:
             indexed.durationOnMinutes + service.durationOnMinutes,
         }),

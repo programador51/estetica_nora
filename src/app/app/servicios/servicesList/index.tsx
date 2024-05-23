@@ -22,6 +22,7 @@ export default function ServicesList() {
       key={`${key.current}-${i}`}
       name={service.titulo}
       picture={service.imagen[0]}
+      imagen={service.imagen}
       sellPrice={+service.venta}
       susceptibleToChange={service.suceptibleEnCambios}
       toleranceOnMinutes={service.toleranciaEnMinutos}

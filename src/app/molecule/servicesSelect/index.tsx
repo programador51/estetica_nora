@@ -14,6 +14,7 @@ import Spinner from "@/app/molecule/Spinner";
 import uiInput from "@/app/atom/input/styles.module.scss";
 import uiContainer from "@/app/molecule/usersSelect/styles.module.scss";
 import { fetchServices } from "@/app/helpers/api/v1/services";
+import HandledImage from "@/app/atom/image";
 
 const customSelectStyles: StylesConfig<
   ServiceOptionsSelect,
@@ -55,17 +56,15 @@ const customSelectStyles: StylesConfig<
 const CustomOption = (
   data: OptionProps<ServiceOptionsSelect, true, GroupBase<ServiceOptionsSelect>>
 ) => {
-  const [imgSrc, setImgSrc] = useState(data.data.picture);
-  const handleImageError = () => {
-    setImgSrc("/no_image.png");
-  };
+  
   return (
     <div
       ref={data.innerRef}
       {...data.innerProps}
       className={uiContainer.customOption}
     >
-      <img src={`${imgSrc}`} alt={data.label} onError={handleImageError} />
+      <HandledImage src={data.data.imagen[0]}/>
+
       <span>{data.label}</span>
     </div>
   );
@@ -92,6 +91,7 @@ export default function ServicesSelect({
           ...item,
           label: item.name,
           value: item.id,
+          picture:item.imagen[0]
         })),
       }));
     })();
