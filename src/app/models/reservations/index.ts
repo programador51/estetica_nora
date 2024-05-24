@@ -8,9 +8,9 @@ import servicesModel from "@/app/models/services";
 import { ServicesIndexed } from "../services/types";
 import { secondsToHHMM, timeStringToSeconds } from "@/app/helpers/dates";
 import { ResDtoPaginated } from "@/app/helpers/api/v1/types";
-import { ReservationItem } from "@/app/molecule/reservationItem/types";
 import { PoolConnection, RowDataPacket } from "mysql2/promise";
-import { DtoReservationPaginated } from "./types";
+import { DtoReservationItem, DtoReservationPaginated } from "./types";
+import users from "@/app/models/users";
 
 async function add(dto: DtoAddReservation) {
   let db;
@@ -56,7 +56,7 @@ async function add(dto: DtoAddReservation) {
       finishTime,
       totalSell,
       dto.customer,
-      dto.customerName
+      dto.customerName,
     ]);
   } catch (error) {
     const messageError = error as any;
@@ -126,10 +126,56 @@ async function cancel(id: number) {
   }
 }
 
+async function get(id: number) {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    const [result] = await db.query<RowDataPacket[]>(`CALL GetReservation(?)`, [
+      id,
+    ]);
+
+    const reservation = result[0][0] as DtoReservationItem;
+
+    const customer = await users.get("usuario", reservation.cuenta);
+
+    let unrefCustomer = {...customer};
+    delete unrefCustomer.contrasena_hash;
+    delete unrefCustomer.contrasena_hash_temporal;
+
+    const employer = await users.get(
+      "administrador",
+      reservation.administrador
+    );
+
+    return {
+      reservation,
+      customer:unrefCustomer,
+      employer,
+      services:[]
+    };
+  } catch (error) {
+    throw generateError(
+      "0c199a32-e698-434b-9dc1-da95609f52e2",
+      "No se pudo obtener la informacion de la cita, reportar a soporte",
+      error
+    );
+  } finally {
+    db.release();
+  }
+}
+
 const model = {
   add,
   paginated,
-  cancel
+  get,
+  cancel,
 };
 
 export default model;

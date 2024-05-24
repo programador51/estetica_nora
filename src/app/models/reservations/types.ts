@@ -11,3 +11,15 @@ export interface DtoReservationPaginated {
   id:number;
   fotoPerfil:string|null;
 }
+
+export interface DtoReservationItem {
+  id:                  number;
+  cuenta:              number;
+  total:               string;
+  nombre:              string;
+  fechaReservacion:    Date;
+  hasta:               Date;
+  estatus:             string;
+  administrador:       number;
+  terminacionServicio: null;
+}
