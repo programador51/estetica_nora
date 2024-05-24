@@ -1,4 +1,6 @@
-export type ReservationStatus = 'cancelado' | 'terminado' | 'reservado';
+import { DtoUser } from "../users/types";
+
+export type ReservationStatus = "cancelado" | "terminado" | "reservado";
 
 export interface DtoReservationPaginated {
   cuenta: number | null;
@@ -8,18 +10,25 @@ export interface DtoReservationPaginated {
   hasta: string;
   administrador: number;
   estatus: ReservationStatus;
-  id:number;
-  fotoPerfil:string|null;
+  id: number;
+  fotoPerfil: string | null;
 }
 
 export interface DtoReservationItem {
-  id:                  number;
-  cuenta:              number;
-  total:               string;
-  nombre:              string;
-  fechaReservacion:    Date;
-  hasta:               Date;
-  estatus:             string;
-  administrador:       number;
+  id: number;
+  cuenta: number;
+  total: string;
+  nombre: string;
+  fechaReservacion: Date;
+  hasta: Date;
+  estatus: string;
+  administrador: number;
   terminacionServicio: null;
+}
+
+export interface DtoReservationOverview {
+  reservation: DtoReservationItem;
+  customer: DtoUser;
+  employer: DtoUser;
+  services: string[];
 }

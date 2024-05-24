@@ -1,9 +1,15 @@
 import { NextResponse } from "next/server";
 import reservation from "@/app/models/reservations/index";
 
-export async function GET(req: Request) {
+interface Params {
+  id: number;
+}
+
+export async function GET(req: Request, context: { params: Params }) {
   try {
-    const overview = await reservation.get(6);
+    const id = +context.params.id;
+
+    const overview = await reservation.get(id);
 
     return NextResponse.json(overview, {
       status: 200,

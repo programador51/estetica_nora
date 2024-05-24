@@ -6,7 +6,10 @@ import {
 } from "@/app/helpers/alerts";
 import { CustomError } from "@/app/helpers/errors/types";
 import { isOkRes } from "@/app/helpers/fetch";
-import { DtoReservationPaginated } from "@/app/models/reservations/types";
+import {
+  DtoReservationOverview,
+  DtoReservationPaginated,
+} from "@/app/models/reservations/types";
 import { ResDtoPaginated } from "../types";
 
 export async function addReservation(dto: DtoAddReservation) {
@@ -51,13 +54,13 @@ export async function getReservationsPaginated(
       return data;
     }
 
-    const error:CustomError = await res.json();
+    const error: CustomError = await res.json();
 
-    promptError(error)
+    promptError(error);
 
     return error_data;
   } catch (error) {
-    promptError(error as CustomError)
+    promptError(error as CustomError);
     return error_data;
   }
 }
@@ -84,5 +87,25 @@ export async function cancelReservation(idReservation: number) {
   } catch (error) {
     promptError(error as CustomError);
     return false;
+  }
+}
+
+export async function getReservation(
+  idReservation: number
+): Promise<DtoReservationOverview | undefined> {
+  try {
+    const res = await fetch(`/api/v1/reservation/${idReservation}`, {
+      method: "GET",
+    });
+
+    if (isOkRes(res)) {
+      const reservation: DtoReservationOverview = await res.json();
+
+      return reservation;
+    }
+
+    return undefined;
+  } catch (error) {
+    return undefined;
   }
 }

@@ -1,3 +1,15 @@
+export function parseDateWithTime(date: Date) {
+  const dateParsed = new Intl.DateTimeFormat("es", {
+    dateStyle: "full",
+  }).format(date);
+  const timeParsed = new Intl.DateTimeFormat("es", {
+    timeStyle: "medium",
+    hour12: true,
+  }).format(date);
+
+  return `${dateParsed} a las ${timeParsed}`;
+}
+
 export function dateToText(date: Date) {
   try {
     return new Intl.DateTimeFormat("es-MX", {
@@ -50,11 +62,11 @@ export function timeStringToSeconds(timeString: string | number) {
   }
 }
 
-export function formatDateToYYYYMMDD(date:Date) {
+export function formatDateToYYYYMMDD(date: Date) {
   // Extract year, month, and day from the Date object
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(date.getDate()).padStart(2, "0");
 
   // Concatenate year, month, and day with no separator
   return `${year}-${month}-${day}`;

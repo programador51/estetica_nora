@@ -7,6 +7,7 @@ import useReservationCard from "@/app/customHooks/useReservationCard";
 import ContextReservationCard from "@/app/Contexts/ReservationCardContext";
 import CancelationButton from "./CancelationButton";
 import StatusLabel from "./StatusLabel";
+import ReservationOverviewModal from "@/app/structure/ReservationOverviewModal";
 
 export default function ReservationItem(props: TypeReservationItem) {
   const {
@@ -47,7 +48,9 @@ export default function ReservationItem(props: TypeReservationItem) {
 
         <div>
           <CancelationButton />
-          <Button theme="secondary">Ver detalle</Button>
+          <ReservationOverviewModal id={id}>
+            <Button theme="secondary">Ver detalle</Button>
+          </ReservationOverviewModal>
         </div>
       </div>
     </ContextReservationCard.Provider>

@@ -9,7 +9,11 @@ import { ServicesIndexed } from "../services/types";
 import { secondsToHHMM, timeStringToSeconds } from "@/app/helpers/dates";
 import { ResDtoPaginated } from "@/app/helpers/api/v1/types";
 import { PoolConnection, RowDataPacket } from "mysql2/promise";
-import { DtoReservationItem, DtoReservationPaginated } from "./types";
+import {
+  DtoReservationItem,
+  DtoReservationOverview,
+  DtoReservationPaginated,
+} from "./types";
 import users from "@/app/models/users";
 
 async function add(dto: DtoAddReservation) {
@@ -126,7 +130,7 @@ async function cancel(id: number) {
   }
 }
 
-async function get(id: number) {
+async function get(id: number): Promise<DtoReservationOverview> {
   let db: PoolConnection;
 
   try {
@@ -145,7 +149,7 @@ async function get(id: number) {
 
     const customer = await users.get("usuario", reservation.cuenta);
 
-    let unrefCustomer = {...customer};
+    let unrefCustomer = { ...customer };
     delete unrefCustomer.contrasena_hash;
     delete unrefCustomer.contrasena_hash_temporal;
 
@@ -156,9 +160,9 @@ async function get(id: number) {
 
     return {
       reservation,
-      customer:unrefCustomer,
+      customer: unrefCustomer,
       employer,
-      services:[]
+      services: [],
     };
   } catch (error) {
     throw generateError(
