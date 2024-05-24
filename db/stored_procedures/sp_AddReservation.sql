@@ -52,5 +52,7 @@ BEGIN
 
     INSERT INTO Reservaciones (cuenta, total, fechaReservacion, hasta, estatus, administrador, nombre)
     VALUES (idCuenta_param, total_param, @startDateTime, @endDateTime, 'reservado', 2, nombre_param);
+    
+    SELECT LAST_INSERT_ID() AS id;
 END;
 

@@ -54,14 +54,32 @@ async function add(dto: DtoAddReservation) {
 
     const finishTime = secondsToHHMM(finishOnSeconds);
 
-    await db.query(`CALL AddReservation(?,?,?,?,?,?)`, [
-      dto.day,
-      dto.timeStart,
-      finishTime,
-      totalSell,
-      dto.customer,
-      dto.customerName,
-    ]);
+    db.beginTransaction();
+
+    const [result] = await db.query<RowDataPacket[]>(
+      `CALL AddReservation(?,?,?,?,?,?)`,
+      [
+        dto.day,
+        dto.timeStart,
+        finishTime,
+        totalSell,
+        dto.customer,
+        dto.customerName,
+      ]
+    );
+
+    const idReservation = result[0][0].id;
+
+    for (const service of dto.services) {
+      await db.query(`CALL AddReservationService(?,?,?,?)`, [
+        service.id,
+        idReservation,
+        service.cost,
+        service.price,
+      ]);
+    }
+
+    db.commit();
   } catch (error) {
     const messageError = error as any;
     throw generateError(
