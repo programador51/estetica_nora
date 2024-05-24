@@ -3,7 +3,6 @@ import { generateError } from "../../errors";
 
 let pool: Pool | undefined = undefined;
 let activeConnections = 0;
-const CONNECTION_LIMIT = 1;
 
 function updateActiveConnections(connectionIncreased: number) {
   const newCounter = (activeConnections += connectionIncreased);
@@ -73,20 +72,6 @@ async function getConnectionWithRetry(
       throw new Error("Failed to initialize connection pool");
     }
 
-    console.log({
-      activeConnections,
-      CONNECTION_LIMIT,
-    });
-
-    // if (activeConnections > CONNECTION_LIMIT) {
-    //   console.log(
-    //     `CONNECTION LIMIT REACHED. Retrying in ${
-    //       retryDelay / 1000
-    //     } seconds... (${retries} retries)`
-    //   );
-    //   await new Promise((res) => setTimeout(res, retryDelay));
-    //   return getConnectionWithRetry(retries + 1);
-    // }
     const connection = await pool.getConnection();
     updateActiveConnections(1);
 

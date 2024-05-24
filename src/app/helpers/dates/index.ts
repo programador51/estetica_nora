@@ -2,7 +2,9 @@ export function parseDateWithTime(date: Date) {
 
   let timeZone = undefined;
 
-  if(process.env.TZ==="America/New_York"){
+  console.log('Timezone',process.env.TZ);
+
+  if(process.env.TZ!==undefined){
     date.setHours(date.getHours() + 4); 
     timeZone = 'America/New_York'
   }
@@ -24,7 +26,7 @@ export function dateToText(date: Date) {
 
   let timeZone = undefined;
 
-  if(process.env.TZ==="America/New_York"){
+  if(process.env.T!==undefined){
     date.setHours(date.getHours() + 4); 
     timeZone = 'America/New_York'
   }
