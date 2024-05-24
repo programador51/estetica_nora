@@ -1,59 +1,60 @@
-import { promptConfirmation } from "@/app/helpers/account";
-import { ServiceOption } from "@/app/molecule/servicesSelect/types";
-import { OverviewCalculation, ReturnUseService, StateUseAccessUserRoles } from "./types";
-import { useEffect, useState } from "react";
+import {
+  ContentModalPromote,
+  OnUpdatedUser,
+  ReturnUseService,
+  StateUseAccessUserRoles,
+} from "./types";
+import { useState } from "react";
+import { TypeAccount } from "@/app/molecule/typeAccount/types";
+import { promptConfirmation } from "@/app/helpers/alerts";
+import { promoteUserAccount } from "@/app/helpers/api/v1/users";
 
 const INITIAL_STATE: StateUseAccessUserRoles = {
-  isLoading: false,
-  services: [],
-  durationOnMinutes: 0,
-  total: 0
-}
+  isPerformingUpdate: false,
+};
 
-export default function useAccessUserRoles(id?: number): ReturnUseService {
+export default function useAccessUserRoles(
+  onUpdated: OnUpdatedUser = () => {}
+): ReturnUseService {
   const [state, setState] = useState(INITIAL_STATE);
 
-  useEffect(() => {
-    const overview = calculateOverview();
-    setState(current => ({
-      ...current,
-      durationOnMinutes: overview.durationOnMinutes,
-      total: overview.total
-    }));
-  }, [state.services]);
+  const promptPromoteConfirmation = async (id: number, type: TypeAccount) => {
+    const title: ContentModalPromote = {
+      administrador: "Promover a administrador",
+      superAdministrador: "Promover a super administrador",
+      usuario: "Delegar a tipo usuario",
+    };
 
-  const calculateOverview = () => {
-    const data: OverviewCalculation = state.services.reduce((indexed, service) => ({
-      total: indexed.total + service.sellPrice,
-      durationOnMinutes: indexed.durationOnMinutes + service.durationOnMinutes
-    }), { total: 0, durationOnMinutes: 0 });
+    const messsage: ContentModalPromote = {
+      administrador: `¿Estas seguro de promover? El usuario tendra acceso a todo excepto al modulo de 'Cuentas'`,
+      superAdministrador: `¿Estas seguro de promover? El usuario tendra acceso a todas las opciones del sistema`,
+      usuario: `¿Estas seguro de delega? El usuario solo podra utilizar el sistema como cliente para reservar citas`,
+    };
 
-    return data;
-  }
+    const { isConfirmed } = await promptConfirmation({
+      title: title[type],
+      text: messsage[type],
+    });
 
-  const promptCancelation = async () => {
-    try {
-      const response = await promptConfirmation({
-        title: "¿Desea Configurar su Cuenta?",
-        text: "¡Hola! Antes de comenzar, necesitamos saber cómo desea configurar su cuenta. Por favor, seleccione una opción:",
-        
-      });
-      console.log("Respuesta del usuario:", response);
-    } catch (error) {
-      console.error("Error al mostrar la confirmación:", error);
+    if (isConfirmed) {
+      setState((current) => ({
+        ...current,
+        isPerformingUpdate: true,
+      }));
+
+      const wasUpdated = await promoteUserAccount(id, type);
+
+      if(wasUpdated) onUpdated(type);
+
+      setState((current) => ({
+        ...current,
+        isPerformingUpdate: false,
+      }));
     }
   };
 
-  const appendService = (service: ServiceOption) => {
-    setState(current => ({
-      ...current,
-      services: [service, ...current.services]
-    }));
-  }
-
   return {
-    promptCancelation,
-    appendService,
-    ...state
+    promptPromoteConfirmation,
+    ...state,
   };
 }

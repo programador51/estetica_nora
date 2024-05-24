@@ -5,4 +5,5 @@ export interface configureItem {
   authentication: TypeAccount;
   name: string;
   id:number;
+  onUpdated?:()=>void;
 }

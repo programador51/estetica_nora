@@ -1,18 +1,20 @@
-import { ServiceOption } from "@/app/molecule/servicesSelect/types";
+import { TypeAccount } from "@/app/molecule/typeAccount/types";
 
 export interface OverviewCalculation {
   durationOnMinutes: number;
   total: number;
 }
 
-
-export interface  StateUseAccessUserRoles extends OverviewCalculation {
-  isLoading: boolean;
-  services: ServiceOption[];
+export interface StateUseAccessUserRoles {
+  isPerformingUpdate: boolean;
 }
 
 export interface ReturnUseService extends StateUseAccessUserRoles {
-  appendService: (service: ServiceOption) => void;
-  promptCancelation: () => Promise<void>;
+  promptPromoteConfirmation: (id: number, type: TypeAccount) => Promise<void>;
 }
 
+export type ContentModalPromote = {
+  [key in TypeAccount]: string;
+};
+
+export type OnUpdatedUser = (type: TypeAccount) => void;

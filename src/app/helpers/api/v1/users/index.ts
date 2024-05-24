@@ -4,8 +4,10 @@ import {
   DtoLoginUser,
   DtoRegisterUser,
 } from "@/app/customHooks/useRegisterUser/types";
-import { promptError } from "@/app/helpers/alerts";
+import { promptError, promptSuccess } from "@/app/helpers/alerts";
 import { CustomError } from "@/app/helpers/errors/types";
+import { TypeAccount } from "@/app/molecule/typeAccount/types";
+import { DtoPromoteUser } from "@/app/api/v1/users/promote/types";
 
 export async function fetchUsers(): Promise<UserOption[]> {
   try {
@@ -89,6 +91,38 @@ export async function closeSessionUser() {
     });
 
     if (isOkRes(res)) {
+      return true;
+    }
+
+    const error = await res.json();
+
+    promptError(error);
+
+    return false;
+  } catch (error) {
+    promptError(error as CustomError);
+
+    return true;
+  }
+}
+
+export async function promoteUserAccount(id: number, type: TypeAccount) {
+  try {
+    const dto: DtoPromoteUser = {
+      id: id,
+      type,
+    };
+
+    const res = await fetch("/api/v1/users/promote", {
+      method: "PUT",
+      body: JSON.stringify(dto),
+    });
+
+    if (isOkRes(res)) {
+      promptSuccess({
+        title: "Cuenta actualizada",
+        text: "El tipo de cuenta fue actualizado con éxito",
+      });
       return true;
     }
 

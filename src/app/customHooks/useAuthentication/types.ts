@@ -5,6 +5,9 @@ export interface StateUseAuthentication {
   page: number;
   isLoading: boolean;
   authentication: configureItem[];
+  refetch:boolean;
 }
 
-export interface ReturnUseConfigureItem extends StateUseAuthentication {}
+export interface ReturnUseConfigureItem extends StateUseAuthentication {
+  refetchData:()=>void;
+}

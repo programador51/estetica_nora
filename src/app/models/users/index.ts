@@ -138,10 +138,41 @@ async function getAllUsers(): Promise<DtoUser[]> {
   }
 }
 
+/**
+ * Update the type of account for a specific user
+ * @param id - Id of the account to update
+ * @param rol - New type of account to be set on the account
+ */
+async function promoteUser(id: number, rol: TypeAccount) {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+
+    await db.query('CALL UpdateUserRol(?,?)',[id,rol]);
+
+  } catch (error) {
+    throw generateError(
+      "a934987e-d757-43cf-89e4-ef4e0033d434",
+      "No se pudo actualizar la configuracion del usuario, reportar a soporte",
+      error
+    );
+  } finally {
+    db.release();
+  }
+}
+
 const model = {
   create: createUser,
   get: getUser,
-  getAll:getAllUsers
+  getAll: getAllUsers,
+  promote:promoteUser
 };
 
 export default model;

@@ -6,6 +6,7 @@ const INITIAL_STATE: StateUseAuthentication = {
   page: 1,
   isLoading: true,
   authentication: [],
+  refetch: false,
 };
 
 export default function useAuthentication(): ReturnUseConfigureItem {
@@ -31,9 +32,16 @@ export default function useAuthentication(): ReturnUseConfigureItem {
         })),
       }));
     })();
-  }, [state.page]);
+  }, [state.page, state.refetch]);
+
+  const refetchData = () => setState(current=>({
+    ...current,
+    page:1,
+    refetch:!current.refetch
+  }));
 
   return {
     ...state,
+    refetchData
   };
 }

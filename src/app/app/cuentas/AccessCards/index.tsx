@@ -17,6 +17,7 @@ export default function AccessCards() {
       {hook.authentication.map((item, i) => (
         <ConfigureItem
           id={item.id}
+          onUpdated={hook.refetchData}
           key={`${key.current}-${i}`}
           name={item.name}
           authentication={item.authentication}

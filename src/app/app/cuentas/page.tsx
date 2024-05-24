@@ -10,11 +10,13 @@ export default function Access() {
 
   return (
     <ContextAuthentication.Provider value={hook}>
-      <div className={ui.header}>
-        <h1>Cuentas</h1>
-      </div>
+      <div className={ui.container}>
+        <div className={ui.header}>
+          <h1>Cuentas</h1>
+        </div>
 
-      <AccessCards />
+        <AccessCards />
+      </div>
     </ContextAuthentication.Provider>
   );
 }

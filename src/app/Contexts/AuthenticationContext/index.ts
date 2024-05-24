@@ -4,6 +4,7 @@ import { createContext } from "react";
 export const ContextAuthentication = createContext<ReturnUseConfigureItem>({
   isLoading: true,
   page: 1,
+  refetch: false,
+  refetchData: () => {},
   authentication: [],
 });
-
