@@ -8,6 +8,7 @@ import ContextReservationCard from "@/app/Contexts/ReservationCardContext";
 import CancelationButton from "./CancelationButton";
 import StatusLabel from "./StatusLabel";
 import ReservationOverviewModal from "@/app/structure/ReservationOverviewModal";
+import { parseDateWithTime } from "@/app/helpers/dates";
 
 export default function ReservationItem(props: TypeReservationItem) {
   const {
@@ -30,17 +31,7 @@ export default function ReservationItem(props: TypeReservationItem) {
             <b>
               <p>{name}</p>
             </b>
-            <p>
-              {new Intl.DateTimeFormat("es-MX", {
-                dateStyle: "long",
-              }).format(reservation)}
-            </p>
-            <p>
-              {new Intl.DateTimeFormat("es-MX", {
-                timeStyle: "medium",
-                hour12: true,
-              }).format(reservation)}
-            </p>
+            <p>{parseDateWithTime(reservation)}</p>
 
             <StatusLabel />
           </div>
