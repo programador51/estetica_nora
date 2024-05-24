@@ -121,7 +121,7 @@ export async function promoteUserAccount(id: number, type: TypeAccount) {
     if (isOkRes(res)) {
       promptSuccess({
         title: "Cuenta actualizada",
-        text: "El tipo de cuenta fue actualizado con éxito",
+        text: "El tipo de cuenta fue actualizado con éxito. Para ver los cambios reflejados, la cuenta debe cerrar e iniciar sesión nuevamente",
       });
       return true;
     }

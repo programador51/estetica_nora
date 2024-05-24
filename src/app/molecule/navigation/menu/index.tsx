@@ -23,9 +23,11 @@ export default function Menu() {
           <Fragment>
             <MenuItem link={"/app/catalogo"}>Catálogo</MenuItem>
             <MenuItem link={"/app/servicios"}>Servicios</MenuItem>
-            <MenuItem link={"/app/horarios"}>Horario </MenuItem>
-            {/* <MenuItem link={"/app/diasferiados"}>Días feriados </MenuItem> */}
-            <MenuItem link={"/app/cuentas"}>Cuentas </MenuItem>
+            <MenuItem link={"/app/horarios"}>Horario</MenuItem>
+
+            {hook.app.profile.type === "superAdministrador" && (
+              <MenuItem link={"/app/cuentas"}>Cuentas</MenuItem>
+            )}
           </Fragment>
         )}
       </div>
