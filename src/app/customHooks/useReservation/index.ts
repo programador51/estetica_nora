@@ -131,9 +131,6 @@ export default function useReservation(id?: number): ReturnUseService {
 
   const setDayReservation = (day: Date) =>{
 
-    day.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
-
-
     setState((current) => ({
       ...current,
       day: day,

@@ -6,7 +6,6 @@ import { Dialog, useDialog } from "rc-dialog-native";
 import Button from "@/app/atom/button";
 import ui from "./styles.module.scss";
 import Input from "@/app/atom/input";
-import { PropsDateInput } from "./types";
 import { dateToText } from "@/app/helpers/dates";
 
 export default function DateInput(props: CalendarProps) {
@@ -25,8 +24,8 @@ export default function DateInput(props: CalendarProps) {
         placeholder="Selecciona"
         value={
           props.value instanceof Date
-            ? dateToText(props.value)
-            : typeof props.value === 'string' ? dateToText(new Date(props.value)) : "ND"
+            ? dateToText(new Date(`${props.value}:`))
+            : typeof props.value === 'string' ? dateToText(new Date(`${props.value}:`)) : "ND"
         }
       />
 

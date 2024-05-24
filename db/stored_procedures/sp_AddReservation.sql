@@ -1,7 +1,7 @@
 create
     definer = uclxadpcaqdi0ofu@`%` procedure AddReservation(IN day_param date, IN time_param time, IN finish_param time,
-                                                            IN total_param decimal(10, 2), IN idCuenta_param INT,
-                                                            IN nombre_param VARCHAR(256))
+                                                            IN total_param decimal(10, 2), IN idCuenta_param int,
+                                                            IN nombre_param varchar(256))
 BEGIN
     SET @weekdayNumber = DAYOFWEEK(day_param) - 1;
     SET @weekdayName = CASE @weekdayNumber
@@ -41,7 +41,8 @@ BEGIN
     INTO @numberOfReservationsOverlap
     FROM Reservaciones
     WHERE fechaReservacion >= @startDateTime
-      AND hasta <= @endDateTime;
+      AND hasta <= @endDateTime
+      AND Reservaciones.estatus != 'cancelado';
 
 
     IF @numberOfReservationsOverlap >= 1 THEN
@@ -52,7 +53,7 @@ BEGIN
 
     INSERT INTO Reservaciones (cuenta, total, fechaReservacion, hasta, estatus, administrador, nombre)
     VALUES (idCuenta_param, total_param, @startDateTime, @endDateTime, 'reservado', 2, nombre_param);
-    
+
     SELECT LAST_INSERT_ID() AS id;
 END;
 

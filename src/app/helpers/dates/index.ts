@@ -1,17 +1,20 @@
 export function parseDateWithTime(date: Date) {
 
-  if(process.env.TZ!=="America/Mexico_City"){
+  let timeZone = undefined;
+
+  if(process.env.TZ==="America/New_York"){
     date.setHours(date.getHours() + 4); 
+    timeZone = 'America/New_York'
   }
 
   const dateParsed = new Intl.DateTimeFormat("es-MX", {
     dateStyle: "full",
-    timeZone: process.env.TZ||"America/New_York",
+    timeZone: timeZone,
   }).format(date);
   const timeParsed = new Intl.DateTimeFormat("es-MX", {
     timeStyle: "medium",
     hour12: true,
-    timeZone: process.env.TZ||"America/New_York",
+    timeZone: timeZone,
   }).format(date);
 
   return `${dateParsed} a las ${timeParsed}`;
@@ -19,14 +22,17 @@ export function parseDateWithTime(date: Date) {
 
 export function dateToText(date: Date) {
 
-  if(process.env.TZ!=="America/Mexico_City"){
+  let timeZone = undefined;
+
+  if(process.env.TZ==="America/New_York"){
     date.setHours(date.getHours() + 4); 
+    timeZone = 'America/New_York'
   }
 
   try {
     return new Intl.DateTimeFormat("es-MX", {
       dateStyle: "medium",
-      timeZone: process.env.TZ||"America/New_York",
+      timeZone: timeZone,
     }).format(date);
   } catch (error) {
     return "Fecha desconocida";
