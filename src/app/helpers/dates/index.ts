@@ -1,12 +1,9 @@
 export function parseDateWithTime(date: Date) {
-
   let timeZone = undefined;
 
-  console.log('Timezone',process.env.TZ);
-
-  if(process.env.TZ!==undefined){
-    date.setHours(date.getHours() + 4); 
-    timeZone = 'America/New_York'
+  if (process.env.NEXT_PUBLIC_TZ === "America/New_York") {
+    date.setHours(date.getHours() + 4);
+    timeZone = "America/New_York";
   }
 
   const dateParsed = new Intl.DateTimeFormat("es-MX", {
@@ -23,12 +20,11 @@ export function parseDateWithTime(date: Date) {
 }
 
 export function dateToText(date: Date) {
-
   let timeZone = undefined;
 
-  if(process.env.T!==undefined){
-    date.setHours(date.getHours() + 4); 
-    timeZone = 'America/New_York'
+  if (process.env.NEXT_PUBLIC_TZ === "America/New_York") {
+    date.setHours(date.getHours() + 4);
+    timeZone = "America/New_York";
   }
 
   try {
@@ -83,16 +79,14 @@ export function timeStringToSeconds(timeString: string | number) {
   }
 }
 
-export function dateAtCeroTime(day:Date){
-
-  const copiedDateAlternative = new Date(day)
+export function dateAtCeroTime(day: Date) {
+  const copiedDateAlternative = new Date(day);
   copiedDateAlternative.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
 
   return copiedDateAlternative;
 }
 
 export function formatDateToYYYYMMDD(date: Date) {
-
   const unrefDate = dateAtCeroTime(date);
 
   const year = unrefDate.getFullYear();
