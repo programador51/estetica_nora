@@ -1,4 +1,9 @@
 export function parseDateWithTime(date: Date) {
+
+  if(process.env.TZ!=="America/Mexico_City"){
+    date.setHours(date.getHours() + 4); 
+  }
+
   const dateParsed = new Intl.DateTimeFormat("es-MX", {
     dateStyle: "full",
     timeZone: process.env.TZ||"America/Mexico_City",
