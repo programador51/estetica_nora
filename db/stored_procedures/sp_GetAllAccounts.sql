@@ -1,5 +1,5 @@
 create procedure GetAllAccounts()
 begin
-    SELECT * FROM Cuentas WHERE Cuentas.cuentaDesactivada = 0;
+    SELECT * FROM Cuentas;
 end;
 ;

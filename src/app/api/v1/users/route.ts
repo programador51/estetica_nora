@@ -22,7 +22,8 @@ export async function GET(req: NextRequest) {
       id: item.id,
       name: parseNameOfUser(item.primerNombre,item.segundoNombre,item.apellidoPaterno,item.apellidoMaterno),
       profilePicture: item.fotoPerfil,
-      type:item.tipoDeCuenta
+      type:item.tipoDeCuenta,
+      isBlocked:item.cuentaDesactivada
     }));
 
     return NextResponse.json(dtoList, {

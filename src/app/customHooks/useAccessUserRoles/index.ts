@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { TypeAccount } from "@/app/molecule/typeAccount/types";
 import { promptConfirmation } from "@/app/helpers/alerts";
-import { promoteUserAccount } from "@/app/helpers/api/v1/users";
+import { blockUser, promoteUserAccount } from "@/app/helpers/api/v1/users";
 
 const INITIAL_STATE: StateUseAccessUserRoles = {
   isPerformingUpdate: false,
@@ -44,7 +44,36 @@ export default function useAccessUserRoles(
 
       const wasUpdated = await promoteUserAccount(id, type);
 
-      if(wasUpdated) onUpdated(type);
+      if (wasUpdated) onUpdated();
+
+      setState((current) => ({
+        ...current,
+        isPerformingUpdate: false,
+      }));
+    }
+  };
+
+  const promptCancelAccount = async (id: number, mustBeCancelated: boolean|number) => {
+
+    const title = mustBeCancelated ? "Bloquear cuenta" : "Des-bloquear cuenta";
+    const message = mustBeCancelated
+      ? "El usuario no tendra acceso al sistema"
+      : "El usuario podra utilizar el sistema normalmente según su configuracion de perfil";
+
+    const { isConfirmed } = await promptConfirmation({
+      title,
+      text: message,
+    });
+
+    if (isConfirmed) {
+      setState((current) => ({
+        ...current,
+        isPerformingUpdate: true,
+      }));
+
+      const wasUpdated = await blockUser(id, mustBeCancelated);
+
+      if (wasUpdated) onUpdated();
 
       setState((current) => ({
         ...current,
@@ -55,6 +84,7 @@ export default function useAccessUserRoles(
 
   return {
     promptPromoteConfirmation,
+    promptCancelAccount,
     ...state,
   };
 }

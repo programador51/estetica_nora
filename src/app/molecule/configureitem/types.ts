@@ -6,4 +6,5 @@ export interface configureItem {
   name: string;
   id:number;
   onUpdated?:()=>void;
+  isBlocked:boolean|number;
 }

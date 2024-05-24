@@ -19,9 +19,9 @@ const customSelectStyles: StylesConfig<
   }),
   container: (provided) => ({
     ...provided,
-    position:"absolute",
-    bottom:"0",
-    width:"100%"
+    position: "absolute",
+    bottom: "0",
+    width: "100%",
   }),
   control: (provided) => ({
     ...provided,
@@ -43,10 +43,10 @@ const customSelectStyles: StylesConfig<
     ...provided,
     height: "auto",
   }),
-  menu:(provided) => ({
+  menu: (provided) => ({
     ...provided,
-    zIndex:"1000 !important"
-  })
+    zIndex: "1000 !important",
+  }),
 };
 const CustomOption = (
   data: OptionProps<UserOptionsSelect, true, GroupBase<UserOptionsSelect>>
@@ -81,15 +81,17 @@ export default function UsersSelect({
     (async function () {
       const usersApi = await fetchUsers();
 
-      const optionsCombo: UserOptionsSelect[] = usersApi.map((user) => ({
-        ...user,
-        label: user.name,
-        value: user.id,
-      })).filter(item=>item.type==='usuario')
+      const optionsCombo: UserOptionsSelect[] = usersApi
+        .map((user) => ({
+          ...user,
+          label: user.name,
+          value: user.id,
+        }))
+        .filter((item) => item.type === "usuario" && item.isBlocked === false);
 
       setState((current) => ({
         ...current,
-        isLoading:false,
+        isLoading: false,
         options: optionsCombo,
       }));
     })();

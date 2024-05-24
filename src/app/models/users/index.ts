@@ -154,9 +154,7 @@ async function promoteUser(id: number, rol: TypeAccount) {
   }
 
   try {
-
-    await db.query('CALL UpdateUserRol(?,?)',[id,rol]);
-
+    await db.query("CALL UpdateUserRol(?,?)", [id, rol]);
   } catch (error) {
     throw generateError(
       "a934987e-d757-43cf-89e4-ef4e0033d434",
@@ -168,11 +166,35 @@ async function promoteUser(id: number, rol: TypeAccount) {
   }
 }
 
+async function blockAccount(id: number, mustBeBlocked: boolean|number) {
+  let db: PoolConnection;
+
+  try {
+    await performOneConnection();
+    db = retrieveOnlyConnection();
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    await db.query("CALL UpdateBlockAccount(?,?)", [id, +mustBeBlocked]);
+  } catch (error) {
+    throw generateError(
+      "bcfcacb3-45c4-4efd-a413-9c6bbf50e797",
+      "No se pudo actualizar el bloqueo del usuario, reportar a soporte",
+      error
+    );
+  } finally {
+    db.release();
+  }
+}
+
 const model = {
   create: createUser,
   get: getUser,
   getAll: getAllUsers,
-  promote:promoteUser
+  promote: promoteUser,
+  block:blockAccount
 };
 
 export default model;

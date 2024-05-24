@@ -11,10 +11,11 @@ export interface StateUseAccessUserRoles {
 
 export interface ReturnUseService extends StateUseAccessUserRoles {
   promptPromoteConfirmation: (id: number, type: TypeAccount) => Promise<void>;
+  promptCancelAccount: (id: number, mustBeCancelated: boolean|number) => void;
 }
 
 export type ContentModalPromote = {
   [key in TypeAccount]: string;
 };
 
-export type OnUpdatedUser = (type: TypeAccount) => void;
+export type OnUpdatedUser = () => void;

@@ -16,6 +16,7 @@ export default function AccessCards() {
     <div className={ui.items}>
       {hook.authentication.map((item, i) => (
         <ConfigureItem
+          isBlocked={item.isBlocked}
           id={item.id}
           onUpdated={hook.refetchData}
           key={`${key.current}-${i}`}

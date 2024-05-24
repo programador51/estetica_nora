@@ -6,6 +6,7 @@ export interface UserOption {
   id: number;
   profilePicture: null | string;
   type:TypeAccount;
+  isBlocked:number|boolean;
 }
 
 export interface UserOptionsSelect extends UserOption {

@@ -22,7 +22,8 @@ export default function ConfigureItem({
   authentication,
   urlPicture = null,
   id,
-  onUpdated = () => {}
+  onUpdated = () => {},
+  isBlocked,
 }: TypeConfigureItem) {
   const hook = useAccessUserRoles(onUpdated);
   return (
@@ -72,7 +73,12 @@ export default function ConfigureItem({
             </Button>
           )}
 
-          <Button theme="danger">Bloquear cuenta</Button>
+          <Button
+            onClick={() => hook.promptCancelAccount(id, !isBlocked)}
+            theme={!isBlocked ? "danger" : "secondary"}
+          >
+            {!isBlocked ? "Bloquear" : "Des-bloquear"}
+          </Button>
         </div>
       )}
     </div>

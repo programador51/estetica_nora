@@ -29,6 +29,7 @@ export default function useAuthentication(): ReturnUseConfigureItem {
           id: item.id,
           name: item.name,
           urlPicture: item.profilePicture,
+          isBlocked:item.isBlocked
         })),
       }));
     })();

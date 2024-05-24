@@ -10,16 +10,26 @@ async function performConnection(): Promise<PoolConnection> {
       uri: `${process.env.DB_URI}`,
       waitForConnections: true,
       queueLimit: 0,
-      connectionLimit:5
-      
+      connectionLimit: 5,
+      typeCast: function (field, next) {
+        if (field.type === "BIT" && field.length === 1) {
+          var bytes = field.buffer();
+
+          if (bytes === null) return 0;
+
+          return bytes[0] === 1;
+        }
+        return next();
+      },
     });
 
     const pooled = await connection.getConnection();
 
-    pooled.on('connection',()=>console.log('Conectado a la base de datos （￣︶￣）↗　'))
+    pooled.on("connection", () =>
+      console.log("Conectado a la base de datos （￣︶￣）↗　")
+    );
 
-    return pooled
-    
+    return pooled;
   } catch (error) {
     const errorParsed = generateError(
       "8e9cf7ce-1576-4ea1-b58b-3152a86aae54",
