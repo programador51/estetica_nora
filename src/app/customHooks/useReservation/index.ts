@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import useTimeTables from "@/app/customHooks/useTimeTables";
 import { UserOptionsSelect } from "@/app/molecule/usersSelect/types";
 import { addReservation } from "@/app/helpers/api/v1/reservation";
-import { formatDateToYYYYMMDD, secondsToHHMM } from "@/app/helpers/dates";
+import { dateAtCeroTime, formatDateToYYYYMMDD, secondsToHHMM } from "@/app/helpers/dates";
 import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: StateUseReservation = {
@@ -18,7 +18,7 @@ const INITIAL_STATE: StateUseReservation = {
   services: [],
   durationOnMinutes: 0,
   total: 0,
-  day: new Date(),
+  day: dateAtCeroTime(new Date()),
   disabledWeekDays: [],
   minTime: 0,
   maxTime: 0,
@@ -95,9 +95,13 @@ export default function useReservation(id?: number): ReturnUseService {
 
     const parsedAllowedDays = Array.from(allowedWeekDays) as number[];
 
-    const blockedDays = weekDays.filter(
+    let blockedDays = weekDays.filter(
       (day) => !parsedAllowedDays.includes(day)
     );
+
+    if(blockedDays.includes(7)) blockedDays.push(0)
+
+    blockedDays = blockedDays.filter(day=>day!==7);
 
     setState((current) => ({
       ...current,
@@ -125,11 +129,15 @@ export default function useReservation(id?: number): ReturnUseService {
       services: current.services.filter((service, i) => i !== index),
     }));
 
-  const setDayReservation = (day: Date) =>
+  const setDayReservation = (day: Date) =>{
+
+    day.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
+
+
     setState((current) => ({
       ...current,
       day: day,
-    }));
+    }))}
 
   const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
     if (view === "month" && state.disabledWeekDays.includes(date.getDay())) {

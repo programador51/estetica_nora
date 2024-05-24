@@ -75,11 +75,21 @@ export function timeStringToSeconds(timeString: string | number) {
   }
 }
 
+export function dateAtCeroTime(day:Date){
+
+  const copiedDateAlternative = new Date(day)
+  copiedDateAlternative.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
+
+  return copiedDateAlternative;
+}
+
 export function formatDateToYYYYMMDD(date: Date) {
-  // Extract year, month, and day from the Date object
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-  const day = String(date.getDate()).padStart(2, "0");
+
+  const unrefDate = dateAtCeroTime(date);
+
+  const year = unrefDate.getFullYear();
+  const month = String(unrefDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(unrefDate.getDate()).padStart(2, "0");
 
   // Concatenate year, month, and day with no separator
   return `${year}-${month}-${day}`;

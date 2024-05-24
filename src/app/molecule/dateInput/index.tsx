@@ -10,10 +10,6 @@ import { PropsDateInput } from "./types";
 import { dateToText } from "@/app/helpers/dates";
 
 export default function DateInput(props: CalendarProps) {
-  const [state, setState] = useState({
-    value: props.value || new Date(),
-    operationData: props.value || new Date(),
-  });
   const dialog = useDialog();
 
   const confirmDate = () => {
@@ -27,7 +23,11 @@ export default function DateInput(props: CalendarProps) {
         label="Día"
         onClick={() => dialog.showModal()}
         placeholder="Selecciona"
-        value={props.value instanceof Date ? dateToText(props.value) : "ND"}
+        value={
+          props.value instanceof Date
+            ? dateToText(props.value)
+            : typeof props.value === 'string' ? dateToText(new Date(props.value)) : "ND"
+        }
       />
 
       <Dialog
@@ -38,11 +38,7 @@ export default function DateInput(props: CalendarProps) {
         footer={<Button onClick={confirmDate}>Cerrar calendario</Button>}
       >
         <div className={ui.calendar}>
-          <Calendar
-            {...props}
-            value={props.value}
-            locale="es-MX"
-          />
+          <Calendar {...props} value={props.value} locale="es-MX" />
         </div>
       </Dialog>
     </div>

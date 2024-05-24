@@ -13,6 +13,7 @@ import Time from "@/app/atom/time";
 import Spinner from "@/app/molecule/Spinner";
 import TimeFieldReservation from "./TimeFieldReservation";
 import ScheduleTime from "./ScheduleTime";
+import { formatDateToYYYYMMDD } from "@/app/helpers/dates";
 
 export default function AddReservation() {
   const hook = useReservation();
@@ -28,11 +29,11 @@ export default function AddReservation() {
           <>
             <DateInput
               minDate={new Date()}
-              value={hook.day}
+              value={formatDateToYYYYMMDD(hook.day)}
               tileDisabled={hook.tileDisabled}
-              onChange={(date) =>
-                date instanceof Date ? hook.setDayReservation(date) : null
-              }
+              onChange={(date) => {
+                date instanceof Date ? hook.setDayReservation(date) : null;
+              }}
             />
 
             <TimeFieldReservation />
