@@ -46,7 +46,7 @@ export default function ReservationItem(props: TypeReservationItem) {
           </div>
         </div>
 
-        <div>
+        <div className={ui.options}>
           <CancelationButton />
           <ReservationOverviewModal id={id}>
             <Button theme="secondary">Ver detalle</Button>

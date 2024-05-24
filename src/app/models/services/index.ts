@@ -84,7 +84,8 @@ async function servicesPaginated(
   }
 }
 
-async function getService(id: number): Promise<any> {
+// TODO: Crear un sp que lo consulte por id con query desde la bd y no consultando todos para despues buscar en memoria del servidor
+async function getService(id: number): Promise<ServiceOption|undefined> {
   let db;
 
   try {

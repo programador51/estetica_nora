@@ -30,7 +30,7 @@ export async function PUT(req: Request) {
     );
 
     ////////////////////////////////////////////////
-    // TODO: Convertir en una funcion
+    // TODO: Convertir en una funcion (Ya esta, reemplazar con la funcion)
     let files = { ...formData };
     delete files.dto;
 

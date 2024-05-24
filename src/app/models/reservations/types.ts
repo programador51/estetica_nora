@@ -1,3 +1,4 @@
+import { ServiceOption } from "@/app/molecule/servicesSelect/types";
 import { DtoUser } from "../users/types";
 
 export type ReservationStatus = "cancelado" | "terminado" | "reservado";
@@ -26,9 +27,17 @@ export interface DtoReservationItem {
   terminacionServicio: null;
 }
 
+export interface QueryServiceData {
+  id: number;
+  servicio: number;
+  reservacion: number;
+  venta: string;
+  costo: string;
+}
+
 export interface DtoReservationOverview {
   reservation: DtoReservationItem;
   customer: DtoUser;
   employer: DtoUser;
-  services: string[];
+  services: ServiceOption[];
 }

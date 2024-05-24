@@ -13,8 +13,11 @@ import {
   DtoReservationItem,
   DtoReservationOverview,
   DtoReservationPaginated,
+  QueryServiceData,
 } from "./types";
 import users from "@/app/models/users";
+import services from '@/app/models/services';
+import { ServiceOption } from "@/app/molecule/servicesSelect/types";
 
 async function add(dto: DtoAddReservation) {
   let db;
@@ -164,6 +167,30 @@ async function get(id: number): Promise<DtoReservationOverview> {
     ]);
 
     const reservation = result[0][0] as DtoReservationItem;
+    const serviceData = result[1] as QueryServiceData[];
+
+    let servicesOfReservation:ServiceOption[] = []
+
+    for(const service of serviceData){
+      const serviceGot = await services.get(service.servicio);
+
+      if(serviceGot!==undefined){
+        servicesOfReservation.push({
+          costPrice:+service.costo,
+          sellPrice:+service.venta,
+          durationOnMinutes:serviceGot?.durationOnMinutes,
+          id:service.id,
+          imagen:serviceGot.imagen,
+          name:serviceGot.name,
+          picture:serviceGot.imagen[0],
+          susceptibleToChange:serviceGot.susceptibleToChange,
+          toleranceOnMinutes:serviceGot.toleranceOnMinutes
+  
+        })
+
+      }
+
+    }
 
     const customer = await users.get("usuario", reservation.cuenta);
 
@@ -180,7 +207,7 @@ async function get(id: number): Promise<DtoReservationOverview> {
       reservation,
       customer: unrefCustomer,
       employer,
-      services: [],
+      services: servicesOfReservation,
     };
   } catch (error) {
     throw generateError(

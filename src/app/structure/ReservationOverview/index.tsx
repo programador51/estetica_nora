@@ -1,5 +1,6 @@
+"use client";
 import { getReservation } from "@/app/helpers/api/v1/reservation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StateReservation } from "./types";
 import Spinner from "@/app/molecule/Spinner";
 import { parseNameOfUser } from "@/app/helpers/api/v1/accounts";
@@ -8,6 +9,8 @@ import HandledImage from "@/app/atom/image";
 import ui from "./styles.module.scss";
 import Money from "@/app/atom/money";
 import { parseDateWithTime } from "@/app/helpers/dates";
+import ServiceItem from "@/app/molecule/serviceItem";
+import { v4 } from "uuid";
 
 export default function ReservationOverview({ id }: { id: number }) {
   const [state, setState] = useState<StateReservation>({
@@ -15,6 +18,7 @@ export default function ReservationOverview({ id }: { id: number }) {
     reservation: undefined,
   });
 
+  const key = useRef(`${v4()}`);
   useEffect(() => {
     (async function () {
       const reservation = await getReservation(id);
@@ -32,7 +36,7 @@ export default function ReservationOverview({ id }: { id: number }) {
   if (state.reservation === undefined) return <></>;
 
   return (
-    <div>
+    <div className={ui.containerOverview}>
       <h2>Reservación</h2>
 
       <div className={ui.overviewReservation}>
@@ -93,6 +97,25 @@ export default function ReservationOverview({ id }: { id: number }) {
           </p>
         </div>
       </div>
+
+      <hr />
+      <h2>Servicios</h2>
+
+      {state.reservation.services.map((service, i) => (
+        <ServiceItem
+          costPrice={+service.costPrice}
+          durationOnMinutes={service.durationOnMinutes}
+          id={service.id}
+          key={`${key.current}-${i}`}
+          name={service.name}
+          picture={service.imagen[0]}
+          imagen={service.imagen}
+          sellPrice={+service.sellPrice}
+          susceptibleToChange={service.susceptibleToChange}
+          toleranceOnMinutes={service.toleranceOnMinutes}
+          renderView={false}
+        />
+      ))}
     </div>
   );
 }
