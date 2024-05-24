@@ -18,8 +18,7 @@ async function add(dto: DtoAddProduct): Promise<number> {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -46,7 +45,7 @@ async function get(dto: DtoGetProducts): Promise<ResDtoPaginated<ProductI>> {
   let db: PoolConnection;
 
   try {
-    db = await getConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -79,8 +78,7 @@ async function update(dto: DtoUpdateProduct) {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -119,8 +117,7 @@ async function byId(id: number): Promise<ProductI> {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }

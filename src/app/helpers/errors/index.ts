@@ -11,7 +11,7 @@ export function generateError(
     error,
   };
 
-  console.log(ERROR);
+  // console.log(ERROR);
 
   return ERROR;
 }

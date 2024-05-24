@@ -1,4 +1,5 @@
 import {
+  getConnection,
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
@@ -10,8 +11,7 @@ async function getSchedules(): Promise<DtoScheduleItem[]> {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -45,12 +45,10 @@ async function addSchedules(schedules: DtoAddScheduleItem[] = []) {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
-
   try {
     db.beginTransaction();
 
@@ -82,8 +80,7 @@ async function cancelSchedule(id: number) {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }

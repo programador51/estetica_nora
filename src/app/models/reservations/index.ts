@@ -1,5 +1,6 @@
 import { DtoAddReservation } from "@/app/api/v1/reservation/types";
 import {
+  getConnection,
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
@@ -20,13 +21,13 @@ import services from '@/app/models/services';
 import { ServiceOption } from "@/app/molecule/servicesSelect/types";
 
 async function add(dto: DtoAddReservation) {
-  let db;
 
   let services: ServicesIndexed = {};
 
+  let db: PoolConnection;
+
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -101,8 +102,7 @@ async function paginated(
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -124,6 +124,8 @@ async function paginated(
       "No se pudo obtener las reservaciones, re-intenta o reportar a soporte",
       error
     );
+  }finally{
+    db.release()
   }
 }
 
@@ -131,8 +133,7 @@ async function cancel(id: number) {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -155,12 +156,10 @@ async function get(id: number): Promise<DtoReservationOverview> {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
-
   try {
     const [result] = await db.query<RowDataPacket[]>(`CALL GetReservation(?)`, [
       id,

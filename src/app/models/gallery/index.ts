@@ -3,10 +3,11 @@ import axios, { AxiosError } from "axios";
 import { Data, ImgBbResponse } from "./types";
 import { generateError } from "@/app/helpers/errors";
 import {
+  getConnection,
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
-import { Connection, RowDataPacket } from "mysql2/promise";
+import { Connection, PoolConnection, RowDataPacket } from "mysql2/promise";
 
 export async function uploadToBlobStorage(
   file: File | string
@@ -61,11 +62,10 @@ export async function add(
   type: "catalogo" | "servicios",
   url: string
 ) {
-  let db: Connection;
+  let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -81,6 +81,8 @@ export async function add(
       "No se pudo agregar la imagen, reportar a soporte",
       error
     );
+  }finally{
+    db.release()
   }
 }
 

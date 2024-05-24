@@ -1,6 +1,7 @@
 import { DtoAddService } from "@/app/customHooks/useFormServices/types";
 import { ResDtoPaginated } from "@/app/helpers/api/v1/types";
 import {
+  getConnection,
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
@@ -18,8 +19,7 @@ async function addService(dto: DtoAddService): Promise<number> {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -56,8 +56,7 @@ async function servicesPaginated(
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -86,11 +85,10 @@ async function servicesPaginated(
 
 // TODO: Crear un sp que lo consulte por id con query desde la bd y no consultando todos para despues buscar en memoria del servidor
 async function getService(id: number): Promise<ServiceOption|undefined> {
-  let db;
+  let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -110,15 +108,16 @@ async function getService(id: number): Promise<ServiceOption|undefined> {
       "No se pudo obtener el servicio, reportar a soporte",
       error
     );
+  }finally{
+    db.release()
   }
 }
 
 async function getAllServices(): Promise<ServicesIndexed> {
-  let db;
+  let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -146,6 +145,8 @@ async function getAllServices(): Promise<ServicesIndexed> {
       "No se pudieron consultar los servicios, reportar a soporte",
       error
     );
+  }finally{
+    db.release()
   }
 }
 

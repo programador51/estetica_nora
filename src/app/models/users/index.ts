@@ -1,4 +1,5 @@
 import {
+  getConnection,
   performOneConnection,
   retrieveOnlyConnection,
 } from "@/app/helpers/db/connection";
@@ -17,8 +18,7 @@ async function createUser(
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -85,8 +85,7 @@ async function getUser(
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -117,8 +116,7 @@ async function getAllUsers(): Promise<DtoUser[]> {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection();
   } catch (error) {
     throw error;
   }
@@ -147,8 +145,7 @@ async function promoteUser(id: number, rol: TypeAccount) {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
@@ -170,8 +167,7 @@ async function blockAccount(id: number, mustBeBlocked: boolean|number) {
   let db: PoolConnection;
 
   try {
-    await performOneConnection();
-    db = retrieveOnlyConnection();
+    db = await getConnection()
   } catch (error) {
     throw error;
   }
