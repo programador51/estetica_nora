@@ -6,22 +6,27 @@ export function parseDateWithTime(date: Date) {
 
   const dateParsed = new Intl.DateTimeFormat("es-MX", {
     dateStyle: "full",
-    timeZone: process.env.TZ||"America/Mexico_City",
+    timeZone: process.env.TZ||"America/New_York",
   }).format(date);
   const timeParsed = new Intl.DateTimeFormat("es-MX", {
     timeStyle: "medium",
     hour12: true,
-    timeZone: process.env.TZ||"America/Mexico_City",
+    timeZone: process.env.TZ||"America/New_York",
   }).format(date);
 
   return `${dateParsed} a las ${timeParsed}`;
 }
 
 export function dateToText(date: Date) {
+
+  if(process.env.TZ!=="America/Mexico_City"){
+    date.setHours(date.getHours() + 4); 
+  }
+
   try {
     return new Intl.DateTimeFormat("es-MX", {
       dateStyle: "medium",
-      timeZone: process.env.TZ||"America/Mexico_City",
+      timeZone: process.env.TZ||"America/New_York",
     }).format(date);
   } catch (error) {
     return "Fecha desconocida";
