@@ -1,10 +1,12 @@
 export function parseDateWithTime(date: Date) {
   const dateParsed = new Intl.DateTimeFormat("es-MX", {
     dateStyle: "full",
+    timeZone: "America/Mexico_City",
   }).format(date);
   const timeParsed = new Intl.DateTimeFormat("es-MX", {
     timeStyle: "medium",
     hour12: true,
+    timeZone: "America/Mexico_City",
   }).format(date);
 
   return `${dateParsed} a las ${timeParsed}`;
@@ -14,6 +16,7 @@ export function dateToText(date: Date) {
   try {
     return new Intl.DateTimeFormat("es-MX", {
       dateStyle: "medium",
+      timeZone: "America/Mexico_City",
     }).format(date);
   } catch (error) {
     return "Fecha desconocida";
