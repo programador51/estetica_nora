@@ -1,8 +1,8 @@
 export function parseDateWithTime(date: Date) {
-  const dateParsed = new Intl.DateTimeFormat("es", {
+  const dateParsed = new Intl.DateTimeFormat("es-MX", {
     dateStyle: "full",
   }).format(date);
-  const timeParsed = new Intl.DateTimeFormat("es", {
+  const timeParsed = new Intl.DateTimeFormat("es-MX", {
     timeStyle: "medium",
     hour12: true,
   }).format(date);

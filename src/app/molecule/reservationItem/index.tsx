@@ -31,12 +31,12 @@ export default function ReservationItem(props: TypeReservationItem) {
               <p>{name}</p>
             </b>
             <p>
-              {new Intl.DateTimeFormat("es", {
+              {new Intl.DateTimeFormat("es-MX", {
                 dateStyle: "long",
               }).format(reservation)}
             </p>
             <p>
-              {new Intl.DateTimeFormat("es", {
+              {new Intl.DateTimeFormat("es-MX", {
                 timeStyle: "medium",
                 hour12: true,
               }).format(reservation)}
